@@ -5,34 +5,34 @@ const ProductsSection = () => {
   const newProducts: Product[] = [
     { 
       id: 1, 
-      name: "Blue Long Sleeve Sweater", 
-      description: "Stylish and warm", 
+      name: "AudiLibres", 
+      description: "Manos libres", 
       price: 35, 
-      image: "/images/sweater-blue.jpg",
+      image: "/images/AudiLibres.PNG",
       code: "PROD-001"
     },
     { 
       id: 2, 
-      name: "Yellow Casual Sweater", 
-      description: "Perfect for everyday wear", 
+      name: "BocinaBart", 
+      description: "Bocina Inalambrica", 
       price: 25, 
-      image: "/images/sweater-yellow.jpg",
+      image: "/images/BocinaBart.png",
       code: "PROD-002"
     },
     { 
       id: 3, 
-      name: "Classic Denim Pants", 
-      description: "Comfortable fit", 
+      name: "CamaraSeg", 
+      description: "Camara de seguridad", 
       price: 45, 
-      image: "/images/denim-pants.jpg",
+      image: "/images/CamaraSeg.png",
       code: "PROD-003"
     },
     { 
       id: 4, 
-      name: "Black Checkered Jacket", 
-      description: "Trendy design", 
+      name: "CargadorU", 
+      description: "Cargador universal", 
       price: 55, 
-      image: "/images/jacket-black.jpg",
+      image: "/images/CargadorU.png",
       code: "PROD-004"
     },
   ];
@@ -40,42 +40,42 @@ const ProductsSection = () => {
   const featuredProducts: Product[] = [
     { 
       id: 5, 
-      name: "Grey Casual Sweater", 
-      description: "Comfortable for all seasons", 
+      name: "CartRemano", 
+      description: "Cartucho Remano", 
       price: 30, 
-      image: "/images/sweater-grey.jpg",
+      image: "/images/CartRemano.png",
       code: "PROD-005"
     },
     { 
       id: 6, 
-      name: "Yellow Sweater", 
-      description: "Bright and cozy", 
+      name: "CronometroDep", 
+      description: "Cronometro Deportivo", 
       price: 27, 
-      image: "/images/sweater-yellow-bright.jpg",
+      image: "/images/CronometroDep.png",
       code: "PROD-006"
     },
     { 
       id: 7, 
-      name: "Denim Pants", 
-      description: "Classic style", 
+      name: "MousePath", 
+      description: "Mouse Path Simpson", 
       price: 40, 
-      image: "/images/denim-pants-classic.jpg",
+      image: "/images/MousePath.png",
       code: "PROD-007"
     },
     { 
       id: 8, 
-      name: "Black Checkered Jacket", 
-      description: "Elegant and modern", 
+      name: "SterenCam", 
+      description: "Camara Steren", 
       price: 50, 
-      image: "/images/jacket-checkered.jpg",
+      image: "/images/SterenCam.png",
       code: "PROD-008"
     },
     { 
       id: 9, 
-      name: "Twin Grey Coats", 
-      description: "Perfect for cold weather", 
+      name: "TintaGen2", 
+      description: "Toner Gen2", 
       price: 70, 
-      image: "/images/grey-coats.jpg",
+      image: "/images/TintaGen2.png",
       code: "PROD-009"
     },
   ];

@@ -4,13 +4,13 @@ import 'primeicons/primeicons.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark-blue text-white py-8">
+    <footer className="bg-[#0b4468] text-white py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Logo and Description */}
           <div className="flex flex-col justify-between">
-            <img alt="logo" className="h-28" src="../images/logo-cadtoner.png" />
+            <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
             <p className="mt-4 text-gray-400 text-sm">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida.
             </p>
