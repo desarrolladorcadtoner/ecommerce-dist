@@ -11,39 +11,45 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="flex flex-col justify-between">
             <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
-            <p className="mt-4 text-gray-400 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida.
-            </p>
+            <ul>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">5 de Mayo #1338 Pte., Centro</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Monterrey, NUEVO LEÓN</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">64000, MÉXICO</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">webmaster@cadtoner.com.mx</a></li>
+            </ul>
           </div>
   
           {/* About Us Links */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">About Us</h3>
+            <h3 className="text-xl font-semibold mb-4">Productos</h3>
             <ul>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Our Story</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Careers</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Terms & Conditions</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Más Vendidos</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Más Recientes</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Nuevos</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Ofertas</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Catálogo Electrónico</a></li>
             </ul>
           </div>
   
           {/* Customer Care Links */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Customer Care</h3>
+            <h3 className="text-xl font-semibold mb-4">Información</h3>
             <ul>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Help Center</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Returns</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Shipping Info</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">FAQ</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Bolsa de Trabajo</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Paqueterías</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Garantías</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Métodos de Pago</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Aviso de Privacidad</a></li>
+              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Términos y Condiciones</a></li>
             </ul>
           </div>
   
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-            <p className="text-gray-400 text-sm py-1">70 Washington Square South, New York, NY 10012, United States</p>
-            <p className="text-gray-400 text-sm py-1">Email: uilib.help@gmail.com</p>
-            <p className="text-gray-400 text-sm py-1 mb-4">Phone: +1 1123 456 780</p>
+            <h3 className="text-xl font-semibold mb-4">Conócenos</h3>
+            <p className="text-gray-400 text-sm py-1">Acerca de Nosotros</p>
+            <p className="text-gray-400 text-sm py-1">Contacto</p>
+            <p className="text-gray-400 text-sm py-1 mb-4">Mapa del Sitio</p>
             
             <div className="flex space-x-4">
               <i className="pi pi-facebook text-xl hover:text-pink-500"></i>
