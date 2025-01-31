@@ -9,7 +9,9 @@ const Header: React.FC = () => {
       <div className="bg-gray-100 py-2 px-4 flex place-content-center items-center text-sm">
         <span>¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
+          <a href="register">
           REGÍSTRATE
+          </a>
         </button>
       </div>
 
