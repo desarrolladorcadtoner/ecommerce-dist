@@ -3,11 +3,10 @@ import RegistrationForm from "@/components/Register/RegistrationForm"
 
 export default function Register() {
   return (
-    <>
-        <Header/>
-        <RegistrationForm />
-      </>
-    
+    <div className="bg-black-100 min-h-screen">
+      <Header />
+      <RegistrationForm />
+    </div>
   );
 }
 

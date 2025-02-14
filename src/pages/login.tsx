@@ -17,7 +17,7 @@ const Login = () => {
       <main className="flex-grow p-6 flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
-          className="border rounded-md p-8 shadow-lg w-96"
+          className="border rounded-md p-8 shadow-lg w-96 bg-white"
         >
           <h2 className="text-2xl font-bold mb-4">Login</h2>
           <label className="block mb-2">
@@ -46,6 +46,11 @@ const Login = () => {
           >
             Login
           </button>
+          <div className="text-center mt-4">
+            <a href="/forgotPassword" className="text-sm text-blue-500 hover:underline">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
         </form>
       </main>
       <Footer />
