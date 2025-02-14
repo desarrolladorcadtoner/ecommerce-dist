@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         {/* Botones a la derecha */}
         <div className="flex space-x-4">
           <a
-                  href="/facturacion"
+                  href="/billing"
                   className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
                 >Facturación</a>
                 <a
