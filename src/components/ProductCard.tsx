@@ -1,10 +1,14 @@
 import { Product } from "@/types";
+import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { addToCart } = useCart();
+
   return (
     <div className="border p-4 rounded-md shadow-md hover:shadow-lg transition bg-white">
       {/* Imagen */}
@@ -31,8 +35,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <p className="text-blue-500 font-bold mb-2">${product.precio}</p>
 
       {/* Botón Leer Más */}
-      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition">
-        Leer Más
+      <Link href={`/productDetail?id=${product.id}`}>
+        Ver detalles
+      </Link>
+      <button
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition mt-2"
+        onClick={() => addToCart(product)}
+      >
+        Añadir al Carrito
       </button>
     </div>
   );

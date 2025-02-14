@@ -77,7 +77,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.regimenFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione régimen"
-            className="w-full"
+            className="w-full border-black"
             name="regimenFiscal"
           />
         </div>
