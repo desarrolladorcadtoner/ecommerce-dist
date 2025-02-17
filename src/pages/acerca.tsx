@@ -32,6 +32,8 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-8 text-[#005580]">¿QUIÉNES SOMOS?</h2>
             <p className="text-gray-700 mb-6 text-center">
               Experiencia, posicionamiento y reconocimiento de marca como el pionero en la industria desde 1989.
+              36 puntos de venta al usuario final en el estado de Nuevo León, México.
+              9 Centros de Distribución (CEDIS) para la venta a distribuidores en los estados de Nuevo León, Sonora, 
             </p>
             <p className="text-gray-700 mb-6 text-center">
               36 puntos de venta al usuario final en el estado de Nuevo León, México. 9 Centros de Distribución (CEDIS)
