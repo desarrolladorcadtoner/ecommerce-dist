@@ -1,103 +1,45 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { useState } from "react";
-import { InputText } from 'primereact/inputtext';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { Button } from 'primereact/button';
+import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import { MessageCircle, Phone, Mail } from "lucide-react"
 
-const Contacto = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    asunto: '',
-    mensaje: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Datos del formulario:', formData);
-    // Lógica para enviar los datos del formulario
-  };
-
+export default function ContactPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      <Header />
-      <main className="flex-grow p-6">
-        <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-6 text-center">Contacto</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
-                Nombre
-              </label>
-              <InputText
-                id="nombre"
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+    <>
+    <Header/>
+    <div className="min-h-screen bg-white">
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">CONTÁCTANOS</h1>
+          <h2 className="text-xl text-gray-600 mb-2">¿Tienes alguna duda o comentario?</h2>
+          <p className="text-gray-600 mb-12">Compártenos tu datos y con mucho gusto te atenderemos.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full bg-[#E6007E] flex items-center justify-center mb-4">
+                <MessageCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-800">Escríbenos</h3>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                Correo Electrónico
-              </label>
-              <InputText
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full bg-[#E6007E] flex items-center justify-center mb-4">
+                <Phone className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-800">Envíanos un WhatsApp</h3>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="asunto">
-                Asunto
-              </label>
-              <InputText
-                id="asunto"
-                name="asunto"
-                value={formData.asunto}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full bg-[#E6007E] flex items-center justify-center mb-4">
+                <Mail className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-800">Envíanos un Correo</h3>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mensaje">
-                Mensaje
-              </label>
-              <InputTextarea
-                id="mensaje"
-                name="mensaje"
-                value={formData.mensaje}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows={5}
-                required
-              />
-            </div>
-            <div className="flex items-center justify-between mb-4">
-              <Button
-                type="submit"
-                label="Enviar"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </form>
+          </div>
         </div>
       </main>
-      <Footer />
     </div>
-  );
-};
+    <Footer />
+    </>
+  )
+}
 
-export default Contacto;

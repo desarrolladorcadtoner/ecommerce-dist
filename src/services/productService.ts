@@ -2,7 +2,7 @@ import { Product } from '@/types';
 import { NextRequest } from 'next/server';
 
  const apiUrl = 'http://172.100.203.36:8000/productos';
-// const apiUrl = 'http://localhost:5000/api/productos';
+// const apiUrl = 'http://177.244.52.122:6066/productos'; --para visualizar fuera de la red.
 
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
