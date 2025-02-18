@@ -9,19 +9,19 @@ export default function AboutPage() {
     <Header />
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[400px] overflow-hidden">
+      <div className="relative h-[550px] overflow-hidden">
         <Image
-          src=""
-          alt="Hero background"
+          src="/images/BANNER-FACHADA.jpg"
+          alt=""
           fill
-          className="object-cover brightness-50"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#005580]/60">
-          <div className="container mx-auto h-full flex items-center px-4">
-            <h1 className="text-white text-5xl md:text-7xl font-bold">
-              EL MÁS <span className="text-white">GRANDE</span>
-            </h1>
-          </div>
+       <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-[#005580]/90 to-[#005580]/70" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-white text-4xl md:text-6xl font-bold z-10 whitespace-nowrap">
+            <span className="mr-2 font-light">EL MÁS</span>
+            <span className="text-5xl md:text-7xl">GRANDE</span>
+          </h1>
         </div>
       </div>
 
@@ -64,36 +64,94 @@ export default function AboutPage() {
               anticipándonos a los problemas y necesidades de nuestros clientes.
             </p>
           </section>
+          <h2 className="text-3xl font-bold mb-8 text-[#005580] text-center">Valores</h2>
+          <section className="relative w-full">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/BANNER-VALORES.jpg"
+          alt="Background"
+          fill
+          className="object-cover w-full"
+          priority
+        />
+      </div>
+      <div className="absolute inset-0 bg-[#005580]/90" />
 
-          <section className="mt-12">
-            <h2 className="text-3xl font-bold mb-12 text-center text-[#005580]">Valores</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="flex flex-col items-center">
-                <div className="w-24 h-24 rounded-full bg-[#005580] flex items-center justify-center mb-4">
-                  <Users2 className="w-12 h-12 text-white" />
-                </div>
-                <span className="text-gray-700 font-medium">Honestidad</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-24 h-24 rounded-full bg-[#005580] flex items-center justify-center mb-4">
-                  <Award className="w-12 h-12 text-white" />
-                </div>
-                <span className="text-gray-700 font-medium">Lealtad</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-24 h-24 rounded-full bg-[#005580] flex items-center justify-center mb-4">
-                  <Handshake className="w-12 h-12 text-white" />
-                </div>
-                <span className="text-gray-700 font-medium">Respeto</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-24 h-24 rounded-full bg-[#005580] flex items-center justify-center mb-4">
-                  <Target className="w-12 h-12 text-white" />
-                </div>
-                <span className="text-gray-700 font-medium">Orientado al trabajo</span>
-              </div>
+      <div className="relative py-16 px-4 container mx-auto">
+        <div className="grid grid-cols-2 gap-12 md:gap-16 max-w-4xl mx-auto">
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 mb-4">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-full h-full text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10M7 12h10M7 17h10"
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
-          </section>
+            <span className="text-white font-medium">Compromiso</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 mb-4">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-full h-full text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                <circle cx="12" cy="12" r="8" />
+                <path d="M12 8l3.5 3.5-3.5 3.5M8.5 12H16" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <span className="text-white font-medium">Seguridad</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 mb-4">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-full h-full text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                <path d="M6 8l6 2 6-2M6 12l6 2 6-2M6 16l6 2 6-2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 4v16" strokeLinecap="round" />
+              </svg>
+            </div>
+            <span className="text-white font-medium">Responsabilidad</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 mb-4">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-full h-full text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 4l1.5 2h5l1.5 2.5-1.5 2.5h-5L12 13M12 13l-1.5 2h-5L4 17.5l1.5 2.5h5L12 22"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M12 4l-1.5 2h-5L4 8.5l1.5 2.5h5L12 13" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <span className="text-white font-medium">Trabajo en equipo</span>
+          </div>
+        </div>
+      </div>
+    </section>
         </div>
       </main>
     </div>

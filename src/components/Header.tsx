@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 const Header: React.FC = () => {
+
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
+
+  const productCategories = [
+    "Cartuchos de Toner",
+    "Cartuchos de Tinta",
+    "Insumos de Toner",
+    "Insumos de Tinta",
+    "Tinta a Granel",
+    "Refacciones",
+    "Electronica",
+    "Papeleria",
+  ];
+
   return (
     <header>
       {/* Barra superior */}
@@ -19,6 +33,7 @@ const Header: React.FC = () => {
       <div className="bg-[#0072b1] place-content-center text-white px-4 py-3 flex items-center">
         {/* Logo */}
         <div className="flex items-center">
+          <a href="/">
           <Image
             src="/images/logo-cadtoner.png"
             alt="CadToner Logo"
@@ -26,6 +41,7 @@ const Header: React.FC = () => {
             width={150}
             className="cursor-pointer"
           />
+          </a>
         </div>
 
         {/* Barra de búsqueda */}
@@ -33,7 +49,7 @@ const Header: React.FC = () => {
           <input
             type="text"
             placeholder="Buscar productos..."
-            className="flex-grow px-4 py-2 rounded-l border-none outline-none"
+            className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
           />
           <button className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
             BUSCAR
@@ -63,11 +79,29 @@ const Header: React.FC = () => {
               <span>INICIO</span>
             </Link>
           </li>
-          <li>
-            <Link href="/products" className="flex items-center space-x-2 hover:text-[#de1c85]">
-              <i className="pi pi-box"></i>
-              <span>PRODUCTOS</span>
-            </Link>
+           <li>
+            <div className="relative"> {/* Added relative wrapper */}
+              <button
+                onClick={() => setIsProductsOpen(!isProductsOpen)}
+                className="flex items-center space-x-2 hover:text-[#de1c85]"
+              >
+                <i className="pi pi-box"></i>
+                <span>PRODUCTOS</span>
+              </button>
+              {isProductsOpen && (
+                <div className="z-[999] absolute left-0 z-10 w-48 bg-[#005a90] py-2 rounded shadow-lg"> {/* Added submenu */}
+                  <ul>
+                    {productCategories.map((category) => (
+                      <li key={category} className="hover:bg-[#0072b1]">
+                        <Link href={`/products?category=${category}`} className="block px-4 py-2 hover:text-[#de1c85]"> {/* Added link with query parameter */}
+                          {category}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </li>
           <li>
             <Link href="/acerca" className="flex items-center space-x-2 hover:text-[#de1c85]">
