@@ -12,10 +12,10 @@ const Footer = () => {
           <div className="flex flex-col justify-between">
             <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
             <ul>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">5 de Mayo #1338 Pte., Centro</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Monterrey, NUEVO LEÓN</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">64000, MÉXICO</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">webmaster@cadtoner.com.mx</a></li>
+              <li>5 de Mayo #1338 Pte., Centro</li>
+              <li>Monterrey, NUEVO LEÓN</li>
+              <li>64000, MÉXICO</li>
+              <li>webmaster@cadtoner.com.mx</li>
             </ul>
           </div>
   
@@ -47,9 +47,9 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Conócenos</h3>
-            <p className="text-gray-400 text-sm py-1">Acerca de Nosotros</p>
-            <p className="text-gray-400 text-sm py-1">Contacto</p>
-            <p className="text-gray-400 text-sm py-1 mb-4">Mapa del Sitio</p>
+            <p className="text-gray-400 text-sm py-1"><a href="acerca" className="text-gray-400 text-sm hover:text-pink-500">Acerca de Nosotros</a></p>
+            <p className="text-gray-400 text-sm py-1"><a href="contacto" className="text-gray-400 text-sm hover:text-pink-500">Contacto</a></p>
+            <p className="text-gray-400 text-sm py-1 mb-4"><a href="cedis" className="text-gray-400 text-sm hover:text-pink-500">Mapa del Sitio</a></p>
             
             <div className="flex space-x-4">
               <i className="pi pi-facebook text-xl hover:text-pink-500"></i>

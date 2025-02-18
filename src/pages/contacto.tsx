@@ -25,14 +25,14 @@ export default function ContactPage() {
               <div className="w-20 h-20 rounded-full bg-[#E6007E] flex items-center justify-center mb-4">
                 <Phone className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-medium text-gray-800">Envíanos un WhatsApp</h3>
+              <h3 className="text-lg font-medium text-gray-800"><a href="https://wa.link/fqctr7" target="_blank">Envíanos un WhatsApp</a></h3>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="w-20 h-20 rounded-full bg-[#E6007E] flex items-center justify-center mb-4">
                 <Mail className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-medium text-gray-800">Envíanos un Correo</h3>
+              <h3 className="text-lg font-medium text-gray-800"><a href="mailto:asistente_desarrollador@cadtoner.com.mx">Envíanos un Correo</a></h3>
             </div>
           </div>
         </div>
