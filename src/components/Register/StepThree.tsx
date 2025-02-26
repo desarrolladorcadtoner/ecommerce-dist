@@ -33,14 +33,14 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               value={formData.giroNegocio}
               onChange={handleDropdownChange}
               placeholder="Seleccione giro"
-              className="w-full"
+              className="w-full general-dropdown"
               name="giroNegocio"
             />
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium">Página o sitio web</label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               type="url"
               name="sitioWeb"
               value={formData.sitioWeb || ""}
@@ -52,7 +52,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Nombre<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="nombreComercial"
               value={formData.nombreComercial || ""}
               onChange={handleInputChange}
@@ -69,7 +69,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Calle<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="entregaCalle"
               value={formData.entregaCalle || ""}
               onChange={handleInputChange}
@@ -80,7 +80,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Número Exterior<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="entregaNumeroExterior"
               value={formData.entregaNumeroExterior || ""}
               onChange={handleInputChange}
@@ -89,7 +89,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
           <div className="space-y-2">
             <label className="block text-sm font-medium">Número Interior</label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="entregaNumeroInterior"
               value={formData.entregaNumeroInterior || ""}
               onChange={handleInputChange}
@@ -100,7 +100,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Colonia<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="entregaColonia"
               value={formData.entregaColonia || ""}
               onChange={handleInputChange}
@@ -111,7 +111,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Código Postal<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               name="entregaCodigoPostal"
               value={formData.entregaCodigoPostal || ""}
               onChange={handleInputChange}
@@ -126,7 +126,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               value={formData.entregaEstado}
               onChange={handleDropdownChange}
               placeholder="Seleccione estado"
-              className="w-full"
+              className="w-full general-dropdown"
               name="entregaEstado"
             />
           </div>
@@ -139,7 +139,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               value={formData.entregaCiudad}
               onChange={handleDropdownChange}
               placeholder="Seleccione ciudad"
-              className="w-full"
+              className="w-full general-dropdown"
               name="entregaCiudad"
             />
           </div>

@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import Header from '@/components/Header';
+import "primereact/resources/themes/lara-light-blue/theme.css"
+import "primereact/resources/primereact.min.css"
 
 const Billing = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +46,7 @@ const Billing = () => {
             Razón Social<span className="text-red-500">*</span>
           </label>
           <InputText
-            className="w-full"
+            className="w-full general-input"
             name="razonSocial"
             value={formData.razonSocial}
             onChange={handleInputChange}
@@ -56,7 +58,7 @@ const Billing = () => {
             RFC<span className="text-red-500">*</span>
           </label>
           <InputText
-            className="w-full"
+            className="w-full general-input"
             name="rfc"
             value={formData.rfc}
             onChange={handleInputChange}
@@ -72,7 +74,7 @@ const Billing = () => {
             value={formData.regimenFiscal}
             onChange={(e) => handleDropdownChange({ value: e.value, target: { name: 'regimenFiscal' } })}
             placeholder="Seleccione régimen"
-            className="w-full"
+            className="w-full general-dropdown"
             name="regimenFiscal"
           />
         </div>
@@ -86,7 +88,7 @@ const Billing = () => {
             value={formData.usoCFDI}
             onChange={(e) => handleDropdownChange({ value: e.value, target: { name: 'usoCFDI' } })}
             placeholder="Seleccione uso"
-            className="w-full"
+            className="w-full general-dropdown"
             name="usoCFDI"
           />
         </div>
@@ -97,7 +99,7 @@ const Billing = () => {
           </label>
           <InputText
             type="email"
-            className="w-full"
+            className="w-full general-input"
             name="correoFacturacion"
             value={formData.correoFacturacion}
             onChange={handleInputChange}
@@ -113,7 +115,7 @@ const Billing = () => {
             value={formData.estado}
             onChange={(e) => handleDropdownChange({ value: e.value, target: { name: 'estado' } })}
             placeholder="Seleccione estado"
-            className="w-full"
+            className="w-full general-dropdown"
             name="estado"
           />
         </div>
@@ -127,7 +129,7 @@ const Billing = () => {
             value={formData.ciudad}
             onChange={(e) => handleDropdownChange({ value: e.value, target: { name: 'ciudad' } })}
             placeholder="Seleccione ciudad"
-            className="w-full"
+            className="w-full general-dropdown"
             name="ciudad"
           />
         </div>
@@ -137,7 +139,7 @@ const Billing = () => {
             Dirección<span className="text-red-500">*</span>
           </label>
           <InputText
-            className="w-full"
+            className="w-full general-input"
             name="direccion"
             value={formData.direccion}
             onChange={handleInputChange}
@@ -149,7 +151,7 @@ const Billing = () => {
             Código Postal<span className="text-red-500">*</span>
           </label>
           <InputText
-            className="w-full"
+            className="w-full general-input"
             name="codigoPostal"
             value={formData.codigoPostal}
             onChange={handleInputChange}

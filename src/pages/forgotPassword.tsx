@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Usuario"
+                placeholder="Correo electrónico"
                 className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
                 required
               />

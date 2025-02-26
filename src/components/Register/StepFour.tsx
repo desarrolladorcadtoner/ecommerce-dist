@@ -1,17 +1,26 @@
-"use client"
+"use client";
 
-import { FileUpload } from "primereact/fileupload"
+import { FileUpload } from "primereact/fileupload";
+import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
+import { useState } from "react";
 
 interface StepFourProps {
-  formData: any
-  updateFormData: (newData: any) => void
+  formData: any;
+  updateFormData: (newData: any) => void;
 }
 
 export default function StepFour({ formData, updateFormData }: StepFourProps) {
+  const [acceptedTerms, setAcceptedTerms] = useState(formData.acceptedTerms || false);
+
   const handleFileUpload = (event: any, fieldName: string) => {
-    const file = event.files[0]
-    updateFormData({ [fieldName]: file })
-  }
+    const file = event.files[0];
+    updateFormData({ [fieldName]: file });
+  };
+
+  const handleCheckboxChange = (e: CheckboxChangeEvent) => {
+    setAcceptedTerms(e.checked);
+    updateFormData({ acceptedTerms: e.checked });
+  };
 
   const FileUploadField = ({ name, label }: { name: string; label: string }) => (
     <div className="space-y-2">
@@ -28,7 +37,7 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
         accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
       />
     </div>
-  )
+  );
 
   return (
     <div className="space-y-6">
@@ -40,7 +49,29 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
         <FileUploadField name="caratulaEstadoCuenta" label="Carátula de Estado de Cuenta Bancario (últimos 3 meses)" />
         <FileUploadField name="credencialElectorINE" label="Credencial de Elector INE (representante de la empresa)" />
       </div>
+      <div className="space-y-2">
+        <Checkbox
+          className="general-checkbox"
+          inputId="acceptTerms"
+          checked={acceptedTerms}
+          onChange={(e) => handleCheckboxChange(e)}
+        />
+        <label htmlFor="acceptTerms" className="ml-2 text-gray-700">
+          Acepto los <a href="/terminos-condiciones" target="_blank" className="text-blue-500 hover:underline">Términos y Condiciones</a>
+        </label>
+      </div>
+      <div className="space-y-2">
+        <Checkbox
+          className="general-checkbox"
+          inputId="acceptTerms"
+          checked={acceptedTerms}
+          onChange={(e) => handleCheckboxChange(e)}
+        />
+        <label htmlFor="acceptTerms" className="ml-2 text-gray-700">
+          Acepto las <a href="/politicas-garantia" target="_blank" className="text-blue-500 hover:underline">Políticas de Garantía Cad Toner</a>
+        </label>
+      </div>
     </div>
-  )
+  );
 }
 

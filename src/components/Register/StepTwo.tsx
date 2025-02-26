@@ -13,13 +13,13 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
   }
 
   const ContactForm = ({ prefix }: { prefix: string }) => (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div className="space-y-2">
         <label className="block text-sm font-medium">
           Nombre<span className="text-red-500">*</span>
         </label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           name={`${prefix}Nombre`}
           value={formData[`${prefix}Nombre`] || ""}
           onChange={handleInputChange}
@@ -30,7 +30,7 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
           Apellidos<span className="text-red-500">*</span>
         </label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           name={`${prefix}Apellidos`}
           value={formData[`${prefix}Apellidos`] || ""}
           onChange={handleInputChange}
@@ -41,7 +41,7 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
           Correo<span className="text-red-500">*</span>
         </label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           type="email"
           name={`${prefix}Correo`}
           value={formData[`${prefix}Correo`] || ""}
@@ -53,7 +53,7 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
           Teléfono<span className="text-red-500">*</span>
         </label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           type="tel"
           name={`${prefix}Telefono`}
           value={formData[`${prefix}Telefono`] || ""}
@@ -63,7 +63,7 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
       <div className="space-y-2">
         <label className="block text-sm font-medium">Extensión</label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           name={`${prefix}Extension`}
           value={formData[`${prefix}Extension`] || ""}
           onChange={handleInputChange}
@@ -72,7 +72,7 @@ export default function StepTwo({ formData, updateFormData }: StepTwoProps) {
       <div className="space-y-2">
         <label className="block text-sm font-medium">WhatsApp</label>
         <InputText
-          className="w-full"
+          className="w-full general-input"
           type="tel"
           name={`${prefix}Whatsapp`}
           value={formData[`${prefix}Whatsapp`] || ""}
