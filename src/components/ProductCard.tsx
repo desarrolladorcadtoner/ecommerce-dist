@@ -26,9 +26,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <h3 className="text-lg font-bold mb-2">{product.nombre}</h3>
       <p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>
       
-      {/* Código del producto */}
-      {product.stock && (
-        <p className="text-xs text-gray-400 mb-2">Stock: {product.stock}</p>
+
+      {product.referencia && (
+        <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>
+      )}
+
+      {product.categoria && (
+        <p className="text-xs text-gray-400 mb-2">Categoria: {product.categoria}</p>
       )}
 
       {/* Precio */}

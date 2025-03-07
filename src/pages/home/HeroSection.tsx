@@ -7,7 +7,7 @@ const HeroSection = () => {
       { image: "/images/granel.jpg" },
       { image: "/images/refacciones.jpg" },
       { image: "/images/electronica.jpg" },
-      { image: "/images/papeleria.jpg" },
+      
     ];
   
     return (

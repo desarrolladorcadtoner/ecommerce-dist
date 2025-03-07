@@ -1,0 +1,37 @@
+/* Estilos personalizados para las pestañas */
+.p-tabview-nav {
+ 
+}
+
+.p-tabview-nav li {
+  margin-right: 0.5rem;
+}
+
+.p-tabview-nav li a {
+  color: #495057;
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+  transition: background-color 0.3s ease;
+  border-color: #495057;
+}
+
+.p-tabview-nav li.p-highlight a {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.p-tabview-nav li a:hover {
+  background-color: #e9ecef;
+}
+
+.p-tabview-panel {
+  padding: 1.5rem;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.p-tabview-panel{
+    border: 1px solid #dee2e6;
+}

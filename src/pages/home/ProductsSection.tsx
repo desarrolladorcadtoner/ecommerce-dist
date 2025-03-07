@@ -35,10 +35,18 @@ const ProductsSection = () => {
 
   const newProducts = products.slice(0, 4); // Primeros 4 productos
   const featuredProducts = products.slice(4, 8);
+  const offerProducts = products.slice(8, 12);
 
 
   return (
     <section className="p-8">
+      {/* Ofertas */}
+      <h2 className="text-2xl font-bold mb-4">Ofertas</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        {offerProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
       {/* Nuevos productos */}
       <h2 className="text-2xl font-bold mb-4">Productos Nuevos</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
