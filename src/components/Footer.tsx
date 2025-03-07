@@ -37,10 +37,10 @@ const Footer = () => {
             <ul>
               <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Bolsa de Trabajo</a></li>
               <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Paqueterías</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Garantías</a></li>
+              <li><a href="politicas-garantia" className="text-gray-400 text-sm hover:text-pink-500">Garantías</a></li>
               <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Métodos de Pago</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Aviso de Privacidad</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Términos y Condiciones</a></li>
+              <li><a href="aviso-privacidad" className="text-gray-400 text-sm hover:text-pink-500">Aviso de Privacidad</a></li>
+              <li><a href="terminos-condiciones" className="text-gray-400 text-sm hover:text-pink-500">Términos y Condiciones</a></li>
             </ul>
           </div>
   

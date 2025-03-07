@@ -2,10 +2,11 @@
 
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
+import { formData } from "@/types/register"
 
 interface StepOneProps {
-  formData: any
-  updateFormData: (newData: any) => void
+  formData: formData
+  updateFormData: (newData: Partial<formData>) => void
 }
 
 export default function StepOne({ formData, updateFormData }: StepOneProps) {
@@ -104,7 +105,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             type="email"
             className="w-full general-input"
             name="correoFacturacion"
-            value={formData.correoFacturacion || ""}
+            value={formData.correoFactura}
             onChange={handleInputChange}
           />
         </div>
@@ -117,7 +118,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <label className="block text-sm font-medium">
             Calle<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" name="calle" value={formData.calle || ""} onChange={handleInputChange} />
+          <InputText className="w-full general-input" name="calle" value={formData.calleFiscal || ""} onChange={handleInputChange} />
         </div>
 
         <div className="space-y-2">
@@ -127,7 +128,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             name="numeroExterior"
-            value={formData.numeroExterior || ""}
+            value={formData.numExtFiscal || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -137,7 +138,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             name="numeroInterior"
-            value={formData.numeroInterior || ""}
+            value={formData.numIntFiscal || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -149,7 +150,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             name="codigoPostal"
-            value={formData.codigoPostal || ""}
+            value={formData.codigoPostalFiscal || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -158,7 +159,10 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <label className="block text-sm font-medium">
             Colonia<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" name="colonia" value={formData.colonia || ""} onChange={handleInputChange} />
+          <InputText className="w-full general-input" 
+          name="colonia" value={formData.coloniaFiscal || ""} 
+          onChange={handleInputChange} 
+          />
         </div>
 
         <div className="space-y-2">
@@ -169,7 +173,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             className="w-full general-input"
             type="tel"
             name="telefono"
-            value={formData.telefono || ""}
+            value={formData.telefonoFiscal || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -180,7 +184,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             className="w-full general-input"
             type="tel"
             name="whatsapp"
-            value={formData.whatsapp || ""}
+            value={formData.whatsappFiscal}
             onChange={handleInputChange}
           />
         </div>
@@ -191,7 +195,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <Dropdown
             options={[]} // Agregar opciones de estados
-            value={formData.estado}
+            value={formData.estadoFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione estado"
             className="w-full general-dropdown"
@@ -205,7 +209,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <Dropdown
             options={[]} // Agregar opciones de ciudades
-            value={formData.ciudad}
+            value={formData.ciudadFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione ciudad"
             className="w-full general-dropdown"
@@ -219,7 +223,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <Dropdown
             options={[]} // Agregar opciones de actividades
-            value={formData.actividadPrincipal}
+            value={formData.actSHCPFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione actividad"
             className="w-full general-dropdown"
@@ -234,7 +238,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             name="representanteLegal"
-            value={formData.representanteLegal || ""}
+            value={formData.nombreLegalFiscal}
             onChange={handleInputChange}
           />
         </div>

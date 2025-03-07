@@ -1,13 +1,11 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
-const TerminosCondiciones = () => {
+
+const Terminos = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      <Header />
       <main className="flex-grow p-6">
         <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h1>
+        
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">1. CONVENIO DE USUARIO.</h2>
             <p className="text-gray-700">
@@ -319,9 +317,8 @@ Centro Monterrey, Nuevo Leon. 6400
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default TerminosCondiciones;
+export default Terminos;

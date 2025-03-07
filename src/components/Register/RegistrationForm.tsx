@@ -4,16 +4,70 @@ import { useState } from "react"
 import { Steps } from "primereact/steps"
 import { Card } from "primereact/card"
 import { Button } from "primereact/button"
+import { Dialog } from "primereact/dialog"
 import StepOne from "./StepOne"
 import StepTwo from "./StepTwo"
 import StepThree from "./StepThree"
 import StepFour from "./StepFour"
+import type { formData } from "@/types/register"
 import "primereact/resources/themes/lara-light-blue/theme.css"
 import "primereact/resources/primereact.min.css"
 
 export default function RegistrationForm() {
   const [step, setStep] = useState(0)
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState<formData>({
+    id: 0,
+    tipoPersona: '',
+    razonSocial: '',
+    nombreComercial: '',
+    rfc: '',
+    regimenFiscal: '',
+    usoCFDI: '',
+    correoFactura: '',
+    calleFiscal: '',
+    numExtFiscal: '',
+    numIntFiscal: '',
+    codigoPostalFiscal: '',
+    coloniaFiscal: '',
+    telefonoFiscal: '',
+    whatsappFiscal: '',
+    estadoFiscal: '',
+    ciudadFiscal: '',
+    actSHCPFiscal: '',
+    nombreLegalFiscal: '',
+    nombreCompras: '',
+    apellidoCompras: '',
+    correoCompras: '',
+    telefonoCompras: '',
+    extensionCompras: '',
+    whatsappCompras: '',
+    nombrePago: '',
+    apellidoPago: '',
+    correoPago: '',
+    telefonoPago: '',
+    extensionPago: '',
+    whatsappPago: '',
+    giroNegocio: '',
+    nombreGiroNegocio: '',
+    redSocial: '',
+    nombreRedSocial: '',
+    calleEntrega: '',
+    numExtEntrega: '',
+    numIntEntrega: '',
+    coloniaEntrega: '',
+    codigoPostalEntrega: '',
+    estadoEntrega: '',
+    ciudadEntrega: '',
+    actaConstitutiva: '',
+    constanciaFiscal: '',
+    comprobanteDomicilio: '',
+    edoCuenta: '',
+    ine: '',
+    acceptedTerms: false,
+    acceptedWarranty: false,
+    acceptedPrivacy: false,
+  })
+  const [showDialog, setShowDialog] = useState(true)
 
   const steps = [
     { label: "Información Fiscal" },
@@ -26,12 +80,58 @@ export default function RegistrationForm() {
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
   const updateFormData = (newData: any) => {
-    setFormData((prevData) => ({ ...prevData, ...newData }))
+    setFormData((prevData: any) => ({ ...prevData, ...newData }))
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     console.log(formData)
     // Aquí iría la lógica para enviar los datos al servidor
+    try {
+      const response = await fetch("https://api.example.com/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error("Error al enviar los datos")
+      }
+
+      const result = await response.json()
+      console.log("Datos enviados correctamente:", result)
+
+      // Enviar correo con la información del formulario
+      await sendEmail(formData)
+    } catch (error) {
+      console.error("Error al enviar los datos:", error)
+    }
+  }
+
+  const sendEmail = async (data: any) => {
+    try {
+      const response = await fetch("https://api.example.com/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "asistente_desarrollador@cadtoner.com.mx",
+          subject: "Nueva Solicitud de Registro",
+          text: `Se ha recibido una nueva solicitud de registro con la siguiente información: ${JSON.stringify(data, null, 2)}`,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Error al enviar el correo")
+      }
+
+      const result = await response.json()
+      console.log("Correo enviado correctamente:", result)
+    } catch (error) {
+      console.error("Error al enviar el correo:", error)
+    }
   }
 
   const renderStep = () => {
@@ -79,6 +179,25 @@ export default function RegistrationForm() {
           )}
         </div>
       </Card>
+
+      <Dialog
+        header="Aviso Importante"
+        visible={showDialog}
+        style={{ width: '50vw' }}
+        onHide={() => setShowDialog(false)}
+        footer={
+          <div>
+            <Button label="Aceptar" onClick={() => setShowDialog(false)} />
+          </div>
+        }
+      >
+        <p>Por favor, lea los siguientes documentos antes de continuar con el registro:</p>
+        <ul className="list-disc list-inside">
+          <li><a href="/aviso-privacidad" target="_blank" className="text-blue-500 underline">Aviso de Privacidad</a></li>
+          <li><a href="/terminos-condiciones" target="_blank" className="text-blue-500 underline">Términos y Condiciones</a></li>
+          <li><a href="/politicas-garantia" target="_blank" className="text-blue-500 underline">Políticas de Garantía</a></li>
+        </ul>
+      </Dialog>
     </div>
   )
 }
