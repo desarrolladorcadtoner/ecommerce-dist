@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React, { useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/router"
 
 const Header: React.FC = () => {
-
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const router = useRouter()
 
   const productCategories = [
     "Cartuchos de Toner",
@@ -15,7 +17,14 @@ const Header: React.FC = () => {
     "Refacciones",
     "Electronica",
     "Papeleria",
-  ];
+  ]
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${searchQuery}`)
+    }
+  }
 
   return (
     <header>
@@ -23,9 +32,7 @@ const Header: React.FC = () => {
       <div className="bg-gray-100 py-2 px-4 flex place-content-center items-center text-sm">
         <span>¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
-          <a href="register">
-          REGÍSTRATE
-          </a>
+          <a href="register">REGÍSTRATE</a>
         </button>
       </div>
 
@@ -34,39 +41,44 @@ const Header: React.FC = () => {
         {/* Logo */}
         <div className="flex items-center">
           <a href="/">
-          <Image
-            src="/images/logo-cadtoner.png"
-            alt="CadToner Logo"
-            height={50}
-            width={150}
-            className="cursor-pointer"
-          />
+            <Image
+              src="/images/logo-cadtoner.png"
+              alt="CadToner Logo"
+              height={50}
+              width={150}
+              className="cursor-pointer"
+            />
           </a>
         </div>
 
         {/* Barra de búsqueda */}
-        <div className="flex items-center w-full max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
           <input
             type="text"
             placeholder="Buscar productos..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
           />
-          <button className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
+          <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
             BUSCAR
           </button>
-        </div>
+        </form>
 
         {/* Botones a la derecha */}
         <div className="flex space-x-4">
           <a
-                  href="/billing"
-                  className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
-                >Facturación</a>
-                <a
-                  href="/login"
-                  className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
-                ><i className="pi pi-user mr-2"></i>Iniciar Sesión</a>
-          
+            href="/billing"
+            className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
+          >
+            <i className="pi pi-file mr-2"></i>Facturación
+          </a>
+          <a
+            href="/login"
+            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
+          >
+            <i className="pi pi-user mr-2"></i>Iniciar Sesión
+          </a>
         </div>
       </div>
 
@@ -79,8 +91,8 @@ const Header: React.FC = () => {
               <span>INICIO</span>
             </Link>
           </li>
-           <li>
-            <div className="relative"> {/* Added relative wrapper */}
+          <li>
+            <div className="relative">
               <button
                 onClick={() => setIsProductsOpen(!isProductsOpen)}
                 className="flex items-center space-x-2 hover:text-[#de1c85]"
@@ -89,11 +101,11 @@ const Header: React.FC = () => {
                 <span>PRODUCTOS</span>
               </button>
               {isProductsOpen && (
-                <div className="z-[999] absolute left-0 z-10 w-48 bg-[#005a90] py-2 rounded shadow-lg"> {/* Added submenu */}
+                <div className="z-[999] absolute left-0 z-10 w-48 bg-[#005a90] py-2 rounded shadow-lg">
                   <ul>
                     {productCategories.map((category) => (
                       <li key={category} className="hover:bg-[#0072b1]">
-                        <Link href={`/products?category=${category}`} className="block px-4 py-2 hover:text-[#de1c85]"> {/* Added link with query parameter */}
+                        <Link href={`/products?category=${category}`} className="block px-4 py-2 hover:text-[#de1c85]">
                           {category}
                         </Link>
                       </li>
@@ -124,9 +136,9 @@ const Header: React.FC = () => {
         </ul>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
 
 

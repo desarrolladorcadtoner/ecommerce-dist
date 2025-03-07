@@ -44,7 +44,7 @@ export default function LoginPage() {
                   type="text"
                   value={usuario}
                   onChange={(e) => setUsuario(e.target.value)}
-                  placeholder="Usuario"
+                  placeholder="No. Cliente"
                   className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
                   required
                 />

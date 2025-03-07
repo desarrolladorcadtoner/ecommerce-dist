@@ -1,21 +1,40 @@
 "use client"
 
+import { useState } from "react"
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
+import { formData } from "@/types/register"
 
 interface StepThreeProps {
-  formData: any
-  updateFormData: (newData: any) => void
+  formData: formData
+  updateFormData: (newData: Partial<formData>) => void
 }
 
 export default function StepThree({ formData, updateFormData }: StepThreeProps) {
+  const [showOtherInput, setShowOtherInput] = useState(formData.giroNegocio === "otra")
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateFormData({ [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    updateFormData({ [name]: value })
   }
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
     updateFormData({ [e.target.name]: e.value })
+    if (e.value === "otra") {
+      setShowOtherInput(true)
+    } else {
+      setShowOtherInput(false)
+      updateFormData({ nombreGiroNegocio: "" }) // Clear the other input field if not selected
+    }
   }
+
+  const giroNegocioOptions = [
+    { label: "Retail", value: "retail" },
+    { label: "Manufactura", value: "manufactura" },
+    { label: "Servicios", value: "servicios" },
+    { label: "Tecnología", value: "tecnologia" },
+    { label: "Otra", value: "otra" },
+  ]
 
   return (
     <div className="space-y-8">
@@ -29,32 +48,45 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Giro del negocio<span className="text-red-500">*</span>
             </label>
             <Dropdown
-              options={[]} // Agregar opciones de giro de negocio
+              options={giroNegocioOptions}
               value={formData.giroNegocio}
               onChange={handleDropdownChange}
               placeholder="Seleccione giro"
-              className="w-full"
+              className="w-full general-dropdown"
               name="giroNegocio"
             />
           </div>
+          {showOtherInput && (
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Nombre de Giro<span className="text-red-500">*</span>
+              </label>
+              <InputText
+                className="w-full general-input"
+                name="nombreGiroNegocio"
+                value={formData.nombreGiroNegocio || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
           <div className="space-y-2">
-            <label className="block text-sm font-medium">Página o sitio web</label>
+            <label className="block text-sm font-medium">Red social</label>
             <InputText
-              className="w-full"
+              className="w-full general-input"
               type="url"
-              name="sitioWeb"
-              value={formData.sitioWeb || ""}
+              name="redSocial"
+              value={formData.redSocial || ""}
               onChange={handleInputChange}
             />
           </div>
-          <div className="space-y-2 md:col-span-2">
+          <div className="space-y-2">
             <label className="block text-sm font-medium">
               Nombre<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
-              name="nombreComercial"
-              value={formData.nombreComercial || ""}
+              className="w-full general-input"
+              name="nombreRedSocial"
+              value={formData.nombreRedSocial || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -69,9 +101,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Calle<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
-              name="entregaCalle"
-              value={formData.entregaCalle || ""}
+              className="w-full general-input"
+              name="calleEntrega"
+              value={formData.calleEntrega || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -80,18 +112,18 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Número Exterior<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
-              name="entregaNumeroExterior"
-              value={formData.entregaNumeroExterior || ""}
+              className="w-full general-input"
+              name="numExtEntrega"
+              value={formData.numExtEntrega || ""}
               onChange={handleInputChange}
             />
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium">Número Interior</label>
             <InputText
-              className="w-full"
-              name="entregaNumeroInterior"
-              value={formData.entregaNumeroInterior || ""}
+              className="w-full general-input"
+              name="numIntEntrega"
+              value={formData.numIntEntrega || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -100,9 +132,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Colonia<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
-              name="entregaColonia"
-              value={formData.entregaColonia || ""}
+              className="w-full general-input"
+              name="coloniaEntrega"
+              value={formData.coloniaEntrega || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -111,9 +143,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Código Postal<span className="text-red-500">*</span>
             </label>
             <InputText
-              className="w-full"
-              name="entregaCodigoPostal"
-              value={formData.entregaCodigoPostal || ""}
+              className="w-full general-input"
+              name="codigoPostalEntrega"
+              value={formData.codigoPostalEntrega || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -123,11 +155,11 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             </label>
             <Dropdown
               options={[]} // Agregar opciones de estados
-              value={formData.entregaEstado}
+              value={formData.estadoEntrega}
               onChange={handleDropdownChange}
               placeholder="Seleccione estado"
-              className="w-full"
-              name="entregaEstado"
+              className="w-full general-dropdown"
+              name="estadoEntrega"
             />
           </div>
           <div className="space-y-2">
@@ -136,11 +168,11 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             </label>
             <Dropdown
               options={[]} // Agregar opciones de ciudades
-              value={formData.entregaCiudad}
+              value={formData.ciudadEntrega}
               onChange={handleDropdownChange}
               placeholder="Seleccione ciudad"
-              className="w-full"
-              name="entregaCiudad"
+              className="w-full general-dropdown"
+              name="ciudadEntrega"
             />
           </div>
         </div>

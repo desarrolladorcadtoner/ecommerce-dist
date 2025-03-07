@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useRouter } from "next/navigation";
+import "primereact/resources/themes/lara-light-blue/theme.css"
+import "primereact/resources/primereact.min.css"
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
@@ -36,7 +38,7 @@ const CheckoutPage: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Tu nombre"
-            className="w-full"
+            className="w-full general-input"
           />
         </div>
 
@@ -47,7 +49,7 @@ const CheckoutPage: React.FC = () => {
             value={formData.address}
             onChange={handleChange}
             placeholder="Dirección completa"
-            className="w-full"
+            className="w-full general-input"
           />
         </div>
 
@@ -58,7 +60,7 @@ const CheckoutPage: React.FC = () => {
             value={formData.city}
             onChange={handleChange}
             placeholder="Tu ciudad"
-            className="w-full"
+            className="w-full general-input"
           />
         </div>
 
@@ -69,7 +71,7 @@ const CheckoutPage: React.FC = () => {
             value={formData.postalCode}
             onChange={handleChange}
             placeholder="Código postal"
-            className="w-full"
+            className="w-full general-input"
           />
         </div>
       </div>
