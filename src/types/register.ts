@@ -1,5 +1,5 @@
 export interface formData {
-    id: number;
+    IdDistribuidor: number;
     tipoPersona: string;
     razonSocial: string;
     nombreComercial: string;

@@ -1,10 +1,22 @@
+import { useRef } from "react";
 
 const Politicas = () => {
+
+  const endRef = useRef<HTMLDivElement>(null)
+  
+    const scrollToBottom = () => {
+      endRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <main className="flex-grow p-6">
         <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
-         
+         <div className="flex justify-end mb-4">
+            <button onClick={scrollToBottom} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+              Ir al final
+            </button>
+          </div>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Consumibles de Toner Remanufacturados y Compatibles</h2>
             <p className="text-gray-700">
@@ -124,6 +136,7 @@ const Politicas = () => {
                 Presentándose directamente en el departamento de Servicio al Cliente, ubicado en 5 de mayo 1338 pte. Col. Centro, Monterrey, N.L. El horario de atención es de lunes a viernes de 8:30 am a 6:30 pm y sábado de 9:00 a 1:30 pm., por esta vía, el tiempo de respuesta es inmediato o bien, llamando al teléfono 81 81 305 305 ext. 110,133 y 213. Utilizando las vías mencionadas en los párrafos anteriores, es de 24 a 36 horas hábiles.
               </li>
             </ul>
+            <div ref={endRef}></div>
           </div>
         </div>
       </main>

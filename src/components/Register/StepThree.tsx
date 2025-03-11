@@ -20,9 +20,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
     updateFormData({ [e.target.name]: e.value })
-    if (e.value === "otra") {
+    if (e.target.name === "giroNegocio" && e.value === "otra") {
       setShowOtherInput(true)
-    } else {
+    } else if (e.target.name === "giroNegocio") {
       setShowOtherInput(false)
       updateFormData({ nombreGiroNegocio: "" }) // Clear the other input field if not selected
     }
@@ -34,6 +34,24 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
     { label: "Servicios", value: "servicios" },
     { label: "Tecnología", value: "tecnologia" },
     { label: "Otra", value: "otra" },
+  ]
+
+  const redSocialOptions = [
+    { label: "Facebook", value: "facebook" },
+    { label: "Instagram", value: "instagram" },
+    { label: "Twitter", value: "twitter" },
+    { label: "LinkedIn", value: "linkedin" },
+    { label: "Página Web", value: "pagina_web" },
+  ]
+
+  const estadoOptions = [
+    { label: "Ciudad de México", value: "cdmx" },
+    { label: "Jalisco", value: "jalisco" },
+  ]
+
+  const ciudadOptions = [
+    { label: "Ciudad de México", value: "cdmx" },
+    { label: "Guadalajara", value: "guadalajara" },
   ]
 
   return (
@@ -71,17 +89,18 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
           )}
           <div className="space-y-2">
             <label className="block text-sm font-medium">Red social</label>
-            <InputText
-              className="w-full general-input"
-              type="url"
+            <Dropdown
+              options={redSocialOptions}
+              value={formData.redSocial}
+              onChange={handleDropdownChange}
+              placeholder="Seleccione red social"
+              className="w-full general-dropdown"
               name="redSocial"
-              value={formData.redSocial || ""}
-              onChange={handleInputChange}
             />
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium">
-              Nombre<span className="text-red-500">*</span>
+              Link red social<span className="text-red-500">*</span>
             </label>
             <InputText
               className="w-full general-input"
@@ -154,7 +173,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Estado<span className="text-red-500">*</span>
             </label>
             <Dropdown
-              options={[]} // Agregar opciones de estados
+              options={estadoOptions}
               value={formData.estadoEntrega}
               onChange={handleDropdownChange}
               placeholder="Seleccione estado"
@@ -167,7 +186,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               Ciudad<span className="text-red-500">*</span>
             </label>
             <Dropdown
-              options={[]} // Agregar opciones de ciudades
+              options={ciudadOptions}
               value={formData.ciudadEntrega}
               onChange={handleDropdownChange}
               placeholder="Seleccione ciudad"
