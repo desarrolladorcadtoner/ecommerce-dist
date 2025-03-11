@@ -1,67 +1,67 @@
-"use client";
+"use client"
 
-import { FileUpload } from "primereact/fileupload";
-import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
-import { Dialog } from "primereact/dialog";
-import { useState } from "react";
-import { formData } from "@/types/register";
-import Terminos from "../terminos";
-import Politicas from "../politicas";
-import Aviso from "../aviso";
+import { FileUpload } from "primereact/fileupload"
+import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox"
+import { Dialog } from "primereact/dialog"
+import { useState } from "react"
+import { formData } from "@/types/register"
+import Terminos from "../terminos"
+import Politicas from "../politicas"
+import Aviso from "../aviso"
 
 interface StepFourProps {
-  formData: formData;
-  updateFormData: (newData: Partial<formData>) => void;
+  formData: formData
+  updateFormData: (newData: Partial<formData>) => void
 }
 
 export default function StepFour({ formData, updateFormData }: StepFourProps) {
-  const [acceptedTerms, setAcceptedTerms] = useState(formData.acceptedTerms || false);
-  const [acceptedWarranty, setAcceptedWarranty] = useState(formData.acceptedWarranty || false);
-  const [acceptedPrivacy, setAcceptedPrivacy] = useState(formData.acceptedPrivacy || false);
-  const [showTermsDialog, setShowTermsDialog] = useState(false);
-  const [showWarrantyDialog, setShowWarrantyDialog] = useState(false);
-  const [showPrivacyDialog, setShowPrivacyDialog] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<{ [key: string]: string }>({});
+  const [acceptedTerms, setAcceptedTerms] = useState(formData.acceptedTerms || false)
+  const [acceptedWarranty, setAcceptedWarranty] = useState(formData.acceptedWarranty || false)
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(formData.acceptedPrivacy || false)
+  const [showTermsDialog, setShowTermsDialog] = useState(false)
+  const [showWarrantyDialog, setShowWarrantyDialog] = useState(false)
+  const [showPrivacyDialog, setShowPrivacyDialog] = useState(false)
+  const [uploadedFiles, setUploadedFiles] = useState<{ [key: string]: string }>({})
 
   const handleFileUpload = (event: any, fieldName: string) => {
-    const file = event.files[0];
-    updateFormData({ [fieldName]: file });
-    setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }));
-  };
+    const file = event.files[0]
+    updateFormData({ [fieldName]: null }) // Enviar como null mientras trabajas en local
+    setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }))
+  }
 
   const handleCheckboxChange = (e: CheckboxChangeEvent, fieldName: string) => {
-    const checked = e.checked || false;
+    const checked = e.checked || false
     if (!checked) {
-      updateFormData({ [fieldName]: checked });
+      updateFormData({ [fieldName]: checked })
       switch (fieldName) {
         case 'acceptedTerms':
-          setAcceptedTerms(checked);
-          break;
+          setAcceptedTerms(checked)
+          break
         case 'acceptedWarranty':
-          setAcceptedWarranty(checked);
-          break;
+          setAcceptedWarranty(checked)
+          break
         case 'acceptedPrivacy':
-          setAcceptedPrivacy(checked);
-          break;
+          setAcceptedPrivacy(checked)
+          break
         default:
-          break;
+          break
       }
     } else {
       switch (fieldName) {
         case 'acceptedTerms':
-          setShowTermsDialog(true);
-          break;
+          setShowTermsDialog(true)
+          break
         case 'acceptedWarranty':
-          setShowWarrantyDialog(true);
-          break;
+          setShowWarrantyDialog(true)
+          break
         case 'acceptedPrivacy':
-          setShowPrivacyDialog(true);
-          break;
+          setShowPrivacyDialog(true)
+          break
         default:
-          break;
+          break
       }
     }
-  };
+  }
 
   const FileUploadField = ({ name, label }: { name: string; label: string }) => (
     <div className="space-y-2">
@@ -81,29 +81,29 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
         <p className="text-sm text-green-600">Archivo: {uploadedFiles[name]}</p>
       )}
     </div>
-  );
+  )
 
   const handleDialogAccept = (fieldName: string) => {
     switch (fieldName) {
       case 'acceptedTerms':
-        setAcceptedTerms(true);
-        updateFormData({ acceptedTerms: true });
-        setShowTermsDialog(false);
-        break;
+        setAcceptedTerms(true)
+        updateFormData({ acceptedTerms: true })
+        setShowTermsDialog(false)
+        break
       case 'acceptedWarranty':
-        setAcceptedWarranty(true);
-        updateFormData({ acceptedWarranty: true });
-        setShowWarrantyDialog(false);
-        break;
+        setAcceptedWarranty(true)
+        updateFormData({ acceptedWarranty: true })
+        setShowWarrantyDialog(false)
+        break
       case 'acceptedPrivacy':
-        setAcceptedPrivacy(true);
-        updateFormData({ acceptedPrivacy: true });
-        setShowPrivacyDialog(false);
-        break;
+        setAcceptedPrivacy(true)
+        updateFormData({ acceptedPrivacy: true })
+        setShowPrivacyDialog(false)
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   return (
     <div className="space-y-6">
@@ -150,33 +150,33 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       </div>
 
       {/* Dialogs */}
-      <Dialog header="Términos y Condiciones" visible={showTermsDialog} style={{ width: '50vw' }} onHide={() => setShowTermsDialog(false)}>
+      <Dialog header="Términos y Condiciones" visible={showTermsDialog} style={{ width: '50vw' }} onHide={() => setShowTermsDialog(false)} id="termsDialog">
         <Terminos />
         <div className="flex justify-end">
-          <button onClick={() => handleDialogAccept('acceptedTerms')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+          <button onClick={() => handleDialogAccept('acceptedTerms')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
         </div>
       </Dialog>
 
-      <Dialog header="Políticas de Garantía" visible={showWarrantyDialog} style={{ width: '50vw' }} onHide={() => setShowWarrantyDialog(false)}>
+      <Dialog header="Políticas de Garantía" visible={showWarrantyDialog} style={{ width: '50vw' }} onHide={() => setShowWarrantyDialog(false)} id="warrantyDialog">
         <Politicas />
         <div className="flex justify-end">
-          <button onClick={() => handleDialogAccept('acceptedWarranty')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+          <button onClick={() => handleDialogAccept('acceptedWarranty')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
         </div>
       </Dialog>
 
-      <Dialog header="Aviso de Privacidad" visible={showPrivacyDialog} style={{ width: '50vw' }} onHide={() => setShowPrivacyDialog(false)}>
+      <Dialog header="Aviso de Privacidad" visible={showPrivacyDialog} style={{ width: '50vw' }} onHide={() => setShowPrivacyDialog(false)} id="privacyDialog">
         <Aviso />
         <div className="flex justify-end">
-          <button onClick={() => handleDialogAccept('acceptedPrivacy')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+          <button onClick={() => handleDialogAccept('acceptedPrivacy')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
         </div>
       </Dialog>
     </div>
-  );
+  )
 }
 

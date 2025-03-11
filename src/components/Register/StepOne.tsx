@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { formData } from "@/types/register"
@@ -10,6 +11,69 @@ interface StepOneProps {
 }
 
 export default function StepOne({ formData, updateFormData }: StepOneProps) {
+  const [regimenFiscalOptions, setRegimenFiscalOptions] = useState<{ label: string; value: string }[]>([])
+  const [usoCFDIOptions, setUsoCFDIOptions] = useState<{ label: string; value: string }[]>([])
+
+  const tipoPersonaOptions = [
+    { label: "Física", value: "fisica" },
+    { label: "Moral", value: "moral" },
+  ]
+
+  const estadoOptions = [
+    { label: "Ciudad de México", value: "cdmx" },
+    { label: "Jalisco", value: "jalisco" },
+  ]
+
+  const ciudadOptions = [
+    { label: "Ciudad de México", value: "cdmx" },
+    { label: "Guadalajara", value: "guadalajara" },
+  ]
+
+  const actividadPrincipalOptions = [
+    { label: "Comercio", value: "comercio" },
+    { label: "Servicios", value: "servicios" },
+  ]
+
+  useEffect(() => {
+    if (formData.tipoPersona) {
+      // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
+      fetch(`http://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && Array.isArray(data.regimen_sat)) {
+            const options = data.regimen_sat.map((item: any) => ({
+              label: item.RegimenSATDescripcion.trim(),
+              value: item.RegimenSATId, // Usar el ID como valor
+            }))
+            setRegimenFiscalOptions(options)
+          } else {
+            console.error("Error: La respuesta de la API no es un array")
+          }
+        })
+        .catch((error) => console.error("Error fetching regimen fiscal options:", error))
+    }
+  }, [formData.tipoPersona])
+
+  useEffect(() => {
+    if (formData.regimenFiscal) {
+      // Obtener opciones de "Uso de CFDI" según el valor seleccionado en "Régimen Fiscal"
+      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${formData.regimenFiscal}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (Array.isArray(data)) {
+            const options = data.map((item: any) => ({
+              label: item.DescripcionUsoCFDI.trim(),
+              value: item.c_UsosCFDI.trim(), // Usar el ID como valor
+            }))
+            setUsoCFDIOptions(options)
+          } else {
+            console.error("Error: La respuesta de la API no es un array")
+          }
+        })
+        .catch((error) => console.error("Error fetching uso de cfdi options:", error))
+    }
+  }, [formData.regimenFiscal])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateFormData({ [e.target.name]: e.target.value })
   }
@@ -28,10 +92,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Tipo de Persona<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[
-              { label: "Física", value: "fisica" },
-              { label: "Moral", value: "moral" },
-            ]}
+            options={tipoPersonaOptions}
             value={formData.tipoPersona}
             onChange={handleDropdownChange}
             placeholder="Seleccione tipo"
@@ -74,7 +135,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Régimen Fiscal<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[]} // Agregar opciones de régimen fiscal
+            options={regimenFiscalOptions}
             value={formData.regimenFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione régimen"
@@ -88,7 +149,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Uso de CFDI<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[]} // Agregar opciones de CFDI
+            options={usoCFDIOptions}
             value={formData.usoCFDI}
             onChange={handleDropdownChange}
             placeholder="Seleccione uso"
@@ -104,7 +165,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             type="email"
             className="w-full general-input"
-            name="correoFacturacion"
+            name="correoFactura"
             value={formData.correoFactura}
             onChange={handleInputChange}
           />
@@ -118,7 +179,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <label className="block text-sm font-medium">
             Calle<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" name="calle" value={formData.calleFiscal || ""} onChange={handleInputChange} />
+          <InputText className="w-full general-input" name="calleFiscal" value={formData.calleFiscal || ""} onChange={handleInputChange} />
         </div>
 
         <div className="space-y-2">
@@ -127,7 +188,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <InputText
             className="w-full general-input"
-            name="numeroExterior"
+            name="numExtFiscal"
             value={formData.numExtFiscal || ""}
             onChange={handleInputChange}
           />
@@ -137,7 +198,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <label className="block text-sm font-medium">Número Interior</label>
           <InputText
             className="w-full general-input"
-            name="numeroInterior"
+            name="numIntFiscal"
             value={formData.numIntFiscal || ""}
             onChange={handleInputChange}
           />
@@ -149,7 +210,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <InputText
             className="w-full general-input"
-            name="codigoPostal"
+            name="codigoPostalFiscal"
             value={formData.codigoPostalFiscal || ""}
             onChange={handleInputChange}
           />
@@ -160,7 +221,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Colonia<span className="text-red-500">*</span>
           </label>
           <InputText className="w-full general-input" 
-          name="colonia" value={formData.coloniaFiscal || ""} 
+          name="coloniaFiscal" value={formData.coloniaFiscal || ""} 
           onChange={handleInputChange} 
           />
         </div>
@@ -172,7 +233,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             type="tel"
-            name="telefono"
+            name="telefonoFiscal"
             value={formData.telefonoFiscal || ""}
             onChange={handleInputChange}
           />
@@ -183,7 +244,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <InputText
             className="w-full general-input"
             type="tel"
-            name="whatsapp"
+            name="whatsappFiscal"
             value={formData.whatsappFiscal}
             onChange={handleInputChange}
           />
@@ -194,12 +255,12 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Estado<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[]} // Agregar opciones de estados
+            options={estadoOptions}
             value={formData.estadoFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione estado"
             className="w-full general-dropdown"
-            name="estado"
+            name="estadoFiscal"
           />
         </div>
 
@@ -208,12 +269,12 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Ciudad<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[]} // Agregar opciones de ciudades
+            options={ciudadOptions}
             value={formData.ciudadFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione ciudad"
             className="w-full general-dropdown"
-            name="ciudad"
+            name="ciudadFiscal"
           />
         </div>
 
@@ -222,12 +283,12 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             Actividad Principal en alta de SHCP<span className="text-red-500">*</span>
           </label>
           <Dropdown
-            options={[]} // Agregar opciones de actividades
+            options={actividadPrincipalOptions}
             value={formData.actSHCPFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione actividad"
             className="w-full general-dropdown"
-            name="actividadPrincipal"
+            name="actSHCPFiscal"
           />
         </div>
 
@@ -237,7 +298,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <InputText
             className="w-full general-input"
-            name="representanteLegal"
+            name="nombreLegalFiscal"
             value={formData.nombreLegalFiscal}
             onChange={handleInputChange}
           />
