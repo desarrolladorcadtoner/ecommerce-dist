@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Users2, Award, Handshake, Target, ShieldCheck, Heart, ThumbsUp, Briefcase } from "lucide-react"
+import { ShieldCheck, Heart, ThumbsUp, Briefcase } from "lucide-react"
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 

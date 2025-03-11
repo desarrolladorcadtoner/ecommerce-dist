@@ -16,7 +16,7 @@ import "primereact/resources/primereact.min.css"
 export default function RegistrationForm() {
   const [step, setStep] = useState(0)
   const [formData, setFormData] = useState<formData>({
-    id: 0,
+    IdDistribuidor: 0,
     tipoPersona: '',
     razonSocial: '',
     nombreComercial: '',
@@ -85,52 +85,30 @@ export default function RegistrationForm() {
 
   const onSubmit = async () => {
     console.log(formData)
-    // Aquí iría la lógica para enviar los datos al servidor
+    // Convertir regimenFiscal a cadena
+    const dataToSend = {
+      ...formData,
+      regimenFiscal: String(formData.regimenFiscal),
+    }
+
     try {
-      const response = await fetch("https://api.example.com/register", {
+      const response = await fetch("http://172.100.203.36:8000/register/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       })
 
       if (!response.ok) {
-        throw new Error("Error al enviar los datos")
+        const errorText = await response.text()
+        throw new Error(`Error al enviar los datos: ${response.status} ${response.statusText} - ${errorText}`)
       }
 
       const result = await response.json()
       console.log("Datos enviados correctamente:", result)
-
-      // Enviar correo con la información del formulario
-      await sendEmail(formData)
     } catch (error) {
       console.error("Error al enviar los datos:", error)
-    }
-  }
-
-  const sendEmail = async (data: any) => {
-    try {
-      const response = await fetch("https://api.example.com/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: "asistente_desarrollador@cadtoner.com.mx",
-          subject: "Nueva Solicitud de Registro",
-          text: `Se ha recibido una nueva solicitud de registro con la siguiente información: ${JSON.stringify(data, null, 2)}`,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error("Error al enviar el correo")
-      }
-
-      const result = await response.json()
-      console.log("Correo enviado correctamente:", result)
-    } catch (error) {
-      console.error("Error al enviar el correo:", error)
     }
   }
 

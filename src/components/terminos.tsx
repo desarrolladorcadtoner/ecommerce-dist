@@ -1,11 +1,22 @@
+import { useRef } from "react";
 
 
 const Terminos = () => {
+
+  const endRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <main className="flex-grow p-6">
         <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
-        
+        <div className="flex justify-end mb-4">
+            <button onClick={scrollToBottom} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+              Ir al final
+            </button>
+          </div>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">1. CONVENIO DE USUARIO.</h2>
             <p className="text-gray-700">
@@ -314,6 +325,7 @@ www.cadtoner.com.mx
 Centro Monterrey, Nuevo Leon. 6400
 
 (81) 81-305-305
+<div ref={endRef}></div>
           </div>
         </div>
       </main>

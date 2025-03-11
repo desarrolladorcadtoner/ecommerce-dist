@@ -1,11 +1,23 @@
+import { useRef } from "react";
 
 
 const Aviso = () => {
+
+  const endRef = useRef<HTMLDivElement>(null)
+    
+      const scrollToBottom = () => {
+        endRef.current?.scrollIntoView({ behavior: "smooth" })
+      }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <main className="flex-grow p-6">
         <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
-       
+       <div className="flex justify-end mb-4">
+            <button onClick={scrollToBottom} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+              Ir al final
+            </button>
+          </div>
           <div className="space-y-4 text-gray-700">
             <p>
               Cad Toner, con domicilio en el centro, ciudad Monterrey, municipio o delegación Monterrey, c.p. 64000, en la entidad de Nuevo León, país México, y portal de internet www.cadtoner.com.mx, es el responsable del uso y protección de sus datos personales, y al respecto le informamos lo siguiente:
@@ -154,6 +166,7 @@ const Aviso = () => {
             <p>
               Llamando al teléfono (81) 81 305 305 ext 154, enviando un correo a la dirección avisodeprivacidad@cadtoner.com.mx o en persona en nuestras oficinas.
             </p>
+            <div ref={endRef}></div>
           </div>
         </div>
       </main>
