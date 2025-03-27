@@ -3,12 +3,16 @@ import { Product } from "@/types";
 import { fetchProducts } from "@/services/productService";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
+import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [layout, setLayout] = useState<"grid" | "list">("grid");
+  const { addToCart } = useCart();
 
   const PRODUCTS_PER_PAGE = 9;
 
@@ -75,14 +79,83 @@ const ProductsPage = () => {
           </div>
         </aside>
 
-        {/* Productos - Grid */}
+        {/* Productos - Área Principal */}
         <main className="w-full md:w-3/4">
-          <h2 className="text-2xl font-bold mb-4">Productos</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold">Productos</h2>
+            {/* Botones para cambiar de layout */}
+            <div className="flex">
+              <button
+                onClick={() => setLayout("grid")}
+                className={`p-2 border border-r-0 rounded-l ${
+                  layout === "grid"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-gray-700 hover:bg-blue-100"
+                }`}
+              >
+                <i className="pi pi-th-large"></i>
+              </button>
+              <button
+                onClick={() => setLayout("list")}
+                className={`p-2 border rounded-r ${
+                  layout === "list"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-gray-700 hover:bg-blue-100"
+                }`}
+              >
+                <i className="pi pi-bars"></i>
+              </button>
+            </div>
           </div>
+
+          {layout === "grid" ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {currentProducts.map((product) => (
+                <div key={product.id} className="flex p-4 border rounded items-center gap-4">
+                  {product.imagen && (
+                    <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
+                      <img
+                        src={product.imagen}
+                        alt={product.nombre}
+                        className="w-full h-full object-scale-down rounded"
+                      />
+                    </div>
+                  )}
+                  <div className="flex flex-col flex-1">
+                    <h3 className="text-xl font-bold">{product.nombre}</h3>
+                    <p className="text-gray-700">{product.descripcion}</p>
+                    <p className="text-lg font-semibold">${product.precio}</p>
+                    {product.referencia && (
+                      <p className="text-xs text-gray-400">Referencia: {product.referencia}</p>
+                    )}
+                    {product.categoria && (
+                      <p className="text-xs text-gray-400">Categoría: {product.categoria}</p>
+                    )}
+                    <div className="flex gap-2 mt-2">
+                      <Link
+                        href={`/productDetail?id=${product.id}`}
+                        className="text-blue-500 underline"
+                      >
+                        Ver detalles
+                      </Link>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition"
+                        onClick={() => addToCart(product)}
+                      >
+                        Añadir al Carrito
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Controles de paginación */}
           <div className="flex justify-between items-center mt-8">
@@ -90,7 +163,9 @@ const ProductsPage = () => {
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(currentPage - 1)}
               className={`px-4 py-2 border rounded ${
-                currentPage === 1 ? "bg-gray-300" : "bg-blue-500 text-white hover:bg-blue-600"
+                currentPage === 1
+                  ? "bg-gray-300"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
             >
               Anterior
@@ -102,7 +177,9 @@ const ProductsPage = () => {
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(currentPage + 1)}
               className={`px-4 py-2 border rounded ${
-                currentPage === totalPages ? "bg-gray-300" : "bg-blue-500 text-white hover:bg-blue-600"
+                currentPage === totalPages
+                  ? "bg-gray-300"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
             >
               Siguiente
