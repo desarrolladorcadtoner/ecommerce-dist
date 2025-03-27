@@ -8,7 +8,6 @@ import ProductsSection from "./home/ProductsSection";
 export default function HomePage() {
   return (
     <>
-      
       <Header />
       <Carousel />
       <HeroSection />
