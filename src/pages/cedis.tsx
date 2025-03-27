@@ -97,7 +97,7 @@ export default function CedisPage() {
           </div>
 
            {/* General Schedule */}
-           <div className="mb-8">
+          <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-2">Horario General</h2>
             <p className="text-gray-600 mb-1">
               <span className="font-medium">Lunes a Viernes:</span> 8:30 AM - 6:30 PM

@@ -1,6 +1,7 @@
-import { Product } from "@/types";
+import React from 'react';
 import Link from 'next/link';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '../context/CartContext';
+import { Product } from '../types';
 
 interface ProductCardProps {
   product: Product;
@@ -10,14 +11,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="border p-4 rounded-md shadow-md hover:shadow-lg transition bg-white">
-      {/* Imagen */}
+    <div className="product-card">
       {product.imagen && (
         <div className="w-full h-40 overflow-hidden mb-4">
           <img
             src={product.imagen}
             alt={product.nombre}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-scale-down"
           />
         </div>
       )}
@@ -25,7 +25,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Nombre y descripción */}
       <h3 className="text-lg font-bold mb-2">{product.nombre}</h3>
       <p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>
-      
 
       {product.referencia && (
         <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>

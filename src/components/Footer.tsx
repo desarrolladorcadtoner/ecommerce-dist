@@ -10,7 +10,9 @@ const Footer = () => {
           
           {/* Logo and Description */}
           <div className="flex flex-col justify-between">
-            <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
+            <a href="/">
+              <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
+            </a>
             <ul>
               <li>5 de Mayo #1338 Pte., Centro</li>
               <li>Monterrey, NUEVO LEÓN</li>
@@ -18,7 +20,7 @@ const Footer = () => {
               <li>webmaster@cadtoner.com.mx</li>
             </ul>
           </div>
-  
+
           {/* About Us Links */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Productos</h3>
@@ -30,7 +32,7 @@ const Footer = () => {
               <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Catálogo Electrónico</a></li>
             </ul>
           </div>
-  
+
           {/* Customer Care Links */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Información</h3>
@@ -43,7 +45,7 @@ const Footer = () => {
               <li><a href="terminos-condiciones" className="text-gray-400 text-sm hover:text-pink-500">Términos y Condiciones</a></li>
             </ul>
           </div>
-  
+
           {/* Contact Info */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Conócenos</h3>
