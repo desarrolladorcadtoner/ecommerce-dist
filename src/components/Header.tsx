@@ -3,11 +3,16 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
+import { useCart } from "@/context/CartContext";
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const router = useRouter()
+  const { cartItems } = useCart(); // Obtener los productos del carrito
+
+  // Calcular el total de cantidades en el carrito
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const productCategories = [
     "Cartuchos de Toner",
@@ -82,9 +87,15 @@ const Header: React.FC = () => {
           </a>
           <a
             href="/cart"
-            className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
+            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center"
           >
-            <i className="pi pi-shopping-cart mr-2"></i>Carrito <Badge value="2" severity="warning"></Badge>
+            <i className="pi pi-shopping-cart text-2xl"></i>
+            <Badge
+              value={totalQuantity}
+              severity="warning"
+              className="absolute top-0 right-2 transform translate-x-1/2 -translate-y-1/2 bg-[#de1c85] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
+            />
+            <span className="ml-2">Carrito</span>
           </a>
         </div>
       </div>
