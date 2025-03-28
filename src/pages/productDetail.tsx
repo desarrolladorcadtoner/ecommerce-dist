@@ -37,7 +37,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (product) {
-      console.log(product);
+      console.log('Producto que se agrega al carrito:', product);
       addToCart({ ...product}); // Agregar el producto al carrito con la cantidad seleccionada
     }
   };
