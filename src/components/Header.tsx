@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
+import { Badge } from 'primereact/badge';
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -83,7 +84,7 @@ const Header: React.FC = () => {
             href="/cart"
             className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
           >
-            <i className="pi pi-shopping-cart mr-2"></i>Carrito
+            <i className="pi pi-shopping-cart mr-2"></i>Carrito <Badge value="2" severity="warning"></Badge>
           </a>
         </div>
       </div>
