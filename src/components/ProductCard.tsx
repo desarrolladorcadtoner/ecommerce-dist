@@ -43,7 +43,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </Link>
       <button
         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition mt-2"
-        onClick={() => addToCart(product)}
+        onClick={() => {
+          console.log('Producto añadido al carrito:', product);
+          addToCart(product);
+        }}
       >
         Añadir al Carrito
       </button>

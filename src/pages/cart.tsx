@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -8,33 +8,21 @@ import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card } from "primereact/card";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
 
 const CartPage: React.FC = () => {
   const router = useRouter();
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: "Producto 1", price: 100, quantity: 2 },
-    { id: 2, name: "Producto 2", price: 50, quantity: 1 },
-  ]);
+  const { cartItems, removeFromCart } = useCart(); // Obtener los datos del carrito desde el contexto
+
+  console.log('Elementos en el carrito:', cartItems); // Verificar contenido del carrito
 
   // Calcular el total del carrito
   const calculateTotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
-
-  // Manejar la eliminación de un artículo del carrito
-  const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    return cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
   };
 
   // Renderizar la acción de eliminar
-  const actionBodyTemplate = (rowData: CartItem) => (
+  const actionBodyTemplate = (rowData: any) => (
     <Button
       icon="pi pi-trash"
       className="p-button-rounded p-button-danger transition-transform hover:scale-110"
@@ -55,9 +43,9 @@ const CartPage: React.FC = () => {
             responsiveLayout="scroll" 
             className="w-full bg-white shadow-md rounded-lg"
           >
-            <Column field="name" header="Producto" className="w-1/3 text-left px-4 py-2" />
-            <Column field="quantity" header="Cantidad" className="w-1/6 text-center px-4 py-2" />
-            <Column field="price" header="Precio" className="w-1/6 text-right px-4 py-2 text-green-700 font-bold" />
+            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />
+            <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2" />
+            <Column field="quantity" header="Cantidad" className="w-1/6 text-right px-4 py-2 text-green-700 font-bold" />
             <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
           </DataTable>
 

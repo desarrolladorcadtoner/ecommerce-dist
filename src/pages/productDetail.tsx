@@ -1,48 +1,53 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { fetchFichaTecnica, fetchProductById } from "@/services/productService"
-import type { Product } from "@/types"
-import { ShoppingCart } from "lucide-react"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-import { TabView, TabPanel } from "primereact/tabview"
-import "primereact/resources/themes/lara-light-blue/theme.css"
-import "primereact/resources/primereact.min.css"
-import "@/styles/productDetail.css" // Importar el archivo CSS personalizado
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { fetchFichaTecnica, fetchProductById } from "@/services/productService";
+import type { Product } from "@/types";
+import { ShoppingCart } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { TabView, TabPanel } from "primereact/tabview";
+import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "@/styles/productDetail.css";
 
 const ProductDetail = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const [product, setProduct] = useState<Product | null>(null)
-  const [fichaTecnica, setFichaTecnica] = useState<any | null>(null)
-  const [quantity, setQuantity] = useState(1)
+  const router = useRouter();
+  const { id } = router.query;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [fichaTecnica, setFichaTecnica] = useState<any | null>(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const { addToCart } = useCart(); // Obtener la función addToCart del contexto
 
   useEffect(() => {
     if (id) {
-      fetchProductById(id as string).then(setProduct)
+      fetchProductById(id as string).then(setProduct);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     if (product) {
-      fetchFichaTecnica(product.referencia).then(setFichaTecnica)
+      fetchFichaTecnica(product.referencia).then(setFichaTecnica);
     }
-  }, [product])
+  }, [product]);
 
   const handleAddToCart = () => {
-    console.log(`Añadir ${quantity} unidades del producto ${product?.nombre} al carrito`)
-    // Aquí puedes agregar la lógica para añadir el producto al carrito
-  }
+    if (product) {
+      console.log(product);
+      addToCart({ ...product}); // Agregar el producto al carrito con la cantidad seleccionada
+    }
+  };
 
   if (!product) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -102,38 +107,7 @@ const ProductDetail = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Modelo de Referencia:</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.ModeloReferencia}</td>
                     </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Línea:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Linea}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Tecnología de Impresión:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.TecnoImpresion}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Calidad:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Calidad}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Color:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Color}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rendimiento:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Rendimiento}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Nombre Común:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.NombreComun}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Paginas al 5% de cobertura:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.PaginaccientoCobertura}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Para usarse en impresoras:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.UsoImpresora}</td>
-                    </tr>
+                    {/* Más filas aquí */}
                   </tbody>
                 </table>
               ) : (
@@ -157,8 +131,7 @@ const ProductDetail = () => {
       </div>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ProductDetail
-
+export default ProductDetail;

@@ -1,4 +1,4 @@
-const CTASection = () => (
+{/*const CTASection = () => (
     <section className="py-12 bg-blue-600 text-white text-center">
       <h2 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para empezar?</h2>
       <p className="mb-6">Únete a nuestra comunidad de compradores satisfechos.</p>
@@ -8,5 +8,5 @@ const CTASection = () => (
     </section>
   );
   
-  export default CTASection;
+  export default CTASection;*/}
   
