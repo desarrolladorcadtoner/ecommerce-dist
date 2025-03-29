@@ -11,13 +11,13 @@ import { useCart } from "@/context/CartContext"; // Importar el contexto del car
 
 const CartPage: React.FC = () => {
   const router = useRouter();
-  const { cartItems, removeFromCart } = useCart(); // Obtener los datos del carrito desde el contexto
+  const { cartItems, removeFromCart, updateQuantity } = useCart(); // Obtener los datos del carrito desde el contexto
   
   console.log('Contenido del carrito:', cartItems);// Verificar contenido del carrito
 
   // Calcular el total del carrito
   const calculateTotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+    return parseFloat(cartItems.reduce((total, item) => total + item.precio * item.quantity, 0).toFixed(4));
   };
 
   // Renderizar la acción de eliminar
@@ -38,6 +38,25 @@ const CartPage: React.FC = () => {
     />
   );
 
+  // Renderizar la cantidad del producto
+  // Se puede mejorar para que sea un input editable
+  const quantityBodyTemplate = (rowData: any) => {
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newQuantity = Math.max(1, Number(e.target.value)); // Evitar cantidades menores a 1
+      updateQuantity(rowData.id, newQuantity); // Actualizar la cantidad en el contexto
+    };
+
+    return (
+      <input
+        type="number"
+        min="1"
+        value={rowData.quantity}
+        onChange={handleQuantityChange}
+        className="w-16 p-2 border border-gray-300 rounded text-center"
+      />
+    );
+  };
+
   return (
     <>
       <Header />
@@ -55,7 +74,7 @@ const CartPage: React.FC = () => {
             <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-4 py-2" />
             <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />
             <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2" />
-            <Column field="quantity" header="Cantidad" className="w-1/6 text-center  px-4 py-2 text-green-700 font-bold" />
+            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2" />
             <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
           </DataTable>
 
