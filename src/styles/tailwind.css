@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .general-input {
     border: 1px solid #a7a7a7;
     height: 7vh;

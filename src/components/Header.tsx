@@ -35,15 +35,15 @@ const Header: React.FC = () => {
   return (
     <header>
       {/* Barra superior */}
-      <div className="bg-gray-100 py-2 px-4 flex place-content-center items-center text-sm">
-        <span>¿Quieres ser Distribuidor?</span>
+      <div className="bg-gray-100 py-2 px-4 flex xl:place-content-center  md:place-content-evenly sm:place-content-evenly items-center text-sm">
+        <span className="xl:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
         </button>
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#0072b1] place-content-center text-white px-4 py-3 flex items-center">
+      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
         {/* Logo */}
         <div className="flex items-center">
           <a href="/">
@@ -58,51 +58,53 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
-          <input
-            type="text"
-            placeholder="Buscar productos..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
-          />
-          <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
-            BUSCAR
-          </button>
-        </form>
-
-        {/* Botones a la derecha */}
-        <div className="flex space-x-4">
-          <a
-            href="/billing"
-            className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
-          >
-            <i className="pi pi-file mr-2"></i>Facturación
-          </a>
-          <a
-            href="/login"
-            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
-          >
-            <i className="pi pi-user mr-2"></i>Iniciar Sesión
-          </a>
-          <a
-            href="/cart"
-            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center"
-          >
-            <i className="pi pi-shopping-cart text-2xl"></i>
-            <Badge
-              value={totalQuantity}
-              severity="warning"
-              className="absolute top-0 right-2 transform translate-x-1/2 -translate-y-1/2 bg-[#de1c85] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
+          <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
+            <input
+              type="text"
+              placeholder="Buscar productos..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
             />
-            <span className="ml-2">Carrito</span>
-          </a>
+            <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
+              BUSCAR
+            </button>
+          </form>
+
+          {/* Botones a la derecha */}
+          <div className="flex space-x-6">
+            <a
+              href="/billing"
+              className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
+            >
+              <i className="pi pi-file mr-2"></i>Facturación
+            </a>
+            <a
+              href="/login"
+              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
+            >
+              <i className="pi pi-user mr-2"></i>Iniciar Sesión
+            </a>
+            <a
+              href="/cart"
+              className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center"
+            >
+              <i className="pi pi-shopping-cart p-overlay-badge text-2xl">
+                <Badge
+                  value={totalQuantity}
+                  severity="success"
+                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center"
+                />
+              </i>
+
+              <span className="ml-2">Carrito</span>
+            </a>
+          </div>
         </div>
-      </div>
 
       {/* Menú de navegación */}
       <nav className="bg-[#005a90] text-white py-3">
-        <ul className="flex justify-center space-x-6">
+        <ul className="flex justify-center space-x-6 xl:space-x-8 ">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">
               <i className="pi pi-home"></i>
