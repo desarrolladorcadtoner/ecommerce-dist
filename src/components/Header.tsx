@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   return (
     <header>
       {/* Barra superior */}
-      <div className="bg-gray-100 py-2 px-4 flex xl:place-content-center  md:place-content-evenly sm:place-content-evenly items-center text-sm">
+      <div className="headerSuperior bg-gray-100 py-2 px-4 flex xl:place-content-center  md:place-content-evenly sm:place-content-evenly items-center text-sm">
         <span className="xl:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
@@ -43,9 +43,9 @@ const Header: React.FC = () => {
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
+      <div className="headerPrincipal bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
         {/* Logo */}
-        <div className="flex items-center">
+        <div className="headerPrincipal-Logo flex items-center">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-          <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="headerPrincipal-form flex items-center w-full max-w-xl mx-4">
             <input
               type="text"
               placeholder="Buscar productos..."
@@ -69,21 +69,23 @@ const Header: React.FC = () => {
             <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
               BUSCAR
             </button>
-          </form>
+        </form>
 
-          {/* Botones a la derecha */}
-          <div className="flex space-x-6">
+        {/* Botones a la derecha */}
+        <div className="headerPrincipal-botones flex space-x-6">
             <a
               href="/billing"
               className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
             >
-              <i className="pi pi-file mr-2"></i>Facturación
+              <i className="pi pi-file mr-2"></i>
+              <span>Facturación</span>
             </a>
             <a
               href="/login"
               className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
             >
-              <i className="pi pi-user mr-2"></i>Iniciar Sesión
+              <i className="pi pi-user mr-2"></i>
+            <span>Iniciar Sesión</span>
             </a>
             <a
               href="/cart"
@@ -99,11 +101,12 @@ const Header: React.FC = () => {
 
               <span className="ml-2">Carrito</span>
             </a>
-          </div>
         </div>
 
+      </div>
+
       {/* Menú de navegación */}
-      <nav className="bg-[#005a90] text-white py-3">
+      <nav className="headerMenu bg-[#005a90] text-white py-3">
         <ul className="flex justify-center space-x-6 xl:space-x-8 ">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">

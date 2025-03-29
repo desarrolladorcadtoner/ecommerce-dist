@@ -1,4 +1,5 @@
 import '../styles/tailwind.css';
+import '../styles/global.css';
 import { AppProps } from 'next/app';
 import { CartProvider } from '@/context/CartContext';
 import 'primereact/resources/themes/viva-light/theme.css';/* O el tema que estés utilizando */
