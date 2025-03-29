@@ -60,7 +60,7 @@ const CartPage: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="p-4 md:p-8 flex justify-center">
+      <div className="bg-white p-4 md:p-8 flex justify-center">
         <Card className="shadow-lg p-6 bg-gray-50 rounded-xl border border-gray-300 w-full md:w-3/4 lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Carrito de Compras</h1>
 
@@ -69,7 +69,7 @@ const CartPage: React.FC = () => {
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full p-4 bg-white shadow-md rounded-lg"
+            className="w-full p-4 shadow-md rounded-lg"
           >
             <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-4 py-2" />
             <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />

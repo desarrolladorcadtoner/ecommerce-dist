@@ -1,7 +1,7 @@
 import '../styles/tailwind.css';
 import { AppProps } from 'next/app';
 import { CartProvider } from '@/context/CartContext';
-//import 'primereact/resources/themes/lara-dark-blue/theme.css'; /* O el tema que estés utilizando */
+import 'primereact/resources/themes/viva-light/theme.css'; /* O el tema que estés utilizando */
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
