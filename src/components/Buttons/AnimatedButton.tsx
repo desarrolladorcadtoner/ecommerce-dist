@@ -1,48 +1,43 @@
 import React, { useRef } from 'react';
-import { Messages } from 'primereact/messages';
-import { useMountEffect } from 'primereact/hooks';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 
-const AnimatedButton = () => {
-    const msgs = useRef<Messages>(null);
+interface AnimatedButtonProps {
+    onClick?: () => void; // Prop opcional para pasar una función
+}
+
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick }) => {
+    const toast = useRef<Toast>(null);
+
+    const showSuccess = () => {
+        toast.current?.show({
+            severity: 'success', // Define el color y estilo del mensaje
+            summary: 'Éxito', // Título del mensaje
+            detail: 'Producto agregado al carrito', // Contenido del mensaje
+            life: 3000, // Tiempo de vida del mensaje en milisegundos
+        });
+    };
 
     const handleClick = () => {
-        if (msgs.current) {
-            msgs.current.clear();
-            msgs.current.show([
-                {
-                    severity: 'success',
-                    summary: '¡Éxito!',
-                    detail: 'Producto añadido al carrito.',
-                    life: 5000,
-                },
-            ]);
-
-            // Agregar animación de salida después del tiempo de vida
-            setTimeout(() => {
-                if (msgs.current) {
-                    msgs.current.clear();
-                }
-            }, 5000);
+        showSuccess(); // Mostrar el mensaje
+        if (onClick) {
+            onClick(); // Ejecutar la función pasada como prop
         }
     };
 
     return (
-        <div className="relative flex flex-col items-center">
-            {/* Contenedor de mensajes */}
-            <div className="absolute top-[-150px] w-full message-appear">
-                <Messages ref={msgs} />
-            </div>
-
-            {/* Botón */}
-            <button
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition mt-2"
+        <div className="card flex justify-center">
+            {/* Componente Toast para mostrar mensajes */}
+            <Toast ref={toast} />
+            {/* Botón que dispara el mensaje y la función */}
+            <Button
+                className="bg-blue-500 text-white py-2 px-4 rounded-md transition mt-2 hover:bg-blue-600"
                 onClick={handleClick}
             >
                 <i className="pi pi-shopping-cart text-2xl mr-3"></i>
                 Añadir al Carrito
-            </button>
+            </Button>
         </div>
     );
 };
-
 export default AnimatedButton;

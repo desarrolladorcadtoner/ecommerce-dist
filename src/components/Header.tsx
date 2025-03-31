@@ -35,7 +35,11 @@ const Header: React.FC = () => {
   return (
     <header>
       {/* Barra superior */}
-      <div className="headerSuperior bg-gray-100 py-2 px-4 flex xl:place-content-center  md:place-content-evenly sm:place-content-evenly items-center text-sm">
+      <div className="
+      bg-gray-100 py-2 px-4 flex 
+      xl:place-content-center  
+      md:place-content-center 
+      sm:place-content-evenly items-center text-sm">
         <span className="xl:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
@@ -43,9 +47,9 @@ const Header: React.FC = () => {
       </div>
 
       {/* Barra principal */}
-      <div className="headerPrincipal bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
+      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
         {/* Logo */}
-        <div className="headerPrincipal-Logo flex items-center">
+        <div className="flex items-center">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -58,7 +62,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-        <form onSubmit={handleSearch} className="headerPrincipal-form flex items-center w-full max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
             <input
               type="text"
               placeholder="Buscar productos..."
@@ -72,7 +76,7 @@ const Header: React.FC = () => {
         </form>
 
         {/* Botones a la derecha */}
-        <div className="headerPrincipal-botones flex space-x-6">
+        <div className="flex space-x-6">
             <a
               href="/billing"
               className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
@@ -89,7 +93,7 @@ const Header: React.FC = () => {
             </a>
             <a
               href="/cart"
-              className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center"
+              className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center"
             >
               <i className="pi pi-shopping-cart p-overlay-badge text-2xl">
                 <Badge

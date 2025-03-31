@@ -12,9 +12,6 @@ export default function HomePage() {
       <Carousel />
       <HeroSection />
       <ProductsSection />
-      <div className="flex justify-center items-center m-14 ">
-        <AnimatedButton />
-      </div>
       <Footer />
     </>
   );

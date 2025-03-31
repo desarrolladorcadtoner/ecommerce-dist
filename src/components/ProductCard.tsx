@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types';
+import AnimatedButton from '@/components/Buttons/AnimatedButton';
 
 interface ProductCardProps {
   product: Product;
@@ -41,15 +42,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/productDetail?id=${product.id}`}>
         Ver detalles
       </Link>
-      <button
+
+      {/* Botón Agregar al carrito */}
+      <AnimatedButton
+        onClick={() => addToCart(product)}
+      />
+      {/*<button
         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition mt-2"
         onClick={() => {
-          console.log('Producto añadido al carrito:', product);
           addToCart(product);
         }}
       >
         Añadir al Carrito
-      </button>
+      </button>*/}
     </div>
   );
 };
