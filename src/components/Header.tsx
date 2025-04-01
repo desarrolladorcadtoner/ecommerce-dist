@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
+import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -130,7 +131,14 @@ const Header: React.FC = () => {
 
       {/* Menú de navegación */}
       <nav className="headerMenu bg-[#005a90] text-white py-3 sm:flex sm:justify-center">
-        <ul className="flex justify-center space-x-6 xl:space-x-8 sm:space-x-4 sm:flex-col sm:space-y-2">
+        {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
+        <div className="block md:hidden">
+          <ToggleMenu />
+        </div>
+
+        {/* Mostrar lista de navegación solo en resoluciones mayores o iguales a 760px */}
+        <ul className=" flex justify-center space-x-6 xl:space-x-8 sm:space-x-4 
+        sm:flex-col sm:space-y-2 sm:hidden">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">
               <i className="pi pi-home"></i>
@@ -180,6 +188,8 @@ const Header: React.FC = () => {
             </Link>
           </li>
         </ul>
+
+        
       </nav>
     </header>
   )
