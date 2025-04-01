@@ -69,13 +69,13 @@ const CartPage: React.FC = () => {
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full p-4 shadow-lg rounded-lg bg-transparent"
+            className="w-full h-[600px] px-4 py-4 shadow-lg rounded-lg overflow-auto"
           >
-            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-4 py-2" />
-            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />
-            <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2" />
-            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2" />
-            <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
+            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 rounded" />
+            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2 bg-gray-50" />
+            <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2 bg-gray-50" />
+            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
+            <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 bg-gray-50 text-red-900" />
           </DataTable>
 
           {/* Total y botón de pago */}
