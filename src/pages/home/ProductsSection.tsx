@@ -40,21 +40,27 @@ const ProductsSection = () => {
     <section className="p-8">
       {/* Ofertas */}
       <h2 className="text-2xl font-bold mb-4">Ofertas</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center mb-8">
+      <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
+      md:grid-cols-2 lg:grid-cols-4
+      max-1024:grid-cols-2 max-1024:gap-2">
         {offerProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
       {/* Nuevos productos */}
       <h2 className="text-2xl font-bold mb-4">Productos Nuevos</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center mb-8">
+      <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
+      md:grid-cols-2 lg:grid-cols-4  
+      max-1024:grid-cols-2 max-1024:gap-2">
         {newProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
       {/* Productos destacados */}
       <h2 className="text-2xl font-bold mb-4">Productos Destacados</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+      <div className="grid grid-cols-1 gap-4 justify-items-center
+      md:grid-cols-3 lg:grid-cols-4 
+      max-1024:grid-cols-2 max-1024:gap-2">
         {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

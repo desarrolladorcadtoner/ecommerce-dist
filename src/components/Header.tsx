@@ -39,7 +39,7 @@ const Header: React.FC = () => {
       bg-gray-100 py-2 px-4 flex 
       xl:place-content-center  
       md:place-content-center 
-      sm:place-content-evenly items-center text-sm">
+      sm:place-content-evenly ">
         <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
@@ -47,9 +47,10 @@ const Header: React.FC = () => {
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
+      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center
+      sm:flex-col sm:items-center sm:space-x-0 sm:space-y-2">
         {/* Logo */}
-        <div className="flex items-center max-1024:w-60">
+        <div className="flex items-center max-1024:w-60 sm:w-40 sm:justify-center sm:mb-2">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -62,7 +63,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4 ">
           <input
             type="text"
             placeholder="Buscar productos..."
@@ -81,7 +82,8 @@ const Header: React.FC = () => {
             href="/billing"
             className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
               hover:bg-[#de1c85] hover:border-[#de1c85]
-              max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full "
+              max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
+              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full"
           >
             <i className="pi pi-file mr-2 max-1024:mt-5 max-1024:ml-2"></i>
             <span className="max-1024:text-transparent">Facturación</span>
@@ -114,8 +116,8 @@ const Header: React.FC = () => {
       </div>
 
       {/* Menú de navegación */}
-      <nav className="headerMenu bg-[#005a90] text-white py-3">
-        <ul className="flex justify-center space-x-6 xl:space-x-8 ">
+      <nav className="headerMenu bg-[#005a90] text-white py-3 sm:flex sm:justify-center">
+        <ul className="flex justify-center space-x-6 xl:space-x-8 sm:space-x-4 sm:flex-col sm:space-y-2">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">
               <i className="pi pi-home"></i>

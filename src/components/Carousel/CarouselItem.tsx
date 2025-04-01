@@ -16,12 +16,12 @@ const CarouselItem: React.FC<CarouselItemProps> = ({
   buttonLink2,
   buttonText2,
 }) => (
-  <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+  <div className="relative w-full h-[400px] md:w-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
     {/* Imagen */}
     <img
       src={imgUrl}
       alt="carousel"
-      className="w-full h-full object-fill object-center"
+      className="w-full h-full object-fill object-center md:w-[800px]"
     />
 
     {/* Botones */}
