@@ -2,11 +2,18 @@ import React, { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
+import { Badge } from 'primereact/badge';
+import { useCart } from "@/context/CartContext";
+import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const router = useRouter()
+  const { cartItems } = useCart(); // Obtener los productos del carrito
+
+  // Calcular el total de cantidades en el carrito
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const productCategories = [
     "Cartuchos de Toner",
@@ -29,17 +36,24 @@ const Header: React.FC = () => {
   return (
     <header>
       {/* Barra superior */}
-      <div className="bg-gray-100 py-2 px-4 flex place-content-center items-center text-sm">
-        <span>¿Quieres ser Distribuidor?</span>
+      <div className="
+      bg-gray-100 py-2 px-4 flex 
+      xl:place-content-center  
+      md:place-content-center 
+      sm:place-content-evenly ">
+        <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
         </button>
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#0072b1] place-content-center text-white px-4 py-3 flex items-center">
+      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center
+      sm:flex-col sm:items-center sm:space-x-0 sm:space-y-2 sm:h-[400px]">
         {/* Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center 
+        max-1024:w-60 
+        sm:w-60 sm:justify-center">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -52,7 +66,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4 ">
           <input
             type="text"
             placeholder="Buscar productos..."
@@ -66,31 +80,65 @@ const Header: React.FC = () => {
         </form>
 
         {/* Botones a la derecha */}
-        <div className="flex space-x-4">
+        <div className="flex space-x-6 
+        sm:space-x-14 ">
           <a
             href="/billing"
-            className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
+            className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
+              hover:bg-[#de1c85] hover:border-[#de1c85]
+              max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
+              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
-            <i className="pi pi-file mr-2"></i>Facturación
+            <i className="pi pi-file mr-2
+             max-1024:mt-5 max-1024:ml-2
+             sm:ml-2"></i>
+            <span className="max-1024:text-transparent 
+            sm:absolute sm:top-[60px]">Facturación</span>
           </a>
           <a
             href="/login"
-            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
+            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
-            <i className="pi pi-user mr-2"></i>Iniciar Sesión
+            <i className="pi pi-user mr-2 
+            max-1024:mt-10 max-1024:ml-2
+            sm:ml-2"></i>
+            <span className="max-1024:text-transparent
+            sm:absolute sm:top-[60px] sm:left-[10px]">Iniciar Sesión</span>
           </a>
           <a
             href="/cart"
-            className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
+            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
-            <i className="pi pi-shopping-cart mr-2"></i>Carrito
+            <i className="pi pi-shopping-cart p-overlay-badge text-2xl
+            max-1024:mt-6 max-1024:mr-1 
+            sm:ml-0 sm:mr-1">
+              <Badge
+                value={totalQuantity}
+                severity="success"
+                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center"
+              />
+            </i>
+            <span className="ml-2 max-1024:text-transparent
+            sm:absolute sm:top-[60px]">Carrito</span>
           </a>
         </div>
+
       </div>
 
       {/* Menú de navegación */}
-      <nav className="bg-[#005a90] text-white py-3">
-        <ul className="flex justify-center space-x-6">
+      <nav className="headerMenu bg-[#005a90] text-white py-3 sm:flex sm:justify-center">
+        {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
+        <div className="block md:hidden">
+          <ToggleMenu />
+        </div>
+
+        {/* Mostrar lista de navegación solo en resoluciones mayores o iguales a 760px */}
+        <ul className=" flex justify-center space-x-6 xl:space-x-8 sm:space-x-4 
+        sm:flex-col sm:space-y-2 sm:hidden">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">
               <i className="pi pi-home"></i>
@@ -140,6 +188,8 @@ const Header: React.FC = () => {
             </Link>
           </li>
         </ul>
+
+        
       </nav>
     </header>
   )

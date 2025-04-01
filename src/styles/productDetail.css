@@ -1,7 +1,7 @@
 /* Estilos personalizados para las pestañas */
-.p-tabview-nav {
- 
-}
+/*.p-tabview-nav {
+ //cuando no se utilice algun estilo, recomiendo comentarlo o eliminarlo segun sea el caso
+}*/
 
 .p-tabview-nav li {
   margin-right: 0.5rem;

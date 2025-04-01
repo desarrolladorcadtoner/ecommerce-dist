@@ -1,4 +1,4 @@
-"use client";
+{/*"use client";
 
 import React from "react";
 import { useParams } from "next/navigation";
@@ -28,5 +28,5 @@ const ProductDetailPage: React.FC = () => {
   );
 };
 
-export default ProductDetailPage;
+export default ProductDetailPage;*/}
 

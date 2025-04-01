@@ -1,6 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
+'use client';
+import React from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -8,33 +7,21 @@ import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card } from "primereact/card";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
 
 const CartPage: React.FC = () => {
   const router = useRouter();
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: "Producto 1", price: 100, quantity: 2 },
-    { id: 2, name: "Producto 2", price: 50, quantity: 1 },
-  ]);
+  const { cartItems, removeFromCart, updateQuantity } = useCart(); // Obtener los datos del carrito desde el contexto
+  
+  console.log('Contenido del carrito:', cartItems);// Verificar contenido del carrito
 
   // Calcular el total del carrito
   const calculateTotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
-
-  // Manejar la eliminación de un artículo del carrito
-  const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    return parseFloat(cartItems.reduce((total, item) => total + item.precio * item.quantity, 0).toFixed(4));
   };
 
   // Renderizar la acción de eliminar
-  const actionBodyTemplate = (rowData: CartItem) => (
+  const actionBodyTemplate = (rowData: any) => (
     <Button
       icon="pi pi-trash"
       className="p-button-rounded p-button-danger transition-transform hover:scale-110"
@@ -42,22 +29,52 @@ const CartPage: React.FC = () => {
     />
   );
 
+  // Renderizar la imagen del producto
+  const imageBodyTemplate = (rowData: any) => (
+    <img
+      src={rowData.imagen}
+      alt={rowData.nombre}
+      className="ml-12 w-24 h-24 object-cover rounded-md"
+    />
+  );
+
+  // Renderizar la cantidad del producto
+  // Se puede mejorar para que sea un input editable
+  const quantityBodyTemplate = (rowData: any) => {
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newQuantity = Math.max(1, Number(e.target.value)); // Evitar cantidades menores a 1
+      updateQuantity(rowData.id, newQuantity); // Actualizar la cantidad en el contexto
+    };
+
+    return (
+      <input
+        type="number"
+        min="1"
+        value={rowData.quantity}
+        onChange={handleQuantityChange}
+        className="w-16 p-2 border border-gray-300 rounded text-center"
+      />
+    );
+  };
+
   return (
     <>
       <Header />
-      <div className="p-4 md:p-8 flex justify-center">
+      <div className="bg-white p-4 md:p-8 flex justify-center">
         <Card className="shadow-lg p-6 bg-gray-50 rounded-xl border border-gray-300 w-full md:w-3/4 lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Carrito de Compras</h1>
 
           {/* Tabla de productos */}
+          
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full bg-white shadow-md rounded-lg"
+            className="w-full p-4 shadow-lg rounded-lg bg-transparent"
           >
-            <Column field="name" header="Producto" className="w-1/3 text-left px-4 py-2" />
-            <Column field="quantity" header="Cantidad" className="w-1/6 text-center px-4 py-2" />
-            <Column field="price" header="Precio" className="w-1/6 text-right px-4 py-2 text-green-700 font-bold" />
+            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-4 py-2" />
+            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />
+            <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2" />
+            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2" />
             <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
           </DataTable>
 

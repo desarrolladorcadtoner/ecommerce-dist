@@ -2,23 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "primereact/resources/themes/lara-light-blue/theme.css";
-@import "primereact/resources/primereact.min.css";
-@import "primeicons/primeicons.css";
+/*@import "primereact/resources/themes/lara-light-blue/theme.css";*/
+/*@import "primereact/resources/primereact.min.css";*/
+/*@import "primeicons/primeicons.css";*/
 
 /* Sidebar styles */
 aside {
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+header {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.p-toast-success {
+  border-left: 5px solid #28a745;
+  /* Franja verde */
+  padding-left: 1rem;
+  /* Ajustar el espacio entre la franja y el contenido */
+}
+
+/* Estilos Card  */
+
+
+
+/* Estilos responsivos Header */
+/*@media (max-width: 768px) {
+  .headerSuperior {
+    justify-content: space-evenly;
   }
-  
-  /* Header styles */
-  header {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .headerPrincipal {
+    flex-direction: column;
   }
-  button {
-    transition: background-color 0.3s ease;
+
+  .headerPrincipal>.headerPrincipal-Logo,
+  .headerPrincipal-form,
+  .headerPrincipal-botones {
+    margin-bottom: 1.5rem;
   }
-  button:hover {
-    transform: scale(1.05);
+
+  .headerPrincipal-botones a {
+    width: 60px;
+    /* Hacer los botones circulares 
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Convertir en círculo 
+    position: relative
+    /* Necesario para posicionar el texto 
+    overflow: hidden;
+    /* Ocultar el texto inicialmente 
+    transition: all 0.3s ease;
+    /* Transición suave 
   }
-  
+
+  .headerPrincipal-botones a i {
+    font-size: 24px;
+    /* Ajustar el tamaño del ícono 
+  }
+
+  .headerPrincipal-botones a span {
+    position: absolute;
+    bottom: -30px;
+    /* Ocultar el texto debajo del botón 
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    opacity: 0;
+    /* Hacer el texto invisible inicialmente 
+    transition: all 0.3s ease;
+    /* Transición suave 
+  }
+
+  .headerPrincipal-botones a:hover span {
+    bottom: 10px;
+    /* Mover el texto hacia arriba al hacer hover 
+    opacity: 1;
+    /* Hacer el texto visible 
+  }
+
+  .headerPrincipal-botones {
+    justify-content: center;
+    /* Centrar los botones 
+    gap: 1rem;
+    /* Espaciado entre botones 
+  }
+
+  .headerMenu>ul {
+    flex-direction: column;
+  }
+
+}*/
