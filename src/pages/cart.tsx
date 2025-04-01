@@ -69,7 +69,7 @@ const CartPage: React.FC = () => {
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full p-4 shadow-md rounded-lg"
+            className="w-full p-4 shadow-lg rounded-lg bg-transparent"
           >
             <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-4 py-2" />
             <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2" />
