@@ -40,7 +40,7 @@ const Header: React.FC = () => {
       xl:place-content-center  
       md:place-content-center 
       sm:place-content-evenly items-center text-sm">
-        <span className="xl:mr-8">¿Quieres ser Distribuidor?</span>
+        <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
         <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
           <a href="register">REGÍSTRATE</a>
         </button>
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
       {/* Barra principal */}
       <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center">
         {/* Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center max-1024:w-60">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -63,48 +63,52 @@ const Header: React.FC = () => {
 
         {/* Barra de búsqueda */}
         <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
-            />
-            <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
-              BUSCAR
-            </button>
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="flex-grow px-4 py-2 rounded-l border-none outline-none text-[#5c5c66]"
+          />
+          <button type="submit" className="bg-[#0b4468] px-4 py-2 text-white font-semibold rounded-r hover:bg-[#de1c85]">
+            BUSCAR
+          </button>
         </form>
 
         {/* Botones a la derecha */}
         <div className="flex space-x-6">
-            <a
-              href="/billing"
-              className="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85]"
-            >
-              <i className="pi pi-file mr-2"></i>
-              <span>Facturación</span>
-            </a>
-            <a
-              href="/login"
-              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600"
-            >
-              <i className="pi pi-user mr-2"></i>
-            <span>Iniciar Sesión</span>
-            </a>
-            <a
-              href="/cart"
-              className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center"
-            >
-              <i className="pi pi-shopping-cart p-overlay-badge text-2xl">
-                <Badge
-                  value={totalQuantity}
-                  severity="success"
+          <a
+            href="/billing"
+            className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
+              hover:bg-[#de1c85] hover:border-[#de1c85]
+              max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full "
+          >
+            <i className="pi pi-file mr-2 max-1024:mt-5 max-1024:ml-2"></i>
+            <span className="max-1024:text-transparent">Facturación</span>
+          </a>
+          <a
+            href="/login"
+            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white"
+          >
+            <i className="pi pi-user mr-2 max-1024:mt-10 max-1024:ml-2"></i>
+            <span className="max-1024:text-transparent">Iniciar Sesión</span>
+          </a>
+          <a
+            href="/cart"
+            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white"
+          >
+            <i className="pi pi-shopping-cart p-overlay-badge text-2xl
+            max-1024:mt-6 max-1024:mr-1">
+              <Badge
+                value={totalQuantity}
+                severity="success"
                 className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center"
-                />
-              </i>
-
-              <span className="ml-2">Carrito</span>
-            </a>
+              />
+            </i>
+            <span className="ml-2 max-1024:text-transparent">Carrito</span>
+          </a>
         </div>
 
       </div>
