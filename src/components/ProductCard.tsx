@@ -13,9 +13,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="product-card">
+    <div className="product-card relative">
       <Card className="w-full h-full flex flex-col justify-evenly p-4 shadow-lg 
-      hover:shadow-xl hover:border-t-4  hover:border-blue-500
+      hover:shadow-xl hover:border-4  hover:border-blue-500 hover:absolute 
       transition duration-300 ease-in-out bg-white rounded-lg
       transition duration-300 ease-in-out
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4">
@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         {/* Botón Agregar al carrito */}
-        <div className="mt-auto">
+        <div className="mt-4">
           <AnimatedButton onClick={() => addToCart(product)} />
         </div>
       </Card>
