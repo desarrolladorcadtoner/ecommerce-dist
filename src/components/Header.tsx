@@ -48,9 +48,11 @@ const Header: React.FC = () => {
 
       {/* Barra principal */}
       <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center
-      sm:flex-col sm:items-center sm:space-x-0 sm:space-y-2">
+      sm:flex-col sm:items-center sm:space-x-0 sm:space-y-2 sm:h-[400px]">
         {/* Logo */}
-        <div className="flex items-center max-1024:w-60 sm:w-40 sm:justify-center sm:mb-2">
+        <div className="flex items-center 
+        max-1024:w-60 
+        sm:w-60 sm:justify-center">
           <a href="/">
             <Image
               src="/images/logo-cadtoner.png"
@@ -77,39 +79,50 @@ const Header: React.FC = () => {
         </form>
 
         {/* Botones a la derecha */}
-        <div className="flex space-x-6">
+        <div className="flex space-x-6 
+        sm:space-x-14 ">
           <a
             href="/billing"
             className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
               hover:bg-[#de1c85] hover:border-[#de1c85]
               max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
-              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full"
+              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
-            <i className="pi pi-file mr-2 max-1024:mt-5 max-1024:ml-2"></i>
-            <span className="max-1024:text-transparent">Facturación</span>
+            <i className="pi pi-file mr-2
+             max-1024:mt-5 max-1024:ml-2
+             sm:ml-2"></i>
+            <span className="max-1024:text-transparent 
+            sm:absolute sm:top-[60px]">Facturación</span>
           </a>
           <a
             href="/login"
             className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
-            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white"
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
-            <i className="pi pi-user mr-2 max-1024:mt-10 max-1024:ml-2"></i>
-            <span className="max-1024:text-transparent">Iniciar Sesión</span>
+            <i className="pi pi-user mr-2 
+            max-1024:mt-10 max-1024:ml-2
+            sm:ml-2"></i>
+            <span className="max-1024:text-transparent
+            sm:absolute sm:top-[60px] sm:left-[10px]">Iniciar Sesión</span>
           </a>
           <a
             href="/cart"
             className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center
-            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white"
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
             <i className="pi pi-shopping-cart p-overlay-badge text-2xl
-            max-1024:mt-6 max-1024:mr-1">
+            max-1024:mt-6 max-1024:mr-1 
+            sm:ml-0 sm:mr-1">
               <Badge
                 value={totalQuantity}
                 severity="success"
                 className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center"
               />
             </i>
-            <span className="ml-2 max-1024:text-transparent">Carrito</span>
+            <span className="ml-2 max-1024:text-transparent
+            sm:absolute sm:top-[60px]">Carrito</span>
           </a>
         </div>
 
