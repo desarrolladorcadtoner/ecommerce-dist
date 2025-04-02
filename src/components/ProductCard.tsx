@@ -14,10 +14,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="product-card relative">
-      <Card className="w-full h-full flex flex-col justify-evenly p-4 shadow-lg 
-      hover:shadow-xl hover:border-4  hover:border-blue-500 hover:absolute 
+      <Card className="w-full h-full flex flex-col justify-evenly p-4 shadow-lg
+      hover:shadow-xl hover:border-4  hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
-      transition duration-300 ease-in-out
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4">
         {/* Imagen del producto */}
         {product.imagen && (
@@ -25,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <img
               src={product.imagen}
               alt={product.nombre}
-              className="w-full h-full object-scale-down"/>
+              className="w-full h-full object-scale-down" />
           </div>
         )}
 

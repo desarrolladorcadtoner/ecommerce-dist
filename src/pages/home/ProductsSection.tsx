@@ -47,6 +47,7 @@ const ProductsSection = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
       {/* Nuevos productos */}
       <h2 className="text-2xl font-bold mb-4">Productos Nuevos</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
@@ -56,6 +57,7 @@ const ProductsSection = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      
       {/* Productos destacados */}
       <h2 className="text-2xl font-bold mb-4">Productos Destacados</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center
