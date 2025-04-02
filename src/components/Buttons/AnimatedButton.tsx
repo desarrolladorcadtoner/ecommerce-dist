@@ -31,7 +31,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick }) => {
             <Toast ref={toast} />
             {/* Botón que dispara el mensaje y la función */}
             <Button
-                className="bg-blue-500 text-white py-2 px-4 rounded-md transition mt-2 hover:bg-blue-600"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
                 onClick={handleClick}
             >
                 <i className="pi pi-shopping-cart text-2xl mr-3"></i>
