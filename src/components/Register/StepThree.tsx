@@ -39,7 +39,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   const redSocialOptions = [
     { label: "Facebook", value: "facebook" },
     { label: "Instagram", value: "instagram" },
-    { label: "Twitter", value: "twitter" },
+    { label: "X", value: "twitter" },
     { label: "LinkedIn", value: "linkedin" },
     { label: "Página Web", value: "pagina_web" },
   ]
