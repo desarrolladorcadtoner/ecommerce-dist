@@ -29,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Nombre y descripción */}
-        <h3 className="text-lg w-full h-40 font-bold mb-2">{product.nombre}</h3>
+        <h3 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">{product.nombre}</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
