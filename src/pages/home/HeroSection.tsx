@@ -6,7 +6,6 @@ const HeroSection = () => {
       { image: "/images/insumos-tinta.jpg" },
       { image: "/images/granel.jpg" },
       { image: "/images/refacciones.jpg" },
-      { image: "/images/electronica.jpg" },
       
     ];
   

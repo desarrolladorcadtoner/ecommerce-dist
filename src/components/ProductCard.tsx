@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types';
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { Card } from 'primereact/card';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 interface ProductCardProps {
   product: Product;
@@ -11,26 +13,38 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [visible, setVisible] = useState<boolean>(false);
+  const footerContent = (
+    <div>
+      {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
+      <AnimatedButton
+        onClick={() => addToCart(product, quantity)}
+      //onClose={() => setVisible(false) 9515813}
+      />
+      {/*<Button label="Cerrar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />*/}
+    </div>
+  );
 
   return (
     <div className="product-card">
-      <Card className="w-full h-full flex flex-col justify-evenly p-4 shadow-lg 
-      hover:shadow-xl hover:border-t-4  hover:border-blue-500
+      <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
+      hover:shadow-xl hover:border-4  hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
-      transition duration-300 ease-in-out
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4">
+
         {/* Imagen del producto */}
         {product.imagen && (
-          <div className="w-full h-40 overflow-hidden mb-4">
+          <div className="w-full h-44 overflow-hidden mb-4">
             <img
               src={product.imagen}
               alt={product.nombre}
-              className="w-full h-full object-scale-down"/>
+              className="w-full h-full object-scale-down" />
           </div>
         )}
 
         {/* Nombre y descripción */}
-        <h3 className="text-lg w-full h-40 font-bold mb-2">{product.nombre}</h3>
+        <h3 className="text-lg w-full h-44 font-bold mb-2 text-overflow-clip">{product.nombre}</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
@@ -50,8 +64,44 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         {/* Botón Agregar al carrito */}
-        <div className="mt-auto">
-          <AnimatedButton onClick={() => addToCart(product)} />
+        <div className="mt-4 flex justify-center content-center">
+          <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+            label="Agregar al carrito"
+            icon="pi pi-shopping-cart text-2xl mr-3"
+            onClick={() => setVisible(true)} />
+          <Dialog header="Estas agregando un producto a tu carrito:"
+            visible={visible} style={{ width: '50vw' }}
+            onHide={() => {
+              if (!visible) return;
+              setVisible(false);
+            }}
+            footer={footerContent}>
+            <div className='flex justify-center items-center space-x-4'>
+              {/* Imagen del producto */}
+              <div className="w-48 h-32 overflow-hidden mb-4">
+                <img
+                  src={product.imagen}
+                  alt={product.nombre}
+                  className="w-full h-full object-scale-down" />
+              </div>
+
+              <div>
+                <h6 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">{product.nombre}</h6>
+                {product.referencia && (
+                  <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>
+                )}
+                {/* Input para cantidad */}
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  className="w-16 p-2 text-center border border-gray-300 rounded"
+                />
+              </div>
+
+            </div>
+          </Dialog>
         </div>
       </Card>
     </div>

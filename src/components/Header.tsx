@@ -109,7 +109,7 @@ const Header: React.FC = () => {
           </a>
           <a
             href="/cart"
-            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hovzer:border-[#de1c85] flex items-center
+            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
           >
@@ -130,10 +130,11 @@ const Header: React.FC = () => {
       </div>
 
       {/* Menú de navegación */}
-      <nav className="headerMenu bg-[#005a90] text-white py-3 sm:flex sm:justify-center">
+      <nav className="headerMenu bg-[#005a90] text-white py-3 max sm:flex sm:justify-end ">
         {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
-        <div className="block md:hidden">
-          <ToggleMenu />
+        <div className="block md:hidden sm:mr-[30px] sm:border sm:rounded hover:bg-[#de1c85]">
+            <ToggleMenu />
+
         </div>
 
         {/* Mostrar lista de navegación solo en resoluciones mayores o iguales a 760px */}

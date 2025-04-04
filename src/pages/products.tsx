@@ -4,6 +4,7 @@ import { fetchProducts } from "@/services/productService";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
+import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { useCart } from "@/context/CartContext";
 
 const ProductsPage = () => {
@@ -52,7 +53,8 @@ const ProductsPage = () => {
 
       <div className="flex flex-col md:flex-row p-8">
         {/* Filtros - Panel Lateral */}
-        <aside className="w-full md:w-1/4 pr-4 mb-8 md:mb-0">
+        <aside className="w-1/4 mr-4 p-2 mb-8 ml-0 rounded
+        md:mb-0 max-1024:w-1/4 ">
           <h3 className="text-xl font-bold mb-4">Filtros</h3>
           <div className="space-y-4">
             <div>
@@ -87,21 +89,19 @@ const ProductsPage = () => {
             <div className="flex">
               <button
                 onClick={() => setLayout("grid")}
-                className={`p-2 border border-r-0 rounded-l ${
-                  layout === "grid"
-                    ? "bg-blue-500 text-white"
-                    : "bg-white text-gray-700 hover:bg-blue-100"
-                }`}
+                className={`p-2 border border-r-0 rounded-l ${layout === "grid"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-gray-700 hover:bg-blue-100"
+                  }`}
               >
                 <i className="pi pi-th-large"></i>
               </button>
               <button
                 onClick={() => setLayout("list")}
-                className={`p-2 border rounded-r ${
-                  layout === "list"
-                    ? "bg-blue-500 text-white"
-                    : "bg-white text-gray-700 hover:bg-blue-100"
-                }`}
+                className={`p-2 border rounded-r ${layout === "list"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-gray-700 hover:bg-blue-100"
+                  }`}
               >
                 <i className="pi pi-bars"></i>
               </button>
@@ -115,11 +115,11 @@ const ProductsPage = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 ">
               {currentProducts.map((product) => (
-                <div key={product.id} className="flex p-4 border rounded items-center gap-4">
+                <div key={product.id} className="flex p-4 border rounded items-center gap-4 shadow-md ">
                   {product.imagen && (
-                    <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
+                    <div className="w-32 h-32 flex-shrink-0 overflow-hidden">
                       <img
                         src={product.imagen}
                         alt={product.nombre}
@@ -127,29 +127,32 @@ const ProductsPage = () => {
                       />
                     </div>
                   )}
-                  <div className="flex flex-col flex-1">
-                    <h3 className="text-xl font-bold">{product.nombre}</h3>
-                    <p className="text-gray-700">{product.descripcion}</p>
-                    <p className="text-lg font-semibold">${product.precio}</p>
+                  <div className="flex flex-col flex-1 ">
+                    <h3 className="text-xl font-bold mb-2">{product.nombre}</h3>
+                    <p className="text-gray-700 text-blue-500">{product.descripcion}</p>
+                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio}</p>
                     {product.referencia && (
                       <p className="text-xs text-gray-400">Referencia: {product.referencia}</p>
                     )}
                     {product.categoria && (
-                      <p className="text-xs text-gray-400">Categoría: {product.categoria}</p>
+                      <p className="text-xs text-gray-400 mb-2">Categoría: {product.categoria}</p>
                     )}
-                    <div className="flex gap-2 mt-2">
+                    <div className="flex gap-2 mt-2 ">
                       <Link
                         href={`/productDetail?id=${product.id}`}
-                        className="text-blue-500 underline"
+                        className="text-blue-500 mr-4 hover:underline"
                       >
                         Ver detalles
                       </Link>
-                      <button
+                      {/* Botón Agregar al carrito */}
+                      <AnimatedButton onClick={() => addToCart(product)} />
+
+                      {/*<button
                         className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition"
                         onClick={() => addToCart(product)}
                       >
                         Añadir al Carrito
-                      </button>
+                      </button>*/}
                     </div>
                   </div>
                 </div>
@@ -162,11 +165,10 @@ const ProductsPage = () => {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(currentPage - 1)}
-              className={`px-4 py-2 border rounded ${
-                currentPage === 1
-                  ? "bg-gray-300"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
-              }`}
+              className={`px-4 py-2 border rounded ${currentPage === 1
+                ? "bg-gray-300"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
             >
               Anterior
             </button>
@@ -176,11 +178,10 @@ const ProductsPage = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(currentPage + 1)}
-              className={`px-4 py-2 border rounded ${
-                currentPage === totalPages
-                  ? "bg-gray-300"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
-              }`}
+              className={`px-4 py-2 border rounded ${currentPage === totalPages
+                ? "bg-gray-300"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
             >
               Siguiente
             </button>

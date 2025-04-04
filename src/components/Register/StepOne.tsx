@@ -13,10 +13,11 @@ interface StepOneProps {
 export default function StepOne({ formData, updateFormData }: StepOneProps) {
   const [regimenFiscalOptions, setRegimenFiscalOptions] = useState<{ label: string; value: string }[]>([])
   const [usoCFDIOptions, setUsoCFDIOptions] = useState<{ label: string; value: string }[]>([])
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const tipoPersonaOptions = [
-    { label: "Física", value: "fisica" },
-    { label: "Moral", value: "moral" },
+    { label: "Persona Física", value: "fisica" },
+    { label: "Persona Moral", value: "moral" },
   ]
 
   const estadoOptions = [
@@ -75,12 +76,34 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   }, [formData.regimenFiscal])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateFormData({ [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    validateField(name, value);
+    updateFormData({ [name]: value })
   }
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
-    updateFormData({ [e.target.name]: e.value })
+    const { name } = e.target;
+    const { value } = e;
+    validateField(name, value); // Validar el campo seleccionado
+    updateFormData({ [name]: value }); // Actualizar el estado global
   }
+
+  //Validar los campos obligatorios
+  const validateField = (name: string, value: string) => {
+    let error = "";
+
+    // Validar si el campo está vacío
+    if (!value || value === "Seleccione estado" || value === "Seleccione ciudad") {
+      error = "Por favor, seleccione una opción válida.";
+    }
+    // Validar si el correo es válido
+    else if (name === "correoFactura" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      error = "Ingrese un correo válido.";
+    }
+
+    // Actualizar el estado de errores
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
 
   return (
     <div className="space-y-6">
@@ -139,9 +162,10 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.regimenFiscal}
             onChange={handleDropdownChange}
             placeholder="Seleccione régimen"
-            className="w-full general-dropdown"
+            className={`w-full general-dropdown ${errors.regimenFiscal ? "border-red-500" : ""}`}
             name="regimenFiscal"
           />
+          {errors.regimenFiscal && <p className="text-red-500 text-sm">{errors.regimenFiscal}</p>}
         </div>
 
         <div className="space-y-2">
@@ -164,12 +188,13 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           </label>
           <InputText
             type="email"
-            className="w-full general-input"
+            className={`w-full general-input ${errors.correoFactura ? "border-red-500" : ""}`}
             name="correoFactura"
             value={formData.correoFactura}
             onChange={handleInputChange}
           />
         </div>
+        {errors.correoFactura && <p className="text-red-500 text-sm">{errors.correoFactura}</p>}
       </div>
 
       <h2 className="text-2xl font-bold text-center text-gray-800 mt-8 mb-6">Dirección Fiscal</h2>
@@ -179,7 +204,11 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <label className="block text-sm font-medium">
             Calle<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" name="calleFiscal" value={formData.calleFiscal || ""} onChange={handleInputChange} />
+          <InputText 
+          className="w-full general-input" 
+          name="calleFiscal" 
+          value={formData.calleFiscal || ""} 
+          onChange={handleInputChange} />
         </div>
 
         <div className="space-y-2">

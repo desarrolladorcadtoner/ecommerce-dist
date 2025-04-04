@@ -76,7 +76,11 @@ export default function RegistrationForm() {
     { label: "Documentación" },
   ]
 
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 3))
+  const nextStep = () => {
+    if (validateStep()) {
+      setStep((prev) => Math.min(prev + 1, 3));
+    }
+}
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
   const updateFormData = (newData: any) => {
@@ -84,12 +88,19 @@ export default function RegistrationForm() {
   }
 
   const onSubmit = async () => {
-    console.log(formData)
+    //console.log(formData)
+
+    if (!validateAllFields()) {
+      alert("Por favor, complete todos los campos obligatorios.");
+      return;
+    }
     // Convertir regimenFiscal a cadena
     const dataToSend = {
       ...formData,
       regimenFiscal: String(formData.regimenFiscal),
     }
+    
+    console.log("Datos a enviar:", dataToSend);
 
     try {
       const response = await fetch("http://172.100.203.36:8000/register/register", {
@@ -99,6 +110,8 @@ export default function RegistrationForm() {
         },
         body: JSON.stringify(dataToSend),
       })
+
+      console.log("Datos a enviar:", dataToSend);
 
       if (!response.ok) {
         const errorText = await response.text()
@@ -110,6 +123,8 @@ export default function RegistrationForm() {
     } catch (error) {
       console.error("Error al enviar los datos:", error)
     }
+
+    
   }
 
   const renderStep = () => {
@@ -126,6 +141,66 @@ export default function RegistrationForm() {
         return null
     }
   }
+
+  const validateAllFields = () => {
+    const requiredFields = [
+      "tipoPersona",
+      "razonSocial",
+      "rfc",
+      "regimenFiscal",
+      "usoCFDI",
+      "correoFactura",
+      "calleFiscal",
+      "numExtFiscal",
+      "codigoPostalFiscal",
+      "coloniaFiscal",
+      "telefonoFiscal",
+      "nombreCompras",
+      "correoCompras",
+      "telefonoCompras",
+      "nombrePago",
+      "correoPago",
+      "telefonoPago",
+      "calleEntrega",
+      "numExtEntrega",
+      "codigoPostalEntrega",
+      "coloniaEntrega",
+      "estadoEntrega",
+      "ciudadEntrega",
+    ];
+
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+      if (!formData[field as keyof formData]) {
+        console.error(`El campo ${field} es obligatorio.`);
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  };
+
+  const validateStep = () => {
+    switch (step) {
+      case 0:
+        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc ) {
+          alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
+          return false;
+        }
+        break;
+      case 1:
+        if (!formData.nombreCompras || !formData.correoCompras || !formData.telefonoCompras) {
+          alert("Por favor, complete todos los campos obligatorios en Contacto de Compras.");
+          return false;
+        }
+        break;
+      // Agrega validaciones para otros pasos
+      default:
+        break;
+    }
+    return true;
+  };
 
   return (
     <div className="max-w-[1200px] mx-auto p-4">
