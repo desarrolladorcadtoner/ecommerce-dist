@@ -4,9 +4,10 @@ import { Toast } from 'primereact/toast';
 
 interface AnimatedButtonProps {
     onClick?: () => void; // Prop opcional para pasar una función
+    onClose?: () => void; // Prop opcional para cerrar el Dialog
 }
 
-const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick }) => {
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick, onClose }) => {
     const toast = useRef<Toast>(null);
 
     const showSuccess = () => {
@@ -19,9 +20,12 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick }) => {
     };
 
     const handleClick = () => {
-        showSuccess(); // Mostrar el mensaje
+        showSuccess(); // Mostrar el mensaje de éxito
         if (onClick) {
             onClick(); // Ejecutar la función pasada como prop
+        }
+        if (onClose) {
+            onClose(); // Cerrar el Dialog después de agregar al carrito
         }
     };
 

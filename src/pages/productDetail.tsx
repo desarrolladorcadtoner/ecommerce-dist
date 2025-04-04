@@ -81,7 +81,7 @@ const ProductDetail = () => {
                 onChange={(e) => setQuantity(Number(e.target.value))}
                 className="w-16 p-2 text-center border border-gray-300 rounded mr-4"
               />
-              <AnimatedButton onClick={() => addToCart(product)} />
+              <AnimatedButton onClick={() => addToCart(product, quantity)} />
               {/*<button
                 onClick={handleAddToCart}
                 className="bg-blue-500 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-blue-600 transition duration-300 ease-in-out"
