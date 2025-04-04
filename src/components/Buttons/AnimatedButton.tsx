@@ -4,10 +4,9 @@ import { Toast } from 'primereact/toast';
 
 interface AnimatedButtonProps {
     onClick?: () => void; // Prop opcional para pasar una función
-    onClose?: () => void; // Prop opcional para cerrar el Dialog
 }
 
-const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick, onClose }) => {
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick,}) => {
     const toast = useRef<Toast>(null);
 
     const showSuccess = () => {
@@ -24,15 +23,12 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onClick, onClose }) => 
         if (onClick) {
             onClick(); // Ejecutar la función pasada como prop
         }
-        if (onClose) {
-            onClose(); // Cerrar el Dialog después de agregar al carrito
-        }
     };
 
     return (
         <div className="flex justify-center mt-0">
             {/* Componente Toast para mostrar mensajes */}
-            <Toast ref={toast} />
+            <Toast ref={toast} className="custom-toast border-left-2" />
             {/* Botón que dispara el mensaje y la función */}
             <Button
                 className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"

@@ -27,14 +27,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 
   return (
-    <div className="product-card relative">
-      <Card className="w-full h-full flex flex-col justify-evenly p-4 shadow-lg
+    <div className="product-card">
+      <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
       hover:shadow-xl hover:border-4  hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4">
+
         {/* Imagen del producto */}
         {product.imagen && (
-          <div className="w-full h-40 overflow-hidden mb-4">
+          <div className="w-full h-44 overflow-hidden mb-4">
             <img
               src={product.imagen}
               alt={product.nombre}
@@ -43,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Nombre y descripción */}
-        <h3 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">{product.nombre}</h3>
+        <h3 className="text-lg w-full h-44 font-bold mb-2 text-overflow-clip">{product.nombre}</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
@@ -63,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         {/* Botón Agregar al carrito */}
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex justify-center content-center">
           <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
             label="Agregar al carrito"
             icon="pi pi-shopping-cart text-2xl mr-3"

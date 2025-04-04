@@ -31,8 +31,13 @@ button:hover {
   /* Ajustar el espacio entre la franja y el contenido */
 }
 
-/* Estilos Card  */
-
+/* Estilos toast  */
+.custom-toast .p-toast-message {
+  text-align: left;
+  border-color: #28a745;
+  border-left-width: 5px;
+  /* Alinear el texto a la izquierda */
+}
 
 
 /* Estilos responsivos Header */
