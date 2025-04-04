@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { useCart } from "@/context/CartContext";
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,6 +16,19 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
   const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [visible, setVisible] = useState<boolean>(false);
+
+  const footerContent = (product: Product) => (
+      <div>
+        {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
+        <AnimatedButton
+          onClick={() => addToCart(product, quantity)}
+        />
+        {/*<Button label="Cerrar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />*/}
+      </div>
+    );
+  
 
   const PRODUCTS_PER_PAGE = 9;
 
@@ -145,14 +160,48 @@ const ProductsPage = () => {
                         Ver detalles
                       </Link>
                       {/* Botón Agregar al carrito */}
-                      <AnimatedButton onClick={() => addToCart(product)} />
+                      {/*<AnimatedButton onClick={() => addToCart(product)} />*/}
+                      <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+                        label="Agregar al carrito"
+                        icon="pi pi-shopping-cart text-2xl mr-3"
+                        onClick={() => setVisible(true)} 
+                        
+                        />
+                      <Dialog header="Estas agregando un producto a tu carrito:"
+                        visible={visible} 
+                        style={{ width: '50vw' }}
+                        onHide={() => {
+                          if (!visible) return;
+                          setVisible(false);
+                        }}
+                        footer={footerContent(product)}
+                        className="custom-dialog">
+                        <div className='flex justify-center items-center space-x-4'>
+                          {/* Imagen del producto */}
+                          <div className="w-48 h-32 overflow-hidden mb-4">
+                            <img
+                              src={product.imagen}
+                              alt={product.nombre}
+                              className="w-full h-full object-scale-down" />
+                          </div>
 
-                      {/*<button
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition"
-                        onClick={() => addToCart(product)}
-                      >
-                        Añadir al Carrito
-                      </button>*/}
+                          <div>
+                            <h6 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">{product.nombre}</h6>
+                            {product.referencia && (
+                              <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>
+                            )}
+                            {/* Input para cantidad */}
+                            <input
+                              type="number"
+                              min="1"
+                              value={quantity}
+                              onChange={(e) => setQuantity(Number(e.target.value))}
+                              className="w-16 p-2 text-center border border-gray-300 rounded"
+                            />
+                          </div>
+
+                        </div>
+                      </Dialog>
                     </div>
                   </div>
                 </div>
