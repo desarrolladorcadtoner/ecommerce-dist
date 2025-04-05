@@ -18,14 +18,14 @@ const ProductsPage = () => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [visible, setVisible] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const footerContent = (product: Product) => (
       <div>
         {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
         <AnimatedButton
-          onClick={() => addToCart(product, quantity)}
+        onClick={() => addToCart(product, quantity)}
         />
-        {/*<Button label="Cerrar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />*/}
       </div>
     );
   
@@ -130,6 +130,7 @@ const ProductsPage = () => {
               ))}
             </div>
           ) : (
+            // Vista de lista          
             <div className="flex flex-col gap-4 ">
               {currentProducts.map((product) => (
                 <div key={product.id} className="flex p-4 border rounded items-center gap-4 shadow-md ">
@@ -159,48 +160,56 @@ const ProductsPage = () => {
                       >
                         Ver detalles
                       </Link>
+                      <div>
+                        
+                      </div>
                       {/* Botón Agregar al carrito */}
-                      {/*<AnimatedButton onClick={() => addToCart(product)} />*/}
                       <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
                         label="Agregar al carrito"
                         icon="pi pi-shopping-cart text-2xl mr-3"
-                        onClick={() => setVisible(true)} 
-                        
+                        onClick={() =>{ 
+                          setSelectedProduct(product);
+                          setVisible(true)}} 
                         />
-                      <Dialog header="Estas agregando un producto a tu carrito:"
-                        visible={visible} 
-                        style={{ width: '50vw' }}
-                        onHide={() => {
-                          if (!visible) return;
-                          setVisible(false);
-                        }}
-                        footer={footerContent(product)}
-                        className="custom-dialog">
-                        <div className='flex justify-center items-center space-x-4'>
-                          {/* Imagen del producto */}
-                          <div className="w-48 h-32 overflow-hidden mb-4">
-                            <img
-                              src={product.imagen}
-                              alt={product.nombre}
-                              className="w-full h-full object-scale-down" />
-                          </div>
+                      <Dialog
+                        header="Estas agregando un producto a tu carrito:"
+                        visible={visible}
+                        style={{ width: '40vw' }}
+                        onHide={() => setVisible(false)}
+                        footer={selectedProduct && footerContent(selectedProduct)}
+                        className="custom-dialog"
+                      >
+                        {selectedProduct && (
+                          <div className="flex justify-center items-center space-x-4">
+                            {/* Imagen del producto */}
+                            <div className="w-48 h-32 overflow-hidden mb-4">
+                              <img
+                                src={selectedProduct.imagen}
+                                alt={selectedProduct.nombre}
+                                className="w-full h-full object-scale-down"
+                              />
+                            </div>
 
-                          <div>
-                            <h6 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">{product.nombre}</h6>
-                            {product.referencia && (
-                              <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>
-                            )}
-                            {/* Input para cantidad */}
-                            <input
-                              type="number"
-                              min="1"
-                              value={quantity}
-                              onChange={(e) => setQuantity(Number(e.target.value))}
-                              className="w-16 p-2 text-center border border-gray-300 rounded"
-                            />
+                            <div>
+                              <h6 className="text-lg w-full h-42 font-bold mb-2 text-ellipsis">
+                                {selectedProduct.nombre}
+                              </h6>
+                              {selectedProduct.referencia && (
+                                <p className="text-xs text-gray-400 mb-2">
+                                  Referencia: {selectedProduct.referencia}
+                                </p>
+                              )}
+                              {/* Input para cantidad */}
+                              <input
+                                type="number"
+                                min="1"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Number(e.target.value))}
+                                className="w-16 p-2 text-center border border-gray-300 rounded"
+                              />
+                            </div>
                           </div>
-
-                        </div>
+                        )}
                       </Dialog>
                     </div>
                   </div>
