@@ -19,7 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div>
       {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
       <AnimatedButton
-        onClick={() => addToCart(product, quantity)}
+        onClick={() => {
+          addToCart(product, quantity)
+          setQuantity(1);
+          setTimeout(() => {
+            setVisible(false); // Cerrar el diálogo
+          }, 500);
+        }}
       //onClose={() => setVisible(false) 9515813}
       />
       {/*<Button label="Cerrar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />*/}
