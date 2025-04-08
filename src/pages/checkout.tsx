@@ -18,7 +18,7 @@ const CheckoutPage: React.FC = () => {
     }
   ];
 
-  const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' };
+  const home: MenuItem = { icon: 'pi pi-home', url: '/' };
   
   return (
     <>
