@@ -49,3 +49,19 @@ button:hover {
   border-radius: 8px;
   /* Opcional: bordes redondeados para el Dialog */
 }
+
+.transition-container {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+}
+
+.transition-container.open {
+  height: auto;
+  /* Permite que el contenedor se expanda automáticamente */
+}
+
+.transition-container.closed {
+  height: 0;
+  /* Oculta el contenedor */
+}
