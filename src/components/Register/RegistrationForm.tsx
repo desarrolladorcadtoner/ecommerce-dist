@@ -10,8 +10,8 @@ import StepTwo from "./StepTwo"
 import StepThree from "./StepThree"
 import StepFour from "./StepFour"
 import type { formData } from "@/types/register"
-import "primereact/resources/themes/lara-light-blue/theme.css"
-import "primereact/resources/primereact.min.css"
+//import "primereact/resources/themes/lara-light-blue/theme.css"
+//import "primereact/resources/primereact.min.css"
 
 export default function RegistrationForm() {
   const [step, setStep] = useState(0)
