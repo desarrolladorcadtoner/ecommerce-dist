@@ -90,18 +90,20 @@ const CheckoutPage: React.FC = () => {
     return (
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">
+                {/* Seleccion de opcion de envio */}
                 {/*<div className="w-2/3 mt-12">
                     <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md">¿El producto lo recogera en un Cedis o sera envio a domicilio?</h6>
                     <Button label="CEDIS" severity="info" className="w-auto p-2 h-10 bg-blue-500 mr-4 mt-8 shadow-md" style={{ color: "white" }} />
                     <Button label="PAQUETERIA" severity="info" className="w-auto p-2 h-10 bg-blue-500 shadow-md" style={{ color: "white" }} />
                 </div>*/}
-                <div className="card w-2/3 text-center">
+
+                {/* Seleccion de la paqueteria */}
+                {/* <div className="card w-2/3 text-center">
                     <Card title="Seleccione la paquetería" className="shadow-lg">
                         <div className="flex flex-row justify-evenly h-72">
                             <div className="felx flex-col w-40 h-auto space-x-4">
                                 <Image src="/images/logo-cadtoner.png"
                                     alt="Paqueteria EXPRESS"
-                                    /*preview width="250"*/
                                     />
                                 <Checkbox
                                     onChange={() => handleCheckboxChange(0)}
@@ -136,7 +138,9 @@ const CheckoutPage: React.FC = () => {
                         <Button label="Siguiente" severity="info" className="w-auto p-2 h-10 bg-blue-500 shadow-md" style={{ color: "white" }} />
                     </Card>
                     
-                </div>
+                </div>*/}
+
+                {/* Seleccion de cedis */}
                 {/*<h1 className="font-semibold text-2xl mt-4 mb-4">Selecciona el CEDIS de tu elección para recoger tu pedido:</h1>
                 {loading ? (
                     <p>Cargando datos...</p> // Mostrar un mensaje mientras se cargan los datos
