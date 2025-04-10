@@ -133,7 +133,7 @@ const Header: React.FC = () => {
       <nav className="headerMenu bg-[#005a90] text-white py-3 max sm:flex sm:justify-end ">
         {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
         <div className="block md:hidden sm:mr-[30px] sm:border sm:rounded hover:bg-[#de1c85]">
-            <ToggleMenu />
+          <ToggleMenu />
 
         </div>
 
@@ -190,7 +190,7 @@ const Header: React.FC = () => {
           </li>
         </ul>
 
-        
+
       </nav>
     </header>
   )

@@ -39,74 +39,13 @@ button:hover {
   /* Alinear el texto a la izquierda */
 }
 
+/* Estilos fondo archivo products*/
+.p-dialog-mask {
+  background: rgba(0, 0, 0, 0.4);
+  /* Fondo negro con opacidad del 40% */
+}
 
-/* Estilos responsivos Header */
-/*@media (max-width: 768px) {
-  .headerSuperior {
-    justify-content: space-evenly;
-  }
-
-  .headerPrincipal {
-    flex-direction: column;
-  }
-
-  .headerPrincipal>.headerPrincipal-Logo,
-  .headerPrincipal-form,
-  .headerPrincipal-botones {
-    margin-bottom: 1.5rem;
-  }
-
-  .headerPrincipal-botones a {
-    width: 60px;
-    /* Hacer los botones circulares 
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Convertir en círculo 
-    position: relative
-    /* Necesario para posicionar el texto 
-    overflow: hidden;
-    /* Ocultar el texto inicialmente 
-    transition: all 0.3s ease;
-    /* Transición suave 
-  }
-
-  .headerPrincipal-botones a i {
-    font-size: 24px;
-    /* Ajustar el tamaño del ícono 
-  }
-
-  .headerPrincipal-botones a span {
-    position: absolute;
-    bottom: -30px;
-    /* Ocultar el texto debajo del botón 
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    opacity: 0;
-    /* Hacer el texto invisible inicialmente 
-    transition: all 0.3s ease;
-    /* Transición suave 
-  }
-
-  .headerPrincipal-botones a:hover span {
-    bottom: 10px;
-    /* Mover el texto hacia arriba al hacer hover 
-    opacity: 1;
-    /* Hacer el texto visible 
-  }
-
-  .headerPrincipal-botones {
-    justify-content: center;
-    /* Centrar los botones 
-    gap: 1rem;
-    /* Espaciado entre botones 
-  }
-
-  .headerMenu>ul {
-    flex-direction: column;
-  }
-
-}*/
+.custom-dialog .p-dialog{
+  border-radius: 8px;
+  /* Opcional: bordes redondeados para el Dialog */
+}

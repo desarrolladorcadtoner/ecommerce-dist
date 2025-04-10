@@ -19,7 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div>
       {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
       <AnimatedButton
-        onClick={() => addToCart(product, quantity)}
+        onClick={() => {
+          addToCart(product, quantity)
+          setQuantity(1);
+          setTimeout(() => {
+            setVisible(false); // Cerrar el diálogo
+          }, 500);
+        }}
       //onClose={() => setVisible(false) 9515813}
       />
       {/*<Button label="Cerrar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />*/}
@@ -44,11 +50,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Nombre y descripción */}
-        <h3 className="text-lg w-full h-44 font-bold mb-2 text-overflow-clip">{product.nombre}</h3>
+        <h3 className="text-lg w-full h-36 font-bold mb-2 text-clip overflow-hidden">{product.nombre}..</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
-          <p className="text-xs text-gray-400 mb-2">Referencia: {product.referencia}</p>
+          <p className="text-xs text-gray-400 mb-2 ">Referencia: {product.referencia}</p>
         )}
 
         {product.categoria && (

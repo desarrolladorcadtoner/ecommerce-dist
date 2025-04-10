@@ -1,94 +1,37 @@
-"use client";
-
 import React, { useState } from "react";
-import Footer from "@/components/Footer"
 import Header from "@/components/Header"
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { useRouter } from "next/navigation";
+import CheckOutForm from "@/components/Checkout/CheckOutForm"
+import CheckOne from "@/components/Checkout/CheckOne";
+import Link from 'next/link';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { MenuItem } from 'primereact/menuitem';
+import CheckTwo from "@/components/Checkout/CheckTwo";
 
 const CheckoutPage: React.FC = () => {
-  const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    city: "",
-    postalCode: "",
-  });
+  const items: MenuItem[] = [
+    {
+      label: 'Paquetería',
+      template: () => <Link href="/checkout" legacyBehavior><a className="text-[#0072b1] font-semibold">Tipo de envio</a></Link>
+    },
+    { label: 'Direccion de envío' },
+    {
+      label: 'InputText'
+    }
+  ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = () => {
-    console.log("Order submitted:", formData);
-    router.push("/order-confirmation");
-  };
-
+  const home: MenuItem = { icon: 'pi pi-home', url: '/' };
+  
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Finalizar Compra</h1>
-
-        <div className="grid grid-cols-1 gap-4">
-          <div>
-            <label className="block font-semibold">Nombre:</label>
-            <InputText
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Tu nombre"
-              className="w-full general-input"
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold">Dirección:</label>
-            <InputText
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Dirección completa"
-              className="w-full general-input"
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold">Ciudad:</label>
-            <InputText
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              placeholder="Tu ciudad"
-              className="w-full general-input"
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold">Código Postal:</label>
-            <InputText
-              name="postalCode"
-              value={formData.postalCode}
-              onChange={handleChange}
-              placeholder="Código postal"
-              className="w-full general-input"
-            />
-          </div>
-        </div>
-
-        <div className="mt-6 flex justify-end">
-          <Button
-            label="Enviar Pedido"
-            icon="pi pi-check"
-            className="p-button-success"
-            onClick={handleSubmit}
-          />
-        </div>
+      <div className="m-4">
+        <BreadCrumb model={items} home={home} />
+        <CheckOne />
+        {/*<CheckOutForm />
+        <CheckOne />
+        <CheckTwo />*/}
       </div>
-
-      <Footer />
+      
     </>
   );
 };

@@ -1,4 +1,7 @@
+'use client'
+
 import ProductCard from "@/components/ProductCard";
+import ProductCardList from "@/components/ProductCardList";
 import { Product } from "@/types";
 import { fetchProducts } from "@/services/productService";
 import { useState, useEffect } from "react";
@@ -6,6 +9,8 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { useCart } from "@/context/CartContext";
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,6 +19,7 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
   const { addToCart } = useCart();
+  
 
   const PRODUCTS_PER_PAGE = 9;
 
@@ -115,48 +121,11 @@ const ProductsPage = () => {
               ))}
             </div>
           ) : (
+            // Vista de lista          
             <div className="flex flex-col gap-4 ">
-              {currentProducts.map((product) => (
-                <div key={product.id} className="flex p-4 border rounded items-center gap-4 shadow-md ">
-                  {product.imagen && (
-                    <div className="w-32 h-32 flex-shrink-0 overflow-hidden">
-                      <img
-                        src={product.imagen}
-                        alt={product.nombre}
-                        className="w-full h-full object-scale-down rounded"
-                      />
-                    </div>
-                  )}
-                  <div className="flex flex-col flex-1 ">
-                    <h3 className="text-xl font-bold mb-2">{product.nombre}</h3>
-                    <p className="text-gray-700 text-blue-500">{product.descripcion}</p>
-                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio}</p>
-                    {product.referencia && (
-                      <p className="text-xs text-gray-400">Referencia: {product.referencia}</p>
-                    )}
-                    {product.categoria && (
-                      <p className="text-xs text-gray-400 mb-2">Categoría: {product.categoria}</p>
-                    )}
-                    <div className="flex gap-2 mt-2 ">
-                      <Link
-                        href={`/productDetail?id=${product.id}`}
-                        className="text-blue-500 mr-4 hover:underline"
-                      >
-                        Ver detalles
-                      </Link>
-                      {/* Botón Agregar al carrito */}
-                      <AnimatedButton onClick={() => addToCart(product)} />
-
-                      {/*<button
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition"
-                        onClick={() => addToCart(product)}
-                      >
-                        Añadir al Carrito
-                      </button>*/}
-                    </div>
-                  </div>
-                </div>
-              ))}
+             {currentProducts.map((product) => ( 
+               <ProductCardList key={product.id} product={product} />
+             ))}
             </div>
           )}
 

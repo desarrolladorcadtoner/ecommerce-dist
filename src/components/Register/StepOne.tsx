@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { formData } from "@/types/register"
+import InputTextForm from "../Inputs/InputTextForm"
 
 interface StepOneProps {
   formData: formData
@@ -124,7 +124,15 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           />
         </div>
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Razón Social ante SHCP"
+          className="w-full general-input required"
+          name="razonSocial"
+          value={formData.razonSocial || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Razón Social ante SHCP<span className="text-red-500">*</span>
           </label>
@@ -134,9 +142,17 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.razonSocial || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Nombre Comercial"
+          className="w-full general-input"
+          name="nombreComercial"
+          value={formData.nombreComercial || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">Nombre Comercial</label>
           <InputText
             className="w-full general-input"
@@ -144,14 +160,26 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.nombreComercial || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="RFC"
+          className="w-full general-input required"
+          name="rfc"
+          value={formData.rfc || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             RFC<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" name="rfc" value={formData.rfc || ""} onChange={handleInputChange} />
-        </div>
+          <InputText 
+          className="w-full general-input" 
+          name="rfc" 
+          value={formData.rfc || ""} 
+          onChange={handleInputChange} />
+        </div>*/}
 
         <div className="space-y-2">
           <label className="block text-sm font-medium">
@@ -182,7 +210,15 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           />
         </div>
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Correo Facturación"
+          className={`w-full general-input ${errors.correoFactura ? "border-red-500" : ""} required`}
+          name="correoFactura"
+          value={formData.correoFactura}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Correo Facturación<span className="text-red-500">*</span>
           </label>
@@ -193,25 +229,41 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.correoFactura}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
         {errors.correoFactura && <p className="text-red-500 text-sm">{errors.correoFactura}</p>}
       </div>
 
       <h2 className="text-2xl font-bold text-center text-gray-800 mt-8 mb-6">Dirección Fiscal</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Calle"
+          className="w-full general-input required"
+          name="calleFiscal"
+          value={formData.calleFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Calle<span className="text-red-500">*</span>
           </label>
-          <InputText 
-          className="w-full general-input" 
-          name="calleFiscal" 
-          value={formData.calleFiscal || ""} 
-          onChange={handleInputChange} />
-        </div>
+          <InputText
+            className="w-full general-input"
+            name="calleFiscal"
+            value={formData.calleFiscal || ""}
+            onChange={handleInputChange} />
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Número Exterior"
+          className="w-full general-input required"
+          name="numExtFiscal"
+          value={formData.numExtFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Número Exterior<span className="text-red-500">*</span>
           </label>
@@ -221,9 +273,17 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.numExtFiscal || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Número Interior"
+          className="w-full general-input"
+          name="numIntFiscal"
+          value={formData.numIntFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">Número Interior</label>
           <InputText
             className="w-full general-input"
@@ -231,9 +291,17 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.numIntFiscal || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Código Postal"
+          className="w-full general-input required"
+          name="codigoPostalFiscal"
+          value={formData.codigoPostalFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Código Postal<span className="text-red-500">*</span>
           </label>
@@ -243,19 +311,37 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.codigoPostalFiscal || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Colonia"
+          className="w-full general-input required"
+          name="coloniaFiscal"
+          value={formData.coloniaFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Colonia<span className="text-red-500">*</span>
           </label>
-          <InputText className="w-full general-input" 
-          name="coloniaFiscal" value={formData.coloniaFiscal || ""} 
-          onChange={handleInputChange} 
+          <InputText
+            className="w-full general-input"
+            name="coloniaFiscal"
+            value={formData.coloniaFiscal || ""}
+            onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Teléfono"
+          className="w-full general-input required"
+          name="telefonoFiscal"
+          value={formData.telefonoFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Teléfono<span className="text-red-500">*</span>
           </label>
@@ -266,9 +352,17 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.telefonoFiscal || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="WhatsApp"
+          className="w-full general-input required"
+          name="telefonoFiscal"
+          value={formData.telefonoFiscal || ""}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">WhatsApp</label>
           <InputText
             className="w-full general-input"
@@ -277,7 +371,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.whatsappFiscal}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
 
         <div className="space-y-2">
           <label className="block text-sm font-medium">
@@ -321,7 +415,15 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           />
         </div>
 
-        <div className="space-y-2">
+        <InputTextForm
+          tittleInput="Nombre del Representante Legal"
+          className="w-full general-input required"
+          name="nombreLegalFiscal"
+          value={formData.nombreLegalFiscal}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Nombre del Representante Legal<span className="text-red-500">*</span>
           </label>
@@ -331,7 +433,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
             value={formData.nombreLegalFiscal}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
       </div>
     </div>
   )

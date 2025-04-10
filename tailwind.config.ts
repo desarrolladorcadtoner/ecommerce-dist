@@ -12,6 +12,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'pinkToner':'#delc85',
+        'blueLightToner':'#0072b1',
+        'blueDarkToner':'0b4468',
+        'backgroundGray':'#f3f3f3'
       },
     },
     
