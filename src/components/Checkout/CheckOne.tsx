@@ -43,12 +43,12 @@ const CheckOne: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        const nuevaDireccion = `${formData.calle}, #${formData.numExterior}, ${formData.numInterior ? `Int. ${formData.numInterior}` : ""
-            } Entre ${formData.entreCalle} y ${formData.yEntreCalle}, con CP ${formData.codigoPostal}, ${formData.ciudad}, 
-            ${formData.estado}, ${formData.pais}.`;
+        const nuevaDireccion = `${formData.calle || ""}, #${formData.numExterior || ""}, ${formData.numInterior ? `Int. ${formData.numInterior}` : ""
+            } Entre ${formData.entreCalle || ""} y ${formData.yEntreCalle || ""}, con CP ${formData.codigoPostal || ""
+            }`;
 
         if (editingIndex !== null) {
-            // Si estamos editando, actualizamos la dirección existente
+            // Si estamos editando, actualizamos solo la dirección seleccionada
             setDirecciones((prevDirecciones) =>
                 prevDirecciones.map((direccion, index) =>
                     index === editingIndex ? nuevaDireccion : direccion
@@ -70,8 +70,8 @@ const CheckOne: React.FC = () => {
             estado: "",
             pais: "",
             codigoPostal: "",
-        }); // Limpiamos el formulario
-        setVisible(false); // Cerramos el diálogo
+        });
+        setVisible(false);
     };
 
     const handleEdit = (index: number) => {
@@ -79,14 +79,15 @@ const CheckOne: React.FC = () => {
         const [calle, numExterior, numInterior, entreCalle, yEntreCalle, codigoPostal, ciudad, estado, pais] =
             direccion.split(",").map((part) => part.trim());
 
-        setFormData({
-            calle: calle || "",
-            numExterior: numExterior.replace("#", "") || "",
-            numInterior: numInterior?.replace("Int.", "").trim() || "",
-            entreCalle: entreCalle?.replace("Entre", "").trim() || "",
-            yEntreCalle: yEntreCalle?.replace("y", "").trim() || "",           
-            codigoPostal: codigoPostal?.replace("con CP", "").trim() || "",
-        });
+        setFormData((prevData) => ({
+            ...prevData, // Mantén los valores actuales
+            calle: calle || prevData.calle,
+            numExterior: numExterior.replace("#", "") || prevData.numExterior,
+            numInterior: numInterior?.replace("Int.", "").trim() || prevData.numInterior,
+            entreCalle: entreCalle?.replace("Entre", "").trim() || prevData.entreCalle,
+            yEntreCalle: yEntreCalle?.replace("y", "").trim() || prevData.yEntreCalle,
+            codigoPostal: codigoPostal?.replace("con CP", "").trim() || prevData.codigoPostal,
+        }));
 
         setEditingIndex(index);
         setVisible(true);
@@ -310,14 +311,20 @@ const CheckOne: React.FC = () => {
                 <div key={index} className="w-1/2 m-4 border-2 solid rounded-lg shadow-md">
                     <Panel header={`Dirección ${index + 1}:`}>
                         <div className="flex p-2">
-                            <p className="w-2/3 text-black">{direccion}</p>
+                            <p className="w-3/4 text-black">{direccion}</p>
                             <div className="flex w-full justify-end gap-4 pr-4">
                                 <Button
                                     icon="pi pi-pen-to-square"
                                     severity="success"
                                     aria-label="Edit"
                                     onClick={() => handleEdit(index)}
-                                    className="bg-pink-600"
+                                    className="bg-pink-600 h-10"
+                                    style={{ color: "white" }}
+                                />
+                                <Button
+                                    icon="pi pi-check"
+                                    aria-label="Filter"
+                                    className="bg-blue-500 h-10"
                                     style={{ color: "white" }}
                                 />
                             </div>

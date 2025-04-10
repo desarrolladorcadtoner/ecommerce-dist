@@ -5,12 +5,13 @@ import CheckOne from "@/components/Checkout/CheckOne";
 import Link from 'next/link';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { MenuItem } from 'primereact/menuitem';
+import CheckTwo from "@/components/Checkout/CheckTwo";
 
 const CheckoutPage: React.FC = () => {
   const items: MenuItem[] = [
     {
       label: 'Paquetería',
-      template: () => <Link href="/checkout" legacyBehavior><a className="text-[#0072b1] font-semibold">InputText</a></Link>
+      template: () => <Link href="/checkout" legacyBehavior><a className="text-[#0072b1] font-semibold">Tipo de envio</a></Link>
     },
     { label: 'Direccion de envío' },
     {
@@ -25,8 +26,10 @@ const CheckoutPage: React.FC = () => {
       <Header />
       <div className="m-4">
         <BreadCrumb model={items} home={home} />
-        {/*<CheckOutForm />*/}
+        <CheckOutForm />
+        {/*<CheckOutForm />
         <CheckOne />
+        <CheckTwo />*/}
       </div>
       
     </>
