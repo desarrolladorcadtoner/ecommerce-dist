@@ -26,7 +26,7 @@ const CheckoutPage: React.FC = () => {
       <Header />
       <div className="m-4">
         <BreadCrumb model={items} home={home} />
-        <CheckOne />
+        <CheckTwo />
         {/*<CheckOutForm />
         <CheckOne />
         <CheckTwo />*/}

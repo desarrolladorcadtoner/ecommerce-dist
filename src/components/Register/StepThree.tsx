@@ -4,6 +4,7 @@ import { useState } from "react"
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { formData } from "@/types/register"
+import InputTextForm from "../Inputs/InputTextForm"
 
 interface StepThreeProps {
   formData: formData
@@ -59,7 +60,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">INFORMACIÓN COMERCIAL</h2>
 
       <div>
+
         <h3 className="text-xl font-semibold mb-4">Información de contacto</h3>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block text-sm font-medium">
@@ -87,6 +90,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               />
             </div>
           )}
+
           <div className="space-y-2">
             <label className="block text-sm font-medium">Red social</label>
             <Dropdown
@@ -98,7 +102,16 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               name="redSocial"
             />
           </div>
-          <div className="space-y-2">
+
+          <InputTextForm
+            tittleInput="Link red social"
+            className="w-full general-input required"
+            name="nombreRedSocial"
+            value={formData.nombreRedSocial || ""}
+            onChange={handleInputChange}
+          />
+
+          {/*<div className="space-y-2">
             <label className="block text-sm font-medium">
               Link red social<span className="text-red-500">*</span>
             </label>
@@ -108,66 +121,63 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               value={formData.nombreRedSocial || ""}
               onChange={handleInputChange}
             />
-          </div>
+          </div>*/}
         </div>
       </div>
 
       <div>
         <h3 className="text-xl font-semibold mb-4">Dirección de entrega</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Calle<span className="text-red-500">*</span>
-            </label>
-            <InputText
-              className="w-full general-input"
-              name="calleEntrega"
-              value={formData.calleEntrega || ""}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Número Exterior<span className="text-red-500">*</span>
-            </label>
-            <InputText
-              className="w-full general-input"
-              name="numExtEntrega"
-              value={formData.numExtEntrega || ""}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Número Interior</label>
-            <InputText
-              className="w-full general-input"
-              name="numIntEntrega"
-              value={formData.numIntEntrega || ""}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Colonia<span className="text-red-500">*</span>
-            </label>
-            <InputText
-              className="w-full general-input"
-              name="coloniaEntrega"
-              value={formData.coloniaEntrega || ""}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Código Postal<span className="text-red-500">*</span>
-            </label>
-            <InputText
-              className="w-full general-input"
-              name="codigoPostalEntrega"
-              value={formData.codigoPostalEntrega || ""}
-              onChange={handleInputChange}
-            />
-          </div>
+
+          <InputTextForm
+            tittleInput="Link red social"
+            className="w-full general-input required"
+            name="nombreRedSocial"
+            value={formData.nombreRedSocial || ""}
+            onChange={handleInputChange}
+          />
+
+          <InputTextForm
+            tittleInput="Calle"
+            className="w-full general-input required"
+            name="calleEntrega"
+            value={formData.calleEntrega || ""}
+            onChange={handleInputChange}
+          />
+
+          <InputTextForm
+            tittleInput="Número Exterior"
+            className="w-full general-input required"
+            name="numExtEntrega"
+            value={formData.numExtEntrega || ""}
+            onChange={handleInputChange}
+          />
+
+          <InputTextForm
+            tittleInput="Número Interior"
+            className="w-full general-input"
+            name="numIntEntrega"
+            value={formData.numIntEntrega || ""}
+            onChange={handleInputChange}
+          />
+          
+          <InputTextForm
+            tittleInput="Colonia"
+            className="w-full general-input required"
+            name="numIntEntrega"
+            value={formData.numIntEntrega || ""}
+            onChange={handleInputChange}
+          />
+
+          <InputTextForm
+            tittleInput="Código Postal"
+            className="w-full general-input required"
+            name="codigoPostalEntrega"
+            value={formData.codigoPostalEntrega || ""}
+            onChange={handleInputChange}
+          />
+          
+          
           <div className="space-y-2">
             <label className="block text-sm font-medium">
               Estado<span className="text-red-500">*</span>
@@ -181,6 +191,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
               name="estadoEntrega"
             />
           </div>
+          
           <div className="space-y-2">
             <label className="block text-sm font-medium">
               Ciudad<span className="text-red-500">*</span>

@@ -107,8 +107,8 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
         <InputTextForm
           tittleInput="Extensión"
           className="w-full general-input"
-          name="telefonoCompras"
-          value={formData.telefonoCompras}
+          name="extensionCompras"
+          value={formData.extensionCompras}
           onChange={handleInputChange}
         />
 
@@ -125,8 +125,8 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
         <InputTextForm
           tittleInput="WhatsApp"
           className="w-full general-input"
-          name="telefonoCompras"
-          value={formData.telefonoCompras}
+          name="whatsappCompras"
+          value={formData.whatsappCompras}
           onChange={handleInputChange}
         />
 
@@ -148,9 +148,9 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Nombre"
-          className="w-full general-input required"
-          name="nombreCompras"
-          value={formData.nombreCompras}
+          className="w-full general-input"
+          name="nombrePago"
+          value={formData.nombrePago}
           onChange={handleInputChange}
         />
 
@@ -187,14 +187,14 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
         </div>*/}
 
         <InputTextForm
-          tittleInput="Apellidos"
-          className="w-full general-input required"
-          name="apellidoPago"
-          value={formData.apellidoPago}
+          tittleInput="Correo"
+          className="w-full general-input"
+          name="correoPago"
+          value={formData.correoPago}
           onChange={handleInputChange}
         />
-        
-        <div className="space-y-2">
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Correo<span className="text-red-500">*</span>
           </label>
@@ -205,8 +205,17 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
             value={formData.correoPago}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="space-y-2">
+        </div>*/}
+        
+        <InputTextForm
+          tittleInput="Teléfono"
+          className="w-full general-input required"
+          name="telefonoPago"
+          value={formData.telefonoPago}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">
             Teléfono<span className="text-red-500">*</span>
           </label>
@@ -217,8 +226,17 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
             value={formData.telefonoPago}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="space-y-2">
+        </div>*/}
+
+        <InputTextForm
+          tittleInput="Extensión"
+          className="w-full general-input"
+          name="extensionPago"
+          value={formData.extensionPago}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">Extensión</label>
           <InputText
             className="w-full general-input"
@@ -226,8 +244,18 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
             value={formData.extensionPago}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="space-y-2">
+        </div>*/
+        }
+
+        <InputTextForm
+          tittleInput="WhatsApp"
+          className="w-full general-input"
+          name="whatsappPago"
+          value={formData.whatsappPago}
+          onChange={handleInputChange}
+        />
+
+        {/*<div className="space-y-2">
           <label className="block text-sm font-medium">WhatsApp</label>
           <InputText
             className="w-full general-input"
@@ -236,7 +264,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
             value={formData.whatsappPago}
             onChange={handleInputChange}
           />
-        </div>
+        </div>*/}
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { Panel } from 'primereact/panel';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import InputTextCheck from "../Inputs/InputTextCheck";
 
 
 const CheckOne: React.FC = () => {
@@ -82,9 +83,8 @@ const CheckOne: React.FC = () => {
 
     const footerContent = (
         <div className="flex justify-end gap-8">
-            <Button label="Submit" onClick={handleSubmit} />
-            <Button label="No" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
-            <Button label="Yes" icon="pi pi-check" onClick={() => setVisible(false)} autoFocus />
+            <Button label="Agregar" onClick={handleSubmit} />
+            <Button label="Cancel" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
         </div>
     );
 
@@ -107,79 +107,77 @@ const CheckOne: React.FC = () => {
                     onHide={() => setVisible(false)}
                     footer={footerContent}
                 >
-                    <div className="card w-2/3 p-4 pl-6 pr-6">
-                        <div className="flex flex-wrap gap-4 mb-4">
-                            <div className="flex-auto">
-                                <label htmlFor="calle" className="font-bold block mb-2">
-                                    Calle:
-                                </label>
-                                <InputText
-                                    id="calle"
-                                    value={formData.calle}
-                                    onChange={handleInputChange}
-                                    className="w-[470px] border-2 border-[#0072b1]"
-                                />
-                            </div>
-                            <div className="flex-auto">
-                                <label htmlFor="numExterior" className="font-bold block mb-2">
-                                    Num. Exterior:
-                                </label>
-                                <InputText
-                                    id="numExterior"
-                                    value={formData.numExterior}
-                                    onChange={handleInputChange}
-                                    className="w-full border-2 border-[#0072b1]"
-                                />
-                            </div>
-                            <div className="flex-auto">
-                                <label htmlFor="numInterior" className="font-bold block mb-2">
-                                    Num. Interior:
-                                </label>
-                                <InputText
-                                    id="numInterior"
-                                    value={formData.numInterior}
-                                    onChange={handleInputChange}
-                                    className="w-full border-2 border-[#0072b1]"
-                                />
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap gap-3 mb-4">
-                            <div className="flex-auto">
-                                <label htmlFor="entreCalle" className="font-bold block mb-2">
-                                    Entre calle:
-                                </label>
-                                <InputText
-                                    id="entreCalle"
-                                    value={formData.entreCalle}
-                                    onChange={handleInputChange}
-                                    className="w-full border-2 border-[#0072b1]"
-                                />
-                            </div>
-                            <div className="flex-auto">
-                                <label htmlFor="yEntreCalle" className="font-bold block mb-2">
-                                    Y Entre Calle:
-                                </label>
-                                <InputText
-                                    id="yEntreCalle"
-                                    value={formData.yEntreCalle}
-                                    onChange={handleInputChange}
-                                    className="w-full border-2 border-[#0072b1]"
-                                />
-                            </div>
-                            <div className="flex-auto">
-                                <label htmlFor="codigoPostal" className="font-bold block mb-2">
-                                    Codigo Postal:
-                                </label>
-                                <InputText
-                                    id="codigoPostal"
-                                    value={formData.codigoPostal}
-                                    onChange={handleInputChange}
-                                    className="w-1/2 border-2 border-[#0072b1]"
-                                />
-                            </div>
-                        </div>
-                        
+                    <div className="grid grid-cols-1 mb-4">
+
+                        <InputTextCheck
+                            nameInput="Calle:"
+                            className="w-full general-input"
+                            id="calle"
+                            value={formData.calle}
+                            onChange={handleInputChange}
+                        />
+
                     </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <InputTextCheck
+                            nameInput="Num. Exterior:"
+                            className="w-full general-input"
+                            id="numExterior"
+                            value={formData.numExterior}
+                            onChange={handleInputChange}
+                        />
+
+                        <InputTextCheck
+                            nameInput="Num. Interior:"
+                            id="numInterior"
+                            value={formData.numInterior}
+                            onChange={handleInputChange}
+                            className="w-full general-input"
+                        />
+
+
+                        <div className="flex-auto">
+                            <label htmlFor="entreCalle" className="font-bold block mb-2">
+                                Entre calle:
+                            </label>
+                            <InputText
+                                id="entreCalle"
+                                value={formData.entreCalle}
+                                onChange={handleInputChange}
+                                className="w-full general-input"
+                            />
+                        </div>
+
+                        <div className="flex-auto">
+                            <label htmlFor="yEntreCalle" className="font-bold block mb-2">
+                                Y Entre Calle:
+                            </label>
+                            <InputText
+                                id="yEntreCalle"
+                                value={formData.yEntreCalle}
+                                onChange={handleInputChange}
+                                className="w-full general-input"
+                            />
+                        </div>
+
+                        <div className="flex-auto">
+                            <label htmlFor="codigoPostal" className="font-bold block mb-2">
+                                Codigo Postal:
+                            </label>
+                            <InputText
+                                id="codigoPostal"
+                                value={formData.codigoPostal}
+                                onChange={handleInputChange}
+                                className="w-full general-input"
+                            />
+                        </div>
+                    </div>
+
+
+
+
+
                 </Dialog>
             </div>
 
