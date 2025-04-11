@@ -6,7 +6,7 @@ import { Dialog } from 'primereact/dialog';
 import InputTextCheck from "../Inputs/InputTextCheck";
 
 
-const CheckOne: React.FC = () => {
+const CheckOne: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCurrentStep }) => {
     const [isFormVisible, setIsFormVisible] = useState(false); // Estado para controlar la visibilidad del formulario
     const [formData, setFormData] = useState({
         calle: "",
@@ -79,6 +79,10 @@ const CheckOne: React.FC = () => {
 
         setEditingIndex(index);
         setVisible(true);
+    };
+
+    const handleNext = () => {
+        setCurrentStep(2); // Ir a CheckTwo
     };
 
     const footerContent = (
@@ -201,6 +205,7 @@ const CheckOne: React.FC = () => {
                                     aria-label="Filter"
                                     className="bg-blue-500 h-10"
                                     style={{ color: "white" }}
+                                    onClick={handleNext}
                                 />
                             </div>
                         </div>

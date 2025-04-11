@@ -88,7 +88,7 @@ const CheckTwo: React.FC = () => {
                                 <InputMask
                                     mask="9999 9999 9999 9999"
                                     placeholder="Número de Tarjeta"
-                                    className="w-full general-input mb-4"
+                                    className="w-full general-input mt-4 mb-4"
                                 />
                                 <div className="grid grid-cols-2 gap-4">
                                     <InputMask
