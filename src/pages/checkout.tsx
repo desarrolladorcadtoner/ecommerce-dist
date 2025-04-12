@@ -5,10 +5,14 @@ import CheckOne from "@/components/Checkout/CheckOne";
 import CheckTwo from "@/components/Checkout/CheckTwo";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { MenuItem } from "primereact/menuitem";
+import { useCart } from "@/context/CartContext";
 
 const CheckoutPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0); // Estado para manejar el paso actual
   const [selectedOption, setSelectedOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null); // Estado para la opción seleccionada
+  const [selectedCedis, setSelectedCedis] = useState<any | null>(null); // Estado para el CEDIS seleccionado
+  const [selectedAddress, setSelectedAddress] = useState<string | null>(null); // Estado para la dirección seleccionada
+  const { cartItems } = useCart(); // Obtener los productos del carrito desde el contexto
 
 
   const items: MenuItem[] = [
@@ -37,7 +41,7 @@ const CheckoutPage: React.FC = () => {
       : []),
   ];
 
-  const home: MenuItem = { icon: "pi pi-home", url: "/" };
+  const home: MenuItem = { icon: "pi pi-home", url: "/cart" };
 
   return (
     <>
@@ -51,12 +55,23 @@ const CheckoutPage: React.FC = () => {
           <CheckOutForm
             setCurrentStep={setCurrentStep}
             setSelectedOption={setSelectedOption}
+            setSelectedCedis={setSelectedCedis}
           />
         )}
         {currentStep === 1 && selectedOption === "PAQUETERIA" && (
-          <CheckOne setCurrentStep={setCurrentStep} />
+          <CheckOne
+            setCurrentStep={setCurrentStep}
+            setSelectedAddress={setSelectedAddress}
+          />
         )}
-        {currentStep === 2 && <CheckTwo />}
+        {currentStep === 2 && (
+          <CheckTwo
+            cartItems={cartItems}
+            selectedOption={selectedOption}
+            selectedCedis={selectedCedis}
+            selectedAddress={selectedAddress}
+          />
+        )}
       </div>
     </>
   );

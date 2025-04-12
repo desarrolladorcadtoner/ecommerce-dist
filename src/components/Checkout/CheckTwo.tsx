@@ -3,9 +3,33 @@ import { InputMask } from "primereact/inputmask";
 import InputTextCheck from "../Inputs/InputTextCheck";
 import { Button } from "primereact/button";
 
-const CheckTwo: React.FC = () => {
+interface CartItem {
+    id: number;
+    nombre: string;
+    precio: number;
+    quantity: number;
+    imagen: string;
+}
+
+interface CheckTwoProps {
+    cartItems: CartItem[];
+    selectedOption: "CEDIS" | "PAQUETERIA" | null;
+    selectedCedis?: any;
+    selectedAddress?: string | null;
+}
+
+const CheckTwo: React.FC<CheckTwoProps> = ({
+    cartItems,
+    selectedOption,
+    selectedCedis,
+    selectedAddress,
+}) => {
     const [isEditingCard, setIsEditingCard] = useState(false); // Estado para mostrar/ocultar el formulario de edición de tarjeta
 
+    // Calcular totales
+    const subtotal = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+    const iva = subtotal * 0.16;
+    const total = subtotal + iva;
     return (
         <>
             <div className="ml-4 mr-4">
@@ -16,45 +40,38 @@ const CheckTwo: React.FC = () => {
                     {/* Your Order */}
                     <div className="border p-4 rounded-lg shadow-md">
                         <h3 className="text-lg font-bold mb-4">Your Order</h3>
-                        <p className="mb-4">Método de Envío: Envío estándar</p>
+                        <p className="mb-4">
+                            Método de Envío:{" "}
+                            {selectedOption === "CEDIS"
+                                ? `Recoger en ${selectedCedis?.nombre}, ${selectedCedis?.calle}, ${selectedCedis?.colonia}`
+                                : `Paquetería seleccionada, Dirección: ${selectedAddress}`}
+                        </p>
 
                         {/* Productos */}
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between border-b pb-2">
-                                <img
-                                    src="/images/product1.png"
-                                    alt="Producto 1"
-                                    className="w-16 h-16 object-cover rounded"
-                                />
-                                <p className="flex-1 ml-4">Producto 1</p>
-                                <p className="mr-4">Cantidad: 1</p>
-                                <p>$100.00</p>
-                            </div>
-                            <div className="flex items-center justify-between border-b pb-2">
-                                <img
-                                    src="/images/product2.png"
-                                    alt="Producto 2"
-                                    className="w-16 h-16 object-cover rounded"
-                                />
-                                <p className="flex-1 ml-4">Producto 2</p>
-                                <p className="mr-4">Cantidad: 2</p>
-                                <p>$200.00</p>
-                            </div>
+                            {cartItems.map((item) => (
+                                <div key={item.id} className="flex items-center justify-between border-b pb-2">
+                                    <img src={item.imagen} alt={item.nombre} className="w-16 h-16 object-cover rounded" />
+                                    <p className="flex-1 ml-4">{item.nombre}</p>
+                                    <p className="mr-4">Cantidad: {item.quantity}</p>
+                                    <p>${item.precio.toFixed(2)}</p>
+                                </div>
+                            ))}
                         </div>
 
                         {/* Totales */}
                         <div className="mt-4 border-t pt-4">
                             <div className="flex justify-between">
                                 <p>Subtotal:</p>
-                                <p>$300.00</p>
+                                <p>${subtotal.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between">
                                 <p>IVA (16%):</p>
-                                <p>$48.00</p>
+                                <p>${iva.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between font-bold">
                                 <p>Total:</p>
-                                <p>$348.00</p>
+                                <p>${total.toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
