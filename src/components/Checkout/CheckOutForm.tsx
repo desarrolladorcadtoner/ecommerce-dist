@@ -12,12 +12,15 @@ import { Image } from 'primereact/image';
 import { Checkbox } from "primereact/checkbox";
 import { Dialog } from 'primereact/dialog';
 
-const CheckoutPage: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCurrentStep }) => {
+const CheckoutPage: React.FC<{
+    setCurrentStep: (step: number) => void;
+    setSelectedOption: (option: "CEDIS" | "PAQUETERIA") => void;
+}> = ({ setCurrentStep, setSelectedOption }) => {
     const [checkedStates, setCheckedStates] = useState<boolean[]>([false, false, false]); // Estado para los checkboxes
     const [cedisData, setCedisData] = useState<any[]>([]); // Estado para almacenar los datos de la API
     const [loading, setLoading] = useState<boolean>(true); // Estado para manejar el estado de carga
     const [visible, setVisible] = useState<boolean>(false);
-    const [selectedOption, setSelectedOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
+    const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
     const [selectedCedis, setSelectedCedis] = useState<any | null>(null);
     const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
 
@@ -102,12 +105,7 @@ const CheckoutPage: React.FC<{ setCurrentStep: (step: number) => void }> = ({ se
         </>
     );
 
-    function useRef<T>(initialValue: T | null): React.MutableRefObject<T | null> {
-        const [ref] = useState<React.MutableRefObject<T | null>>(() => ({
-            current: initialValue,
-        }));
-        return ref;
-    }
+    
 
     return (
         <>
@@ -122,71 +120,28 @@ const CheckoutPage: React.FC<{ setCurrentStep: (step: number) => void }> = ({ se
                         severity="info"
                         className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
                         style={{ color: "white" }}
-                        onClick={() => setSelectedOption("CEDIS")}
+                        onClick={() => {
+                            setOption("CEDIS");
+                            setSelectedOption("CEDIS");
+                        }}
                     />
                     <Button
                         label="PAQUETERIA"
                         severity="info"
                         className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} shadow-md`}
                         style={{ color: "white" }}
-                        onClick={() => setSelectedOption("PAQUETERIA")}
+                        onClick={() => {
+                            setOption("PAQUETERIA");
+                            setSelectedOption("PAQUETERIA");
+                        }}
                     />
                 </div>
 
                 {/* Seleccion de la paqueteria */}
-                {/*<div className="card w-2/3 text-center">
-                    <Card title="Seleccione la paquetería" className="shadow-lg">
-                        <div className="flex flex-row justify-evenly h-72">
-                            <div className="felx flex-col w-40 h-auto space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Paqueteria EXPRESS"
-                                />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(0)}
-                                    checked={checkedStates[0]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 1</label>
-                            </div>
-                            <div className="felx flex-col w-40 space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Image"
-                                    preview width="250" />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(1)}
-                                    checked={checkedStates[1]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 2</label>
-                            </div>
-                            <div className="felx flex-col w-40 space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Image"
-                                    preview width="250" />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(2)}
-                                    checked={checkedStates[2]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 3</label>
-                            </div>
-                        </div>
-                        <Button
-                            label="Siguiente"
-                            severity="info"
-                            className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                            style={{ color: "white" }}
-                            onClick={handleNext}
-                        />
-                    </Card>
-
-                </div>*/}
                 {selectedOption === "PAQUETERIA" && (
                     <div className="card w-2/3 text-center">
                         <Card title="Seleccione la paquetería" className="shadow-lg">
                             <div className="flex flex-row justify-evenly h-72">
-
-
                                 {[0, 1, 2].map((index) => (
                                     <div className="felx flex-col w-40 h-auto space-x-4">
                                         <div key={index} className="flex flex-col items-center">
@@ -250,7 +205,6 @@ const CheckoutPage: React.FC<{ setCurrentStep: (step: number) => void }> = ({ se
                             </>
                         )}
                         <p className="m-0">Horario: 9:00am a 18:00pm</p>
-
 
                     </Dialog>
                 </div>

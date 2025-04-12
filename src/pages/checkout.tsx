@@ -8,11 +8,33 @@ import { MenuItem } from "primereact/menuitem";
 
 const CheckoutPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0); // Estado para manejar el paso actual
+  const [selectedOption, setSelectedOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null); // Estado para la opción seleccionada
+
 
   const items: MenuItem[] = [
-    { label: "Tipo de Envío", command: () => setCurrentStep(0) },
-    { label: "Dirección de Envío", command: () => setCurrentStep(1) },
-    { label: "Método de Pago", command: () => setCurrentStep(2) },
+    {
+      label: "Tipo de Envío",
+      command: () => setCurrentStep(0),
+      className: currentStep === 0 ? "breadcrumb-active" : "",
+    },
+    ...(selectedOption === "PAQUETERIA" && currentStep >= 1
+      ? [
+        {
+          label: "Dirección de Envío",
+          command: () => setCurrentStep(1),
+          className: currentStep === 1 ? "breadcrumb-active" : "",
+        },
+      ]
+      : []),
+    ...(currentStep >= 2
+      ? [
+        {
+          label: "Método de Pago",
+          command: () => setCurrentStep(2),
+          className: currentStep === 2 ? "breadcrumb-active" : "",
+        },
+      ]
+      : []),
   ];
 
   const home: MenuItem = { icon: "pi pi-home", url: "/" };
@@ -21,9 +43,19 @@ const CheckoutPage: React.FC = () => {
     <>
       <Header />
       <div className="m-4">
+        {/* Breadcrumb dinámico */}
         <BreadCrumb model={items} home={home} />
-        {currentStep === 0 && <CheckOutForm setCurrentStep={setCurrentStep} />}
-        {currentStep === 1 && <CheckOne setCurrentStep={setCurrentStep} />}
+
+        {/* Renderizado de los pasos */}
+        {currentStep === 0 && (
+          <CheckOutForm
+            setCurrentStep={setCurrentStep}
+            setSelectedOption={setSelectedOption}
+          />
+        )}
+        {currentStep === 1 && selectedOption === "PAQUETERIA" && (
+          <CheckOne setCurrentStep={setCurrentStep} />
+        )}
         {currentStep === 2 && <CheckTwo />}
       </div>
     </>
