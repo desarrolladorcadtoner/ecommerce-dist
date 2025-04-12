@@ -41,7 +41,7 @@ const CheckoutPage: React.FC = () => {
       : []),
   ];
 
-  const home: MenuItem = { icon: "pi pi-home", url: "/cart" };
+  const home: MenuItem = { icon: "pi pi-shopping-cart", url: "/cart" };
 
   return (
     <>

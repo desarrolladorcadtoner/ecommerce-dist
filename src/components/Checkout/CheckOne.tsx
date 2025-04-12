@@ -6,7 +6,10 @@ import { Dialog } from 'primereact/dialog';
 import InputTextCheck from "../Inputs/InputTextCheck";
 
 
-const CheckOne: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCurrentStep }) => {
+const CheckOne: React.FC<{
+    setCurrentStep: (step: number) => void;
+    setSelectedAddress: (address: string) => void; // Nueva prop para actualizar la dirección seleccionada
+}> = ({ setCurrentStep, setSelectedAddress }) => {
     const [isFormVisible, setIsFormVisible] = useState(false); // Estado para controlar la visibilidad del formulario
     const [formData, setFormData] = useState({
         calle: "",
@@ -64,7 +67,7 @@ const CheckOne: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCur
 
     const handleEdit = (index: number) => {
         const direccion = direcciones[index];
-        const [calle, numExterior, numInterior, entreCalle, yEntreCalle, codigoPostal, ciudad, estado, pais] =
+        const [calle, numExterior, numInterior, entreCalle, yEntreCalle, codigoPostal] =
             direccion.split(",").map((part) => part.trim());
 
         setFormData((prevData) => ({
@@ -81,7 +84,8 @@ const CheckOne: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCur
         setVisible(true);
     };
 
-    const handleNext = () => {
+    const handleNext = (direccion: string) => {
+        setSelectedAddress(direccion); // Actualiza la dirección seleccionada
         setCurrentStep(2); // Ir a CheckTwo
     };
 
@@ -205,7 +209,7 @@ const CheckOne: React.FC<{ setCurrentStep: (step: number) => void }> = ({ setCur
                                     aria-label="Filter"
                                     className="bg-blue-500 h-10"
                                     style={{ color: "white" }}
-                                    onClick={handleNext}
+                                    onClick={() => handleNext(direccion)}
                                 />
                             </div>
                         </div>
