@@ -16,13 +16,13 @@ const CheckoutPage: React.FC<{
     setCurrentStep: (step: number) => void;
     setSelectedOption: (option: "CEDIS" | "PAQUETERIA") => void;
     setSelectedCedis: (cedis: any) => void;
-}> = ({ setCurrentStep, setSelectedOption }) => {
+}> = ({ setCurrentStep, setSelectedOption, setSelectedCedis }) => {
     const [checkedStates, setCheckedStates] = useState<boolean[]>([false, false, false]); // Estado para los checkboxes
     const [cedisData, setCedisData] = useState<any[]>([]); // Estado para almacenar los datos de la API
     const [loading, setLoading] = useState<boolean>(true); // Estado para manejar el estado de carga
     const [visible, setVisible] = useState<boolean>(false);
     const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
-    const [selectedCedis, setSelectedCedis] = useState<any | null>(null);
+    const [selectedCedis, updateSelectedCedis] = useState<any | null>(null);
     const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
 
     //footerContent para el dialog al seleccionar el cedis
@@ -91,6 +91,7 @@ const CheckoutPage: React.FC<{
     const header = (
         <img alt="Card" src="/images/logo-cadtoner.png" />
     );
+
     const footer = (cedis: any) => (
         <>
             <Button
@@ -99,15 +100,14 @@ const CheckoutPage: React.FC<{
                 className="w-auto p-2 h-10 bg-blue-500 shadow-md"
                 style={{ color: "white" }}
                 onClick={() => {
+                    updateSelectedCedis(cedis);
                     setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
                     setVisible(true); // Abre el Dialog
                 }} />
             {/*<Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />*/}
         </>
     );
-
     
-
     return (
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">

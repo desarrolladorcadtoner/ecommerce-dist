@@ -30,6 +30,7 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
     const subtotal = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
     const iva = subtotal * 0.16;
     const total = subtotal + iva;
+    
     return (
         <>
             <div className="ml-4 mr-4">
