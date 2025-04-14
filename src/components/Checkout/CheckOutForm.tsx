@@ -12,35 +12,54 @@ import { Image } from 'primereact/image';
 import { Checkbox } from "primereact/checkbox";
 import { Dialog } from 'primereact/dialog';
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPage: React.FC<{
+    setCurrentStep: (step: number) => void;
+    setSelectedOption: (option: "CEDIS" | "PAQUETERIA") => void;
+    setSelectedCedis: (cedis: any) => void;
+}> = ({ setCurrentStep, setSelectedOption, setSelectedCedis }) => {
     const [checkedStates, setCheckedStates] = useState<boolean[]>([false, false, false]); // Estado para los checkboxes
     const [cedisData, setCedisData] = useState<any[]>([]); // Estado para almacenar los datos de la API
     const [loading, setLoading] = useState<boolean>(true); // Estado para manejar el estado de carga
     const [visible, setVisible] = useState<boolean>(false);
-    const [selectedCedis, setSelectedCedis] = useState<any | null>(null); // Estado para almacenar el CEDIS seleccionado
+    const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
+    const [selectedCedis, updateSelectedCedis] = useState<any | null>(null);
+    const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
 
     //footerContent para el dialog al seleccionar el cedis
     const footerContent = (
         <div className="gap-10 flex justify-center">
-            <Button
+            {/*<Button
                 label="Pago en cedis"
                 icon="pi pi-shop"
                 className="w-auto p-2 h-10 bg-blue-500 shadow-md"
                 style={{ color: "white" }}
                 onClick={() => setVisible(false)}
-                autoFocus />
+                autoFocus />*/}
             <Button
                 label="Pago en linea"
                 icon="pi pi-money-bill"
                 className="w-auto p-2 h-10 bg-blue-500 shadow-md"
                 style={{ color: "white" }}
-                onClick={() => setVisible(false)}
+                onClick={() => {
+                    handleNext(); // Llama a la función handleNext para avanzar al siguiente paso
+                    setTimeout(() => {
+                        setVisible(false); // Cierra el diálogo después de un breve retraso
+                    }
+                        , 1000); // Ajusta el tiempo según sea necesario
+                }}
                 autoFocus />
         </div>
     );
-    const ref = useRef<Panel>(null);
 
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const handleNext = () => {
+        if (selectedOption === "CEDIS" && selectedCedis) {
+            setCurrentStep(2); // Ir a CheckTwo
+        } else if (selectedOption === "PAQUETERIA" && selectedPaqueteria !== null) {
+            setCurrentStep(1); // Ir a CheckOne
+        } else {
+            alert("Por favor, selecciona una opción válida.");
+        }
+    };
 
     const handleCheckboxChange = (index: number) => {
         const updatedStates = checkedStates.map((state, i) => i === index); // Solo permite un checkbox seleccionado
@@ -72,105 +91,114 @@ const CheckoutPage: React.FC = () => {
     const header = (
         <img alt="Card" src="/images/logo-cadtoner.png" />
     );
+
     const footer = (cedis: any) => (
         <>
-            <Button 
-            label="Select" 
-            icon="pi pi-check" 
-            className="w-auto p-2 h-10 bg-blue-500 shadow-md" 
-            style={{ color: "white" }} 
-            onClick={() =>{ 
-                setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
-                setVisible(true); // Abre el Dialog
+            <Button
+                label="Select"
+                icon="pi pi-check"
+                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
+                style={{ color: "white" }}
+                onClick={() => {
+                    updateSelectedCedis(cedis);
+                    setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
+                    setVisible(true); // Abre el Dialog
                 }} />
             {/*<Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />*/}
         </>
     );
-
+    
     return (
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">
                 {/* Seleccion de opcion de envio */}
-                {/*<div className="w-2/3 mt-12">
-                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md">¿El producto lo recogera en un Cedis o sera envio a domicilio?</h6>
-                    <Button label="CEDIS" severity="info" className="w-auto p-2 h-10 bg-blue-500 mr-4 mt-8 shadow-md" style={{ color: "white" }} />
-                    <Button label="PAQUETERIA" severity="info" className="w-auto p-2 h-10 bg-blue-500 shadow-md" style={{ color: "white" }} />
-                </div>*/}
+                <div className="w-2/3 mt-12">
+                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md">
+                        ¿El producto lo recogera en un Cedis o sera envio a domicilio?
+                    </h6>
+                    <Button
+                        label="CEDIS"
+                        severity="info"
+                        className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
+                        style={{ color: "white" }}
+                        onClick={() => {
+                            setOption("CEDIS");
+                            setSelectedOption("CEDIS");
+                        }}
+                    />
+                    <Button
+                        label="PAQUETERIA"
+                        severity="info"
+                        className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} shadow-md`}
+                        style={{ color: "white" }}
+                        onClick={() => {
+                            setOption("PAQUETERIA");
+                            setSelectedOption("PAQUETERIA");
+                        }}
+                    />
+                </div>
 
                 {/* Seleccion de la paqueteria */}
-                {/* <div className="card w-2/3 text-center">
-                    <Card title="Seleccione la paquetería" className="shadow-lg">
-                        <div className="flex flex-row justify-evenly h-72">
-                            <div className="felx flex-col w-40 h-auto space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Paqueteria EXPRESS"
-                                    />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(0)}
-                                    checked={checkedStates[0]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 1</label>
+                {selectedOption === "PAQUETERIA" && (
+                    <div className="card w-2/3 text-center">
+                        <Card title="Seleccione la paquetería" className="shadow-lg">
+                            <div className="flex flex-row justify-evenly h-72">
+                                {[0, 1, 2].map((index) => (
+                                    <div className="felx flex-col w-40 h-auto space-x-4">
+                                        <div key={index} className="flex flex-col items-center">
+                                            <Image src="/images/logo-cadtoner.png"
+                                                alt="Paqueteria EXPRESS"
+                                            />
+                                            <Checkbox
+                                                onChange={() => setSelectedPaqueteria(index)}
+                                                checked={selectedPaqueteria === index}
+                                            />
+                                            <label>Paquetería {index + 1}</label>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="felx flex-col w-40 space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Image"
-                                    preview width="250" />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(1)}
-                                    checked={checkedStates[1]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 2</label>
-                            </div>
-                            <div className="felx flex-col w-40 space-x-4">
-                                <Image src="/images/logo-cadtoner.png"
-                                    alt="Image"
-                                    preview width="250" />
-                                <Checkbox
-                                    onChange={() => handleCheckboxChange(2)}
-                                    checked={checkedStates[2]}
-                                    className="border rounded-md h-auto mt-2"
-                                />
-                                <label htmlFor="ingredient1" className="ml-2">Paqueteria 3</label>
-                            </div>
-                        </div>
-                        <Button label="Siguiente" severity="info" className="w-auto p-2 h-10 bg-blue-500 shadow-md" style={{ color: "white" }} />
-                    </Card>
-                    
-                </div>*/}
+                            <Button
+                                label="Siguiente"
+                                severity="info"
+                                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
+                                style={{ color: "white" }}
+                                onClick={handleNext}
+                            />
+                        </Card>
 
-                {/* Seleccion de cedis */}
-                {/*<h1 className="font-semibold text-2xl mt-4 mb-4">Selecciona el CEDIS de tu elección para recoger tu pedido:</h1>
-                {loading ? (
-                    <p>Cargando datos...</p> // Mostrar un mensaje mientras se cargan los datos
-                ) : (
-                    <div className="flex flex-wrap grid grid-rows-3 grid-flow-col justify-center gap-4">
-                        {cedisData.map((cedis, index) => (
-                            <div key={index} className="card flex justify-center w-96">
-                                <Card
-                                    title={cedis.nombre} // Nombre del CEDIS
-                                    subTitle={`Correo: ${cedis.email}`} // Correo del CEDIS
-                                    footer={footer(cedis)}
-                                    header={header}
-                                    className="md:w-25rem"
-                                >
-                                    <p className="m-0">
-                                        Dirección: {cedis.calle}, {cedis.colonia},  CP {cedis.cp}
-                                        Telefono: {cedis.telefono1}
-                                    </p>
-                                </Card>
-                            </div>
-                        ))}
                     </div>
                 )}
+
+                {/* Seleccion de cedis */}
+                {selectedOption === "CEDIS" && (
+                    <div className="w-2/3 mt-8">
+                        <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
+                        <div className="grid grid-cols-3 gap-4">
+                            {/* Renderizar CEDIS desde la API */}
+                            {cedisData.map((cedis, index) => (
+                                <div key={index} className="card flex justify-center w-full">
+                                    <Card
+                                        title={cedis.nombre}
+                                        subTitle={`Correo: ${cedis.email}`}
+                                        header={header}
+                                        footer={footer(cedis)}
+                                    >
+                                        <p>Dirección: {cedis.calle}, {cedis.colonia}, CP {cedis.cp}</p>
+                                    </Card>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div className="card flex justify-content-center">
-                    <Dialog 
-                    header={selectedCedis?.nombre || "Información del CEDIS"} 
-                    visible={visible} 
-                    style={{ width: '50vw' }} 
-                    onHide={() => { if (!visible) return; setVisible(false); }} 
-                    footer={footerContent}>
+                    <Dialog
+                        header={selectedCedis?.nombre || "Información del CEDIS"}
+                        visible={visible}
+                        style={{ width: '50vw' }}
+                        onHide={() => { if (!visible) return; setVisible(false); }}
+                        footer={footerContent}>
                         {selectedCedis && ( // Muestra los datos solo si hay un CEDIS seleccionado
                             <>
                                 <p className="m-0">Dirección: {selectedCedis.calle}, {selectedCedis.colonia}, CP {selectedCedis.cp}</p>
@@ -179,20 +207,14 @@ const CheckoutPage: React.FC = () => {
                         )}
                         <p className="m-0">Horario: 9:00am a 18:00pm</p>
 
-
                     </Dialog>
-                </div>*/}
+                </div>
             </div>
         </>
     );
 };
 
 export default CheckoutPage;
-function useRef<T>(initialValue: T | null): React.MutableRefObject<T | null> {
-    const [ref] = useState<React.MutableRefObject<T | null>>(() => ({
-        current: initialValue,
-    }));
-    return ref;
-}
+
 // Removed duplicate implementation of useRef to resolve the error.
 

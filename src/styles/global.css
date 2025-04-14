@@ -45,7 +45,11 @@ button:hover {
   /* Fondo negro con opacidad del 40% */
 }
 
-.custom-dialog .p-dialog{
+.custom-dialog .p-dialog {
   border-radius: 8px;
   /* Opcional: bordes redondeados para el Dialog */
+}
+
+.breadcrumb-active {
+  font-weight: bold;
 }

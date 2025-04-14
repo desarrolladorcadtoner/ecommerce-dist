@@ -34,7 +34,7 @@ const CartPage: React.FC = () => {
     <img
       src={rowData.imagen}
       alt={rowData.nombre}
-      className="ml-12 w-24 h-24 object-cover rounded-md"
+      className="ml-20 w-28 h-28 object-cover rounded-md"
     />
   );
 
@@ -71,7 +71,7 @@ const CartPage: React.FC = () => {
             responsiveLayout="scroll" 
             className="w-full h-[600px] px-4 py-4 shadow-lg rounded-lg overflow-auto"
           >
-            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 rounded" />
+            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 bg-gray-50 rounded" />
             <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2 bg-gray-50" />
             <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2 bg-gray-50" />
             <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
