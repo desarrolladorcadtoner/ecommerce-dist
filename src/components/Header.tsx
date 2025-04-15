@@ -4,13 +4,16 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
+
 import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // Estado para controlar la visibilidad del input de búsqueda
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
+  
 
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -81,7 +84,7 @@ const Header: React.FC = () => {
 
         {/* Botones a la derecha */}
         <div className="flex space-x-6 
-        sm:space-x-14 ">
+        sm:space-x-14 relative">
           <a
             href="/billing"
             className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
@@ -135,17 +138,41 @@ const Header: React.FC = () => {
         <div className="flex md:hidden sm:ml-[10px] sm:rounded hover:bg-[#de1c85]">
           <ToggleMenu />
         </div>
-        <div className="flex items-center md:hidden">
-          <a
-            href="/billing"
+        <div className="flex items-center md:hidden relative">
+          {/* Input de búsqueda con animación */}
+          {isSearchOpen && (
+            <form
+              onSubmit={handleSearch}
+              className="absolute top-2 left-[-200] bg-white text-black rounded-lg shadow-lg flex items-center px-4 py-2 w-64 transition-transform duration-300 transform translate-x-0 sm:w-48"
+            >
+              <input
+                type="text"
+                placeholder="Buscar productos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-grow w-[50] h-[15] px-2 py-1 border-none outline-none text-black"
+              />
+              {/*<button type="submit" className="text-[#005a90] hover:text-[#de1c85]">
+                Buscar
+              </button>*/}
+            </form>
+          )}
+
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)} // Alternar visibilidad del input
+            className="bg-transparent px-2 py-2 rounded-full sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12"
+          >
+            <i className="pi pi-search mr-2 max-1024:mt-5 max-1024:ml-2"></i>
+          </button>
+          {/*<a            
             className="bg-transparent px-4 py-2 rounded-full 
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
             <i className="pi pi-search mr-2
              max-1024:mt-5 max-1024:ml-2"></i>
-          </a>
+          </a>*/}
           <a
-            href="/billing"
+            href="/login"
             className="bg-transparent px-4 py-2 rounded-full 
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
@@ -153,7 +180,7 @@ const Header: React.FC = () => {
              max-1024:mt-5 max-1024:ml-2"></i>
           </a>
           <a
-            href="/billing"
+            href="/cart"
             className="bg-transparent px-4 py-2 rounded-full 
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
