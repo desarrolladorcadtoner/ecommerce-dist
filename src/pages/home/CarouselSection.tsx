@@ -33,7 +33,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full h-[800px] overflow-hidden sm:h-[250px]">
+    <div className="relative w-full h-[800px] overflow-hidden 2xl:h-[850] sm:h-[250px]">
       {/* Contenedor de diapositivas */}
       <div
         className="flex transition-transform duration-300"
@@ -44,25 +44,32 @@ const Carousel = () => {
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className="min-w-full h-[800px] bg-cover bg-center sm:h-[250px]"
+            className="min-w-full h-[800px] bg-cover bg-center 2xl:h-[850] sm:h-[250px]"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
             <div className="h-full w-full relative text-white px-4 ">
-              <div className="absolute bottom-16 left-20 flex space-x-4 
-              sm:bottom-4 sm:left-8 sm:space-x-2">
-                <a
-                  href={slide.button1.link}
-                  className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85] sm:px-2 sm:py-1 sm:text-sm"
-                >
-                  {slide.button1.text}
-                </a>
-                <a
-                  href={slide.button2.link}
-                  className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85] sm:px-2 sm:py-1 sm:text-sm"
-                >
-                  {slide.button2.text}
-                </a>
-              </div>
+              {slide.id === 1 && (
+                <div className="absolute bottom-16 left-20 flex space-x-4
+                2xl:left-28 2xl:bottom-[36px] 2xl:space-x-8 
+                sm:bottom-3 sm:left-4 sm:space-x-2">
+                  <a
+                    href={slide.button1.link}
+                    className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85] 
+                    2xl:px-8 2xl:py-2 
+                    sm:w-[80] sm:h-[30] sm:p-[0] sm:text-center sm:pt-[6] sm:text-[11px]"
+                  >
+                    {slide.button1.text}
+                  </a>
+                  <a
+                    href={slide.button2.link}
+                    className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85] 
+                    2xl:px-8 2xl:py-2 
+                    sm:w-[80] sm:h-[30] sm:p-[0] sm:text-center sm:pt-[6] sm:text-[11px]"
+                  >
+                    {slide.button2.text}
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -70,14 +77,15 @@ const Carousel = () => {
 
       {/* Controles del Carrusel */}
       <button
-        className="bg-transparent absolute top-1/2 left-4 transform -translate-y-1/2 bg-white text-black rounded-full p-2 shadow-lg
-        "
+        className="absolute w-[40] top-1/2 left-4 bg-white hover:bg-[#de1c85]  rounded-full p-2 shadow-lg]
+        sm:left-2 sm:p-[2] sm:w-[15] sm:pt-[0]"
         onClick={handlePrev}
       >
         &#8249;
       </button>
       <button
-        className="bg-transparent absolute top-1/2 right-4 transform -translate-y-1/2 bg-white text-black rounded-full p-2 shadow-lg"
+        className="absolute w-[40] top-1/2 right-4 bg-white hover:bg-[#de1c85] text-black rounded-full p-2 shadow-lg
+        sm:right-2 sm:p-[2] sm:w-[15] sm:pt-[0]"
         onClick={handleNext}
       >
         &#8250;

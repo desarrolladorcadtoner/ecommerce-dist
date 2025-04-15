@@ -37,7 +37,7 @@ const ProductsSection = () => {
   const offerProducts = products.slice(8, 12);
 
   return (
-    <section className="p-8">
+    <section className="p-8 sm:text-center">
       {/* Ofertas */}
       <h2 className="text-2xl font-bold mb-4">Ofertas</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
@@ -49,7 +49,7 @@ const ProductsSection = () => {
       </div>
 
       {/* Nuevos productos */}
-      <h2 className="text-2xl font-bold mb-4">Productos Nuevos</h2>
+      <h2 className="text-2xl font-bold mb-4 ">Productos Nuevos</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
       md:grid-cols-2 lg:grid-cols-4  
       max-1024:grid-cols-2 max-1024:gap-2">
