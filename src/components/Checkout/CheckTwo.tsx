@@ -40,7 +40,7 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
                 <div className="grid grid-cols-2 gap-8">
                     {/* Your Order */}
                     <div className="border p-4 rounded-lg shadow-md">
-                        <h3 className="text-lg font-bold mb-4">Your Order</h3>
+                        <h3 className="text-lg font-bold mb-4">Tu orden</h3>
                         <p className="mb-4">
                             Método de Envío:{" "}
                             {selectedOption === "CEDIS"

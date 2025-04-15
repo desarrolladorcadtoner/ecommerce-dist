@@ -35,9 +35,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card">
       <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
-      hover:shadow-xl hover:border-4  hover:border-blue-500 
+      hover:shadow-xl hover:border-4 sm:text-center hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
-      max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4">
+      max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4
+      sm:w-[300px] sm:h-[600px]">
 
         {/* Imagen del producto */}
         {product.imagen && (
@@ -54,15 +55,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
-          <p className="text-xs text-gray-400 mb-2 ">Referencia: {product.referencia}</p>
+          <p className="text-xs text-gray-400 mb-2 sm:text-blue-500">Referencia: {product.referencia}</p>
         )}
 
         {product.categoria && (
-          <p className="text-xs text-gray-400 mb-2">Categoria: {product.categoria}</p>
+          <p className="text-xs text-gray-400 mb-2 ">Categoria: {product.categoria}</p>
         )}
 
         {/* Precio */}
-        <p className="text-blue-500 font-bold mb-2">${product.precio}</p>
+        <p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>
 
         {/* Botón Leer Más */}
         <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4">
