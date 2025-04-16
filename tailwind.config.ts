@@ -18,7 +18,9 @@ export default {
         'backgroundGray':'#f3f3f3'
       },
     },
-    
+    fontSize: {
+      'xxs': '0.4rem',
+    },
   },
   plugins: [],
 } satisfies Config;

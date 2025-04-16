@@ -53,3 +53,13 @@ button:hover {
 .breadcrumb-active {
   font-weight: bold;
 }
+
+.p-menuitem-icon {
+  color: #de1c85;
+  /* Color del texto */
+  transition: color 0.3s ease;
+}
+
+.p-panelmenu-header-content{
+  background-color: transparent;
+}

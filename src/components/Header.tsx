@@ -4,13 +4,16 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
+
 import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // Estado para controlar la visibilidad del input de búsqueda
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
+  
 
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -49,7 +52,7 @@ const Header: React.FC = () => {
 
       {/* Barra principal */}
       <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center
-      sm:flex-col sm:items-center sm:space-x-0 sm:space-y-2 sm:h-[400px]">
+      sm:flex-col sm:items-center sm:space-x-0 sm:h-[150px]">
         {/* Logo */}
         <div className="flex items-center 
         max-1024:w-60 
@@ -66,7 +69,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Barra de búsqueda */}
-        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4 ">
+        <form onSubmit={handleSearch} className="flex items-center w-full max-w-xl mx-4 sm:hidden">
           <input
             type="text"
             placeholder="Buscar productos..."
@@ -81,13 +84,13 @@ const Header: React.FC = () => {
 
         {/* Botones a la derecha */}
         <div className="flex space-x-6 
-        sm:space-x-14 ">
+        sm:space-x-14 relative">
           <a
             href="/billing"
             className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
               hover:bg-[#de1c85] hover:border-[#de1c85]
               max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
-              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
+              sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
           >
             <i className="pi pi-file mr-2
              max-1024:mt-5 max-1024:ml-2
@@ -99,7 +102,7 @@ const Header: React.FC = () => {
             href="/login"
             className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
-            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
           >
             <i className="pi pi-user mr-2 
             max-1024:mt-10 max-1024:ml-2
@@ -111,7 +114,7 @@ const Header: React.FC = () => {
             href="/cart"
             className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
-            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative"
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
           >
             <i className="pi pi-shopping-cart p-overlay-badge text-2xl
             max-1024:mt-6 max-1024:mr-1 
@@ -130,15 +133,64 @@ const Header: React.FC = () => {
       </div>
 
       {/* Menú de navegación */}
-      <nav className="headerMenu bg-[#005a90] text-white py-3 max sm:flex sm:justify-end ">
+      <nav className="headerMenu bg-[#005a90] text-white h-auto sm:flex sm:justify-between ">
         {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
-        <div className="block md:hidden sm:mr-[30px] sm:border sm:rounded hover:bg-[#de1c85]">
+        <div className="flex md:hidden sm:ml-[10px] sm:rounded hover:bg-[#de1c85]">
           <ToggleMenu />
+        </div>
+        <div className="flex items-center md:hidden relative">
+          {/* Input de búsqueda con animación */}
+          {isSearchOpen && (
+            <form
+              onSubmit={handleSearch}
+              className="absolute top-2 left-[-200] bg-white text-black rounded-lg shadow-lg flex items-center px-4 py-2 w-64 transition-transform duration-300 transform translate-x-0 sm:w-48"
+            >
+              <input
+                type="text"
+                placeholder="Buscar productos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-grow w-[50] h-[15] px-2 py-1 border-none outline-none text-black"
+              />
+              {/*<button type="submit" className="text-[#005a90] hover:text-[#de1c85]">
+                Buscar
+              </button>*/}
+            </form>
+          )}
 
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)} // Alternar visibilidad del input
+            className="bg-transparent px-2 py-2 rounded-full sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12"
+          >
+            <i className="pi pi-search mr-2 max-1024:mt-5 max-1024:ml-2"></i>
+          </button>
+          {/*<a            
+            className="bg-transparent px-4 py-2 rounded-full 
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
+          >
+            <i className="pi pi-search mr-2
+             max-1024:mt-5 max-1024:ml-2"></i>
+          </a>*/}
+          <a
+            href="/login"
+            className="bg-transparent px-4 py-2 rounded-full 
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
+          >
+            <i className="pi pi-user mr-2
+             max-1024:mt-5 max-1024:ml-2"></i>
+          </a>
+          <a
+            href="/cart"
+            className="bg-transparent px-4 py-2 rounded-full 
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
+          >
+            <i className="pi pi-shopping-cart mr-2
+             max-1024:mt-5 max-1024:ml-2"></i>
+          </a>
         </div>
 
         {/* Mostrar lista de navegación solo en resoluciones mayores o iguales a 760px */}
-        <ul className=" flex justify-center space-x-6 xl:space-x-8 sm:space-x-4 
+        <ul className="flex justify-center items-center h-12 space-x-6 xl:space-x-8 sm:space-x-4 
         sm:flex-col sm:space-y-2 sm:hidden">
           <li>
             <Link href="/" className="flex items-center space-x-2 hover:text-[#de1c85]">
