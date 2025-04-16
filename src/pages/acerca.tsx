@@ -9,7 +9,7 @@ export default function AboutPage() {
       <Header />
       <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
-        <div className="relative h-[550px] overflow-hidden">
+        <div className="relative h-[550px] sm:h-[400] overflow-hidden">
           <Image
             src="/images/BANNER-FACHADA.jpg"
             alt=""
@@ -18,16 +18,16 @@ export default function AboutPage() {
           />
           <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-[#005580]/90 to-[#005580]/70" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-white text-4xl md:text-6xl font-bold z-10 whitespace-nowrap">
-              <span className="mr-2 font-light">EL MÁS</span>
-              <span className="text-5xl md:text-7xl">GRANDE</span>
+            <h1 className="text-white text-4xl md:text-6xl sm:flex sm:flex-col  sm:text-center sm:mt-24 font-bold z-10 whitespace-nowrap">
+              <span className="mr-2 font-light sm:text-[52px]">EL MÁS</span>
+              <span className="text-5xl md:text-7xl sm:text-[72px]">GRANDE</span>
             </h1>
           </div>
         </div>
 
         {/* Main Content */}
-        <main className="flex-grow">
-          <div className="container mx-auto px-4 py-12">
+        <main className="flex-grow sm:p-8 sm:flex sm:justify-center">
+          <div className="container mx-auto px-4 py-12 sm:m-0 sm:p-0 sm:flex sm:flex-col sm:justify-center">
             <section className="text-center max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 text-[#005580]">¿QUIÉNES SOMOS?</h2>
               <p className="text-gray-700 mb-6 text-center">
@@ -65,8 +65,8 @@ export default function AboutPage() {
               </p>
             </section>
             <h2 className="text-3xl font-bold mb-8 text-[#005580] text-center">Valores</h2>
-            <section className="relative w-full">
-              <div className="absolute inset-0">
+            <section className="relative w-full sm:flex sm:flex-col">
+              <div className="absolute inset-0 sm">
                 <Image
                   src="/images/BANNER-VALORES.jpg"
                   alt="Background"
@@ -77,14 +77,15 @@ export default function AboutPage() {
               </div>
               <div className="absolute inset-0 bg-[#005580]/90" />
 
-              <div className="relative py-16 px-4 container mx-auto">
-                <div className="grid grid-cols-2 gap-12 md:gap-16 max-w-4xl mx-auto">
+              <div className="relative py-12 px-4 mx-auto  sm:py-8">
+                <div className="grid grid-cols-2 gap-12 md:gap-16 max-w-4xl mx-auto sm:grid sm:grid-cols-1">
                   <div className="flex flex-col items-center">
                     <div className="w-20 h-20 mb-4">
                       <ShieldCheck className="w-full h-full text-white" />
                     </div>
                     <span className="text-white font-medium text-3xl">Honestidad</span>
                   </div>
+
                   <div className="flex flex-col items-center">
                     <div className="w-20 h-20 mb-4">
                       <ThumbsUp className="w-full h-full text-white" />
@@ -98,8 +99,6 @@ export default function AboutPage() {
                     </div>
                     <span className="text-white font-medium text-3xl">Lealtad</span>
                   </div>
-
-                  
 
                   <div className="flex flex-col items-center">
                     <div className="w-20 h-20 mb-4">
