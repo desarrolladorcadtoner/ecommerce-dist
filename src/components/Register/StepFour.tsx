@@ -28,20 +28,21 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
     if (!file) return;
 
     // Validar tipo de archivo
-    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    const allowedTypes = ["application/pdf"];
     if (!allowedTypes.includes(file.type)) {
-      alert("Solo se permiten archivos PDF, JPG o PNG.");
+      alert("Solo se permiten archivos PDF");
       return;
     }
 
-    // Validar tamaño del archivo
-    if (file.size > 1000000) { // 1 MB
-      alert("El archivo es demasiado grande. Por favor, sube un archivo más pequeño.");
+    // Validar tamaño del archivo (por ejemplo, 5 MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert("El archivo es demasiado grande. El tamaño máximo permitido es de 5 MB.");
       return;
     }
 
-    // Actualizar el estado con el archivo (sin convertir a Base64)
+    // Actualizar el estado con el archivo
     updateFormData({ [fieldName]: file });
+    console.log(`Archivo cargado en ${fieldName}:`, file);
     setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }));
   }
 

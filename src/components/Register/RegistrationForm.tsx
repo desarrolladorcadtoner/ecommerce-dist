@@ -93,18 +93,9 @@ export default function RegistrationForm() {
       alert("Por favor, complete todos los campos obligatorios.");
       return;
     }*/}
-    // Agregar archivos al FormData
-    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
-    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
-    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
-    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
-    if (formData.ine) formDataToSend.append("ine", formData.ine);
-
     
+    // Serializar los datos generales, contacto y negocio como JSON
     const dataToSend = {
-      ...formData,
-        /*regimenFiscal: String(formData.regimenFiscal),*/
-      
       general: {
         TipoPersona: formData.tipoPersona,
         RazonSocial: formData.razonSocial,
@@ -155,11 +146,22 @@ export default function RegistrationForm() {
         ciudadEntrega: formData.ciudadEntrega,
         IdDistribuidor: formData.IdDistribuidor,
       },
-      
     }
     
+    // Verificar que el JSON sea válido
+    console.log("Datos a enviar (JSON):", dataToSend);
+
     // Agregar el JSON serializado al FormData
     formDataToSend.append("data", JSON.stringify(dataToSend));
+
+    // Verificar que los archivos sean válidos
+    console.log("Archivos a enviar:", {
+      actaConstitutiva: formData.actaConstitutiva,
+      constanciaFiscal: formData.constanciaFiscal,
+      comprobanteDomicilio: formData.comprobanteDomicilio,
+      edoCuenta: formData.edoCuenta,
+      ine: formData.ine,
+    });
 
     // Agregar los archivos binarios al FormData
     if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
@@ -167,6 +169,11 @@ export default function RegistrationForm() {
     if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
     if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
     if (formData.ine) formDataToSend.append("ine", formData.ine);
+
+    console.log("Contenido del FormData:");
+    for (let pair of formDataToSend.entries()) {
+      console.log(`${pair[0]}:`, pair[1]);
+    }
 
     try {
       const response = await fetch("http://172.100.203.36:8000/register/registro", {
