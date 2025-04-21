@@ -10,8 +10,8 @@ const Footer = () => {
           
           {/* Logo and Description */}
           <div className="flex flex-col justify-between ">
-            <a href="/">
-              <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
+            <a href="/" className='flex justify-center mb-4'>
+              <img alt="logo" className="w-56" src="/images/logo-cadtoner.png" />
             </a>
             <ul>
               <li>5 de Mayo #1338 Pte., Centro</li>

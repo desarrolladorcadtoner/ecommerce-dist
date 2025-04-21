@@ -185,7 +185,11 @@ const Header: React.FC = () => {
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
             <i className="pi pi-shopping-cart mr-2
-             max-1024:mt-5 max-1024:ml-2"></i>
+             max-1024:mt-5 max-1024:ml-2"><Badge
+                value={totalQuantity}
+                severity="success"
+                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[120px]"
+              /></i>
           </a>
         </div>
 
