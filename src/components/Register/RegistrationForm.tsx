@@ -87,44 +87,105 @@ export default function RegistrationForm() {
   }
 
   const onSubmit = async () => {
-    //console.log(formData)
+    const formDataToSend = new FormData();
 
-    if (!validateAllFields()) {
+    {/*if (!validateAllFields()) {
       alert("Por favor, complete todos los campos obligatorios.");
       return;
-    }
-    // Convertir regimenFiscal a cadena
+    }*/}
+    // Agregar archivos al FormData
+    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
+    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
+    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
+    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
+    if (formData.ine) formDataToSend.append("ine", formData.ine);
+
+    
     const dataToSend = {
       ...formData,
-      regimenFiscal: String(formData.regimenFiscal),
+        /*regimenFiscal: String(formData.regimenFiscal),*/
+      
+      general: {
+        TipoPersona: formData.tipoPersona,
+        RazonSocial: formData.razonSocial,
+        NombreComercial: formData.nombreComercial,
+        RFC: formData.rfc,
+        RegimenFiscal: String(formData.regimenFiscal),
+        UsoCFDI: formData.usoCFDI,
+        CorreoFact: formData.correoFactura,
+        Calle: formData.calleFiscal,
+        N_Ext: formData.numExtFiscal,
+        N_Int: formData.numIntFiscal,
+        CodigoPostal: formData.codigoPostalFiscal,
+        Colonia: formData.coloniaFiscal,
+        Telefono: formData.telefonoFiscal,
+        whatsApp: formData.whatsappFiscal,
+        Estado: formData.estadoFiscal,
+        Ciudad: formData.ciudadFiscal,
+        ActividadPrincSHCP: formData.actSHCPFiscal,
+        NomRepresentanteLegal: formData.nombreLegalFiscal,
+        IdDistribuidor: formData.IdDistribuidor,
+      },
+      contacto: {
+        nombreCompras: formData.nombreCompras,
+        apellidoCompras: formData.apellidoCompras,
+        correoCompras: formData.correoCompras,
+        telefonoCompras: formData.telefonoCompras,
+        extensionCompras: formData.extensionCompras,
+        whatsappCompras: formData.whatsappCompras,
+        nombrePago: formData.nombrePago,
+        apellidoPago: formData.apellidoPago,
+        correoPago: formData.correoPago,
+        telefonoPago: formData.telefonoPago,
+        extensionPago: formData.extensionPago,
+        whastappPago: formData.whatsappPago,
+        IdDistribuidor: formData.IdDistribuidor,
+      },
+      negocio: {
+        giroNegocio: formData.giroNegocio,
+        nombreGiroNegocio: formData.nombreGiroNegocio,
+        redSocial: formData.redSocial,
+        nombreRedSocial: formData.nombreRedSocial,
+        calleEntrega: formData.calleEntrega,
+        numExtEntrega: formData.numExtEntrega,
+        numIntEntrega: formData.numIntEntrega,
+        coloniaEntrega: formData.coloniaEntrega,
+        codigoPostalEntrega: formData.codigoPostalEntrega,
+        estadoEntrega: formData.estadoEntrega,
+        ciudadEntrega: formData.ciudadEntrega,
+        IdDistribuidor: formData.IdDistribuidor,
+      },
+      
     }
     
-    console.log("Datos a enviar:", dataToSend);
+    // Agregar el JSON serializado al FormData
+    formDataToSend.append("data", JSON.stringify(dataToSend));
+
+    // Agregar los archivos binarios al FormData
+    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
+    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
+    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
+    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
+    if (formData.ine) formDataToSend.append("ine", formData.ine);
 
     try {
-      const response = await fetch("http://172.100.203.36:8000/register/register", {
+      const response = await fetch("http://172.100.203.36:8000/register/registro", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      })
-
-      console.log("Datos a enviar:", dataToSend);
+        body: formDataToSend, // Enviar como FormData
+      });
 
       if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(`Error al enviar los datos: ${response.status} ${response.statusText} - ${errorText}`)
+        const errorText = await response.text();
+        throw new Error(`Error al enviar los datos: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-      const result = await response.json()
-      console.log("Datos enviados correctamente:", result)
+      const result = await response.json();
+      console.log("Datos enviados correctamente:", result);
     } catch (error) {
-      console.error("Error al enviar los datos:", error)
+      console.error("Error al enviar los datos:", error);
     }
-
-    
   }
+
 
   const renderStep = () => {
     switch (step) {

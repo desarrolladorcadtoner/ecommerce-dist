@@ -24,9 +24,25 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
   const [uploadedFiles, setUploadedFiles] = useState<{ [key: string]: string }>({})
 
   const handleFileUpload = (event: any, fieldName: string) => {
-    const file = event.files[0]
-    updateFormData({ [fieldName]: null }) // Enviar como null mientras trabajas en local
-    setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }))
+    const file = event.files[0];
+    if (!file) return;
+
+    // Validar tipo de archivo
+    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Solo se permiten archivos PDF, JPG o PNG.");
+      return;
+    }
+
+    // Validar tamaño del archivo
+    if (file.size > 1000000) { // 1 MB
+      alert("El archivo es demasiado grande. Por favor, sube un archivo más pequeño.");
+      return;
+    }
+
+    // Actualizar el estado con el archivo (sin convertir a Base64)
+    updateFormData({ [fieldName]: file });
+    setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }));
   }
 
   const handleCheckboxChange = (e: CheckboxChangeEvent, fieldName: string) => {

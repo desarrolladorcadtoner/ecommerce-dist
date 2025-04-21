@@ -357,8 +357,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         <InputTextForm
           tittleInput="WhatsApp"
           className="w-full general-input required"
-          name="telefonoFiscal"
-          value={formData.telefonoFiscal || ""}
+          name="whatsappFiscal"
+          value={formData.whatsappFiscal}
           onChange={handleInputChange}
         />
 

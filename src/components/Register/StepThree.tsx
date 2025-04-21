@@ -129,13 +129,13 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
         <h3 className="text-xl font-semibold mb-4">Dirección de entrega</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-          <InputTextForm
+          {/*<InputTextForm
             tittleInput="Link red social"
             className="w-full general-input required"
             name="nombreRedSocial"
             value={formData.nombreRedSocial || ""}
             onChange={handleInputChange}
-          />
+          />*/}
 
           <InputTextForm
             tittleInput="Calle"
@@ -164,8 +164,8 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
           <InputTextForm
             tittleInput="Colonia"
             className="w-full general-input required"
-            name="numIntEntrega"
-            value={formData.numIntEntrega || ""}
+            name="coloniaFiscal"
+            value={formData.coloniaFiscal || ""}
             onChange={handleInputChange}
           />
 
