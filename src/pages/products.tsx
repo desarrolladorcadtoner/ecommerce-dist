@@ -57,10 +57,11 @@ const ProductsPage = () => {
     <>
       <Header />
 
-      <div className="flex flex-col md:flex-row p-8">
+      <div className="flex flex-col md:flex-row p-8 sm:flex-col">
         {/* Filtros - Panel Lateral */}
         <aside className="w-1/4 mr-4 p-2 mb-8 ml-0 rounded
-        md:mb-0 max-1024:w-1/4 ">
+        md:mb-0 max-1024:w-1/4 
+        sm:w-3/4 sm:mr-0 sm:mx-12">
           <h3 className="text-xl font-bold mb-4">Filtros</h3>
           <div className="space-y-4">
             <div>
@@ -115,7 +116,7 @@ const ProductsPage = () => {
           </div>
 
           {layout === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 sm:mx-8 lg:grid-cols-3 gap-6">
               {currentProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

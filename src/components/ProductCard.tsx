@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 
   return (
-    <div className="product-card">
+    <div className="product-card sm:grid sm:grid-col-1">
       <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
       hover:shadow-xl hover:border-4 sm:text-center hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg

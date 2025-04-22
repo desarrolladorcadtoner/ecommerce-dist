@@ -33,7 +33,8 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
     );
 
     return (
-        <div key={product.id} className="flex p-4 border rounded items-center gap-4 shadow-md ">
+        <div key={product.id} className="flex p-4 border rounded items-center gap-4 shadow-md 
+        sm:p-2 sm:gap-2 sm:flex-col sm:w-full ">
             {product.imagen && (
                 <div className="w-32 h-32 flex-shrink-0 overflow-hidden">
                     <img
