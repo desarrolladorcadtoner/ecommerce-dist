@@ -70,7 +70,7 @@ export default function RegistrationForm() {
   const [showDialog, setShowDialog] = useState(true)
 
   const steps = [
-    { label: "Información Fiscal" },
+    { label: "Información Fiscal      " },
     { label: "Información de Contacto" },
     { label: "Información Comercial" },
     { label: "Documentación" },
@@ -281,9 +281,9 @@ export default function RegistrationForm() {
         <Steps
           model={steps}
           activeIndex={step}
-          className="mb-6"
+          className="mb-6 sm:overflow-hidden sm:overflow-x-auto sm:whitespace-pre-wrap"
           pt={{
-            root: { className: "border-none" },
+            root: { className: "border-none " },
             action: { className: "bg-[#006699] hover:bg-[#005588]" },
           }}
         />

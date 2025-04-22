@@ -53,7 +53,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm py-1"><a href="contacto" className="text-gray-400 text-sm hover:text-pink-500">Contacto</a></p>
             <p className="text-gray-400 text-sm py-1 mb-4"><a href="cedis" className="text-gray-400 text-sm hover:text-pink-500">Mapa del Sitio</a></p>
             
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 sm:flex sm:justify-center">
               <i className="pi pi-facebook text-xl hover:text-pink-500"></i>
               <i className="pi pi-twitter text-xl hover:text-pink-500"></i>
               <i className="pi pi-instagram text-xl hover:text-pink-500"></i>

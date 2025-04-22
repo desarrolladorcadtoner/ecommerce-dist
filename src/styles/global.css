@@ -65,15 +65,6 @@ button:hover {
 }
 
 
-.mapContain {
-  height: 400px;
-  width: 100%;
-}
-
-@media (max-width: 450px) {
-  .mapContain {
-    height: 300px;
-    /* Ajusta la altura para pantallas pequeñas */
-    width: 100%;
-  }
+.p-steps-title{
+  margin-right: 15px;
 }
