@@ -140,7 +140,7 @@ export default function CedisPage() {
         target="_blank"
         className="fixed bottom-4 right-4 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:bg-[#1DA851] transition duration-300"
       >
-        <Phone className="w-6 h-6" />
+        <Phone className="w-8 h-8" />
       </a>
       <Footer />
     </>

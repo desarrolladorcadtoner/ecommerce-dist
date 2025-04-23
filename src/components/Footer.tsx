@@ -62,6 +62,7 @@ const Footer = () => {
   
         </div>
       </div>
+      
       <div className="text-center text-gray-400 text-sm mt-8">
         <p>&copy; 2024 Computación Administrativa y Diseño S.A. de C.V.</p>
         <p>5 de Mayo 1234 Pte, Centro, Monterrey, Nuevo León, 64000, México</p>
