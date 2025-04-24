@@ -28,9 +28,9 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
     if (!file) return;
 
     // Validar tipo de archivo
-    const allowedTypes = ["application/pdf"];
+    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
     if (!allowedTypes.includes(file.type)) {
-      alert("Solo se permiten archivos PDF");
+      alert("Solo se permiten archivos PDF, JPG o PNG.");
       return;
     }
 
@@ -42,7 +42,6 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
 
     // Actualizar el estado con el archivo
     updateFormData({ [fieldName]: file });
-    console.log(`Archivo cargado en ${fieldName}:`, file);
     setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }));
   }
 

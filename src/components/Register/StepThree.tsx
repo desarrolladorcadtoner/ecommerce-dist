@@ -194,7 +194,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
           
           <div className="space-y-2">
             <label className="block text-sm font-medium">
-              Ciudad<span className="text-red-500">*</span>
+              Municipio<span className="text-red-500">*</span>
             </label>
             <Dropdown
               options={ciudadOptions}

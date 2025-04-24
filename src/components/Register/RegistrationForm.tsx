@@ -58,15 +58,16 @@ export default function RegistrationForm() {
     codigoPostalEntrega: '',
     estadoEntrega: '',
     ciudadEntrega: '',
-    actaConstitutiva: '',
-    constanciaFiscal: '',
-    comprobanteDomicilio: '',
-    edoCuenta: '',
-    ine: '',
+    actaConstitutiva: null,
+    constanciaFiscal: null,
+    comprobanteDomicilio: null,
+    edoCuenta: null,
+    ine: null,
     acceptedTerms: false,
     acceptedWarranty: false,
     acceptedPrivacy: false,
-  })
+  });
+  const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(true)
 
   const steps = [
@@ -78,25 +79,33 @@ export default function RegistrationForm() {
 
   const nextStep = () => {
     setStep((prev) => Math.min(prev + 1, 3));
-    {/*if (validateStep()) { }*/}
-}
+    {/*if (validateStep()) { }*/ }
+  }
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
   const updateFormData = (newData: any) => {
     setFormData((prevData: any) => ({ ...prevData, ...newData }))
   }
 
-  const onSubmit = async () => {
-    const formDataToSend = new FormData();
+  function toBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1]; // Elimina el encabezado
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  }
 
-    {/*if (!validateAllFields()) {
-      alert("Por favor, complete todos los campos obligatorios.");
-      return;
-    }*/}
-    
-    // Serializar los datos generales, contacto y negocio como JSON
-    const dataToSend = {
-      general: {
+  const onSubmit = async () => {
+    try {
+      const formDataToSend = new FormData();
+
+      // Agregar datos generales al FormData
+      formDataToSend.append("general", JSON.stringify({
         TipoPersona: formData.tipoPersona,
         RazonSocial: formData.razonSocial,
         NombreComercial: formData.nombreComercial,
@@ -115,9 +124,10 @@ export default function RegistrationForm() {
         Ciudad: formData.ciudadFiscal,
         ActividadPrincSHCP: formData.actSHCPFiscal,
         NomRepresentanteLegal: formData.nombreLegalFiscal,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-      contacto: {
+      }));
+
+      // Agregar datos de contacto al FormData
+      formDataToSend.append("contacto", JSON.stringify({
         nombreCompras: formData.nombreCompras,
         apellidoCompras: formData.apellidoCompras,
         correoCompras: formData.correoCompras,
@@ -130,9 +140,10 @@ export default function RegistrationForm() {
         telefonoPago: formData.telefonoPago,
         extensionPago: formData.extensionPago,
         whastappPago: formData.whatsappPago,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-      negocio: {
+      }));
+
+      // Agregar datos del negocio al FormData
+      formDataToSend.append("negocio", JSON.stringify({
         giroNegocio: formData.giroNegocio,
         nombreGiroNegocio: formData.nombreGiroNegocio,
         redSocial: formData.redSocial,
@@ -144,38 +155,26 @@ export default function RegistrationForm() {
         codigoPostalEntrega: formData.codigoPostalEntrega,
         estadoEntrega: formData.estadoEntrega,
         ciudadEntrega: formData.ciudadEntrega,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-    }
-    
-    // Verificar que el JSON sea válido
-    console.log("Datos a enviar (JSON):", dataToSend);
+      }));
 
-    // Agregar el JSON serializado al FormData
-    formDataToSend.append("data", JSON.stringify(dataToSend));
+      // Agregar archivos al FormData
+      if (formData.actaConstitutiva) {
+        formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
+      }
+      if (formData.constanciaFiscal) {
+        formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
+      }
+      if (formData.comprobanteDomicilio) {
+        formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
+      }
+      if (formData.edoCuenta) {
+        formDataToSend.append("edoCuenta", formData.edoCuenta);
+      }
+      if (formData.ine) {
+        formDataToSend.append("ine", formData.ine);
+      }
 
-    // Verificar que los archivos sean válidos
-    console.log("Archivos a enviar:", {
-      actaConstitutiva: formData.actaConstitutiva,
-      constanciaFiscal: formData.constanciaFiscal,
-      comprobanteDomicilio: formData.comprobanteDomicilio,
-      edoCuenta: formData.edoCuenta,
-      ine: formData.ine,
-    });
-
-    // Agregar los archivos binarios al FormData
-    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
-    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
-    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
-    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
-    if (formData.ine) formDataToSend.append("ine", formData.ine);
-
-    console.log("Contenido del FormData:");
-    for (let pair of formDataToSend.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-
-    try {
+      // Enviar los datos al backend
       const response = await fetch("http://172.100.203.36:8000/register/registro", {
         method: "POST",
         body: formDataToSend, // Enviar como FormData
@@ -191,8 +190,7 @@ export default function RegistrationForm() {
     } catch (error) {
       console.error("Error al enviar los datos:", error);
     }
-  }
-
+  };
 
   const renderStep = () => {
     switch (step) {
@@ -251,7 +249,7 @@ export default function RegistrationForm() {
   const validateStep = () => {
     switch (step) {
       case 0:
-        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc ) {
+        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc) {
           alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
           return false;
         }
@@ -317,6 +315,20 @@ export default function RegistrationForm() {
           <li><a href="/terminos-condiciones" target="_blank" className="text-blue-500 underline">Términos y Condiciones</a></li>
           <li><a href="/politicas-garantia" target="_blank" className="text-blue-500 underline">Políticas de Garantía</a></li>
         </ul>
+      </Dialog>
+
+      <Dialog 
+      header="Header" 
+      visible={visible} 
+      style={{ width: '50vw' }} 
+      onHide={() => { if (!visible) return; setVisible(false); }}
+      >
+        <p className="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
       </Dialog>
     </div>
   )
