@@ -68,7 +68,9 @@ export default function RegistrationForm() {
     acceptedPrivacy: false,
   });
   const [visible, setVisible] = useState(false);
-  const [showDialog, setShowDialog] = useState(true)
+  const [showDialog, setShowDialog] = useState(true);
+  const [dialogMessage, setDialogMessage] = useState(''); // Estado para el mensaje del diálogo
+
 
   const steps = [
     { label: "Información Fiscal      " },
@@ -185,10 +187,18 @@ export default function RegistrationForm() {
         throw new Error(`Error al enviar los datos: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-      const result = await response.json();
-      console.log("Datos enviados correctamente:", result);
+      // Si la solicitud es exitosa, actualiza el mensaje del diálogo
+      setDialogMessage(
+        `Datos enviados correctamente, en un lapso de 24 a 72 horas recibirás un correo aceptando o denegando tu solicitud como distribuidor a Cad Toner al correo registrado: ${formData.correoFactura}`
+      );
     } catch (error) {
       console.error("Error al enviar los datos:", error);
+
+      // Si ocurre un error, actualiza el mensaje del diálogo
+      setDialogMessage("Error al enviar, inténtelo nuevamente.");
+    } finally {
+      // Mostrar el diálogo
+      setVisible(true);
     }
   };
 
@@ -293,7 +303,7 @@ export default function RegistrationForm() {
           {step < 3 ? (
             <Button label="Siguiente" onClick={nextStep} severity="info" />
           ) : (
-            <Button label="Enviar" severity="success" onClick={onSubmit} />
+              <Button label="Enviar" severity="success" onClick={() => { setVisible(true); onSubmit(); }} />
           )}
         </div>
       </Card>
@@ -318,16 +328,13 @@ export default function RegistrationForm() {
       </Dialog>
 
       <Dialog 
-      header="Header" 
+      header="Respuesta de solicitud"  
       visible={visible} 
       style={{ width: '50vw' }} 
       onHide={() => { if (!visible) return; setVisible(false); }}
       >
         <p className="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          {dialogMessage}
         </p>
       </Dialog>
     </div>
