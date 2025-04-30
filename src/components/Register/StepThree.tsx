@@ -70,15 +70,15 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   // Manejar cambios en el dropdown de estados
   const handleEstadoChange = (e: { value: string }) => {
     const id_estado = e.value;
-    updateFormData({ estadoFiscal: id_estado }); // Actualizar el estado seleccionado en formData
+    updateFormData({ estadoEntrega: id_estado }); // Actualizar el estado seleccionado en formData
     fetchMunicipios(id_estado); // Obtener los municipios del estado seleccionado
-    updateFormData({ ciudadFiscal: "" }); // Limpiar el municipio seleccionado
+    updateFormData({ ciudadEntrega: "" }); // Limpiar el municipio seleccionado
   };
 
   // Manejar cambios en el dropdown de municipios
   const handleMunicipioChange = (e: { value: string }) => {
     const idMunicipio = e.value;
-    updateFormData({ ciudadFiscal: idMunicipio }); // Actualizar el municipio seleccionado en formData
+    updateFormData({ ciudadEntrega: idMunicipio }); // Actualizar el municipio seleccionado en formData
   };
 
   const giroNegocioOptions = [
