@@ -11,23 +11,15 @@ interface StepOneProps {
 }
 
 export default function StepOne({ formData, updateFormData }: StepOneProps) {
-  const [regimenFiscalOptions, setRegimenFiscalOptions] = useState<{ label: string; value: string }[]>([])
-  const [usoCFDIOptions, setUsoCFDIOptions] = useState<{ label: string; value: string }[]>([])
+  const [regimenFiscalOptions, setRegimenFiscalOptions] = useState<{ label: string; value: string }[]>([]);
+  const [usoCFDIOptions, setUsoCFDIOptions] = useState<{ label: string; value: string }[]>([]);
+  const [estadoOptions, setEstadoOptions] = useState<{ label: string; value: string }[]>([]);
+  const [ciudadOptions, setCiudadOptions] = useState<{ label: string; value: string }[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const tipoPersonaOptions = [
     { label: "Persona Física", value: "fisica" },
     { label: "Persona Moral", value: "moral" },
-  ]
-
-  const estadoOptions = [
-    { label: "Ciudad de México", value: "cdmx" },
-    { label: "Jalisco", value: "jalisco" },
-  ]
-
-  const ciudadOptions = [
-    { label: "Ciudad de México", value: "cdmx" },
-    { label: "Guadalajara", value: "guadalajara" },
   ]
 
   const actividadPrincipalOptions = [
@@ -36,8 +28,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   ]
 
   useEffect(() => {
-    if (formData.tipoPersona) {
-      // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
+    // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
+    if (formData.tipoPersona) {      
       fetch(`http://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
         .then((response) => response.json())
         .then((data) => {
@@ -55,9 +47,9 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     }
   }, [formData.tipoPersona])
 
+  // Obtener opciones de "Uso de CFDI" según el valor seleccionado en "Régimen Fiscal"
   useEffect(() => {
     if (formData.regimenFiscal) {
-      // Obtener opciones de "Uso de CFDI" según el valor seleccionado en "Régimen Fiscal"
       fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${formData.regimenFiscal}`)
         .then((response) => response.json())
         .then((data) => {
@@ -75,6 +67,42 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     }
   }, [formData.regimenFiscal])
 
+  // Obtener los estados desde la API
+  useEffect(() => {
+    fetch("http://172.100.203.36:8001/register/estados")
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((estado: any) => ({
+            label: estado.nombre_estado, // Usar el nombre del estado
+            value: estado.id_estado, // Usar el ID del estado como valor
+          }));
+          setEstadoOptions(options);
+        } else {
+          console.error("Error: La respuesta de la API no es un array");
+        }
+      })
+      .catch((error) => console.error("Error fetching estados:", error));
+  }, []);
+
+  // Obtener los municipios según el estado seleccionado
+  const fetchMunicipios = (id_estado: string) => {
+    fetch(`http://172.100.203.36:8001/register/municipios/${id_estado}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((municipio: any) => ({
+            label: municipio.nombre_municipio, // Usar el nombre del municipio
+            value: municipio.id_municipio, // Usar el ID del municipio como valor
+          }));
+          setCiudadOptions(options);
+        } else {
+          console.error("Error: La respuesta de la API no es un array");
+        }
+      })
+      .catch((error) => console.error("Error fetching municipios:", error));
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     validateField(name, value);
@@ -87,6 +115,20 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     validateField(name, value); // Validar el campo seleccionado
     updateFormData({ [name]: value }); // Actualizar el estado global
   }
+
+  // Manejar cambios en el dropdown de estados
+  const handleEstadoChange = (e: { value: string }) => {
+    const id_estado = e.value;
+    updateFormData({ estadoFiscal: id_estado }); // Actualizar el estado seleccionado en formData
+    fetchMunicipios(id_estado); // Obtener los municipios del estado seleccionado
+    updateFormData({ ciudadFiscal: "" }); // Limpiar el municipio seleccionado
+  };
+
+  // Manejar cambios en el dropdown de municipios
+  const handleMunicipioChange = (e: { value: string }) => {
+    const idMunicipio = e.value;
+    updateFormData({ ciudadFiscal: idMunicipio }); // Actualizar el municipio seleccionado en formData
+  };
 
   //Validar los campos obligatorios
   const validateField = (name: string, value: string) => {
@@ -380,7 +422,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <Dropdown
             options={estadoOptions}
             value={formData.estadoFiscal}
-            onChange={handleDropdownChange}
+            onChange={handleEstadoChange}
             placeholder="Seleccione estado"
             className="w-full general-dropdown"
             name="estadoFiscal"
@@ -394,7 +436,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           <Dropdown
             options={ciudadOptions}
             value={formData.ciudadFiscal}
-            onChange={handleDropdownChange}
+            onChange={handleMunicipioChange}
             placeholder="Seleccione ciudad"
             className="w-full general-dropdown"
             name="ciudadFiscal"

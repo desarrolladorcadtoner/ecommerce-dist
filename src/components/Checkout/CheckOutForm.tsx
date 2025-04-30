@@ -145,13 +145,14 @@ const CheckoutPage: React.FC<{
                             <div className="flex flex-row justify-evenly h-72">
                                 {[0, 1, 2].map((index) => (
                                     <div className="felx flex-col w-40 h-auto space-x-4">
-                                        <div key={index} className="flex flex-col items-center">
+                                        <div key={index} className="flex flex-col items-center space-y-4">
                                             <Image src="/images/logo-cadtoner.png"
                                                 alt="Paqueteria EXPRESS"
                                             />
                                             <Checkbox
                                                 onChange={() => setSelectedPaqueteria(index)}
                                                 checked={selectedPaqueteria === index}
+                                                className="w-6 h-6"
                                             />
                                             <label>Paquetería {index + 1}</label>
                                         </div>

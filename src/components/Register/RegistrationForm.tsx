@@ -71,6 +71,62 @@ export default function RegistrationForm() {
   const [showDialog, setShowDialog] = useState(true);
   const [dialogMessage, setDialogMessage] = useState(''); // Estado para el mensaje del diálogo
 
+  // Función para reiniciar el formulario
+  const resetForm = () => {
+    setFormData({
+      IdDistribuidor: 0,
+      tipoPersona: '',
+      razonSocial: '',
+      nombreComercial: '',
+      rfc: '',
+      regimenFiscal: '',
+      usoCFDI: '',
+      correoFactura: '',
+      calleFiscal: '',
+      numExtFiscal: '',
+      numIntFiscal: '',
+      codigoPostalFiscal: '',
+      coloniaFiscal: '',
+      telefonoFiscal: '',
+      whatsappFiscal: '',
+      estadoFiscal: '',
+      ciudadFiscal: '',
+      actSHCPFiscal: '',
+      nombreLegalFiscal: '',
+      nombreCompras: '',
+      apellidoCompras: '',
+      correoCompras: '',
+      telefonoCompras: '',
+      extensionCompras: '',
+      whatsappCompras: '',
+      nombrePago: '',
+      apellidoPago: '',
+      correoPago: '',
+      telefonoPago: '',
+      extensionPago: '',
+      whatsappPago: '',
+      giroNegocio: '',
+      nombreGiroNegocio: '',
+      redSocial: '',
+      nombreRedSocial: '',
+      calleEntrega: '',
+      numExtEntrega: '',
+      numIntEntrega: '',
+      coloniaEntrega: '',
+      codigoPostalEntrega: '',
+      estadoEntrega: '',
+      ciudadEntrega: '',
+      actaConstitutiva: null,
+      constanciaFiscal: null,
+      comprobanteDomicilio: null,
+      edoCuenta: null,
+      ine: null,
+      acceptedTerms: false,
+      acceptedWarranty: false,
+      acceptedPrivacy: false,
+    });
+    setStep(0); // Regresar al primer paso
+  };
 
   const steps = [
     { label: "Información Fiscal      " },
@@ -191,6 +247,9 @@ export default function RegistrationForm() {
       setDialogMessage(
         `Datos enviados correctamente, en un lapso de 24 a 72 horas recibirás un correo aceptando o denegando tu solicitud como distribuidor a Cad Toner al correo registrado: ${formData.correoFactura}`
       );
+
+      // Reiniciar el formulario
+      resetForm();
     } catch (error) {
       console.error("Error al enviar los datos:", error);
 
