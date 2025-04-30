@@ -18,7 +18,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
   // Obtener los estados desde la API
   useEffect(() => {
-    fetch("http://172.100.203.36:8001/register/estados")
+    fetch("http://172.100.203.36:8000/register/estados")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -36,7 +36,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
   // Obtener los municipios según el estado seleccionado
   const fetchMunicipios = (id_estado: string) => {
-    fetch(`http://172.100.203.36:8001/register/municipios/${id_estado}`)
+    fetch(`http://172.100.203.36:8000/register/municipios/${id_estado}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
