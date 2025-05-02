@@ -69,16 +69,20 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
   // Manejar cambios en el dropdown de estados
   const handleEstadoChange = (e: { value: string }) => {
-    const id_estado = e.value;
-    updateFormData({ estadoEntrega: id_estado }); // Actualizar el estado seleccionado en formData
-    fetchMunicipios(id_estado); // Obtener los municipios del estado seleccionado
-    updateFormData({ ciudadEntrega: "" }); // Limpiar el municipio seleccionado
+    const selectedOption = estadoOptions.find((option) => option.value === e.value);
+    if (selectedOption) {
+      updateFormData({ estadoEntrega: selectedOption.label }); // Enviar el nombre del estado
+      fetchMunicipios(e.value); // Obtener los municipios del estado seleccionado
+      updateFormData({ ciudadEntrega: "" }); // Limpiar el municipio seleccionado
+    }
   };
 
   // Manejar cambios en el dropdown de municipios
   const handleMunicipioChange = (e: { value: string }) => {
-    const idMunicipio = e.value;
-    updateFormData({ ciudadEntrega: idMunicipio }); // Actualizar el municipio seleccionado en formData
+    const selectedOption = ciudadOptions.find((option) => option.value === e.value);
+    if (selectedOption) {
+      updateFormData({ ciudadEntrega: selectedOption.label }); // Enviar el nombre del municipio
+    }
   };
 
   const giroNegocioOptions = [
@@ -226,7 +230,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             </label>
             <Dropdown
               options={estadoOptions}
-              value={formData.estadoEntrega}
+              value={estadoOptions.find((option) => option.label === formData.estadoEntrega)?.value || ""}
               onChange={handleEstadoChange}
               placeholder="Seleccione estado"
               className="w-full general-dropdown"
@@ -240,9 +244,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             </label>
             <Dropdown
               options={ciudadOptions}
-              value={formData.ciudadEntrega}
+              value={ciudadOptions.find((option) => option.label === formData.ciudadEntrega)?.value || ""}
               onChange={handleMunicipioChange}
-              placeholder="Seleccione ciudad"
+              placeholder="Seleccione municipio"
               className="w-full general-dropdown"
               name="ciudadEntrega"
             />
