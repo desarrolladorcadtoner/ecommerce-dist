@@ -1,19 +1,33 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 import Link from "next/link"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
 export default function LoginPage() {
+  const { login } = useAuth();
   const [usuario, setUsuario] = useState("")
   const [password, setPassword] = useState("")
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log({ usuario, password })
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+    try {
+      // Llamar a la función login del contexto
+      await login(usuario, password);
+
+      // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
+      alert("Inicio de sesión exitoso");
+      router.push("/"); // Redirigir a la página principal
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Usuario o contraseña incorrectos");
+    }
   }
 
   return (
@@ -34,12 +48,13 @@ export default function LoginPage() {
       </div>
 
       <main className="max-w-6xl mx-auto p-4 mt-8">
-        <div className="flex flex-col md:flex-row gap-12">
+        <div className="flex flex-col justify-evenly md:flex-row gap-12">
           {/* Login Form */}
-          <div className="flex-1">
+          <div>
             <h1 className="text-4xl font-bold text-gray-700 mb-8">¡BIENVENIDO!</h1>
+
             <form onSubmit={handleSubmit} className="max-w-md">
-              <div className="mb-6">
+              <div className="mb-6 w-[450px]">
                 <input
                   type="text"
                   value={usuario}
@@ -49,6 +64,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <div className="mb-6">
                 <input
                   type="password"
@@ -59,12 +75,14 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <button
                 type="submit"
                 className="w-full bg-[#004466] text-white py-3 px-4 rounded font-medium hover:bg-[#003355] transition-colors"
               >
                 Iniciar Sesión
               </button>
+
               <div className="mt-4">
                 <Link href="/forgotPassword" className="text-[#004466] hover:underline">
                   ¿Olvidó su ID de usuario/contraseña?

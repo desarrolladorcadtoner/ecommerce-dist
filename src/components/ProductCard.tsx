@@ -6,6 +6,7 @@ import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { useAuth } from "@/context/AuthContext";
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [visible, setVisible] = useState<boolean>(false);
+  const { isAuthenticated } = useAuth();
   const footerContent = (
     <div>
       {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
@@ -63,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Precio */}
-        <p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>
+        {isAuthenticated ? (<p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>) :("")}
 
         {/* Botón Leer Más */}
         <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4">
@@ -72,10 +74,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Botón Agregar al carrito */}
         <div className="mt-4 flex justify-center content-center">
-          <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+
+          {isAuthenticated ? (<Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
             label="Agregar al carrito"
             icon="pi pi-shopping-cart text-2xl mr-3"
-            onClick={() => setVisible(true)} />
+            onClick={() => setVisible(true)} />) : ("")}
+          
+
           <Dialog header="Estas agregando un producto a tu carrito:"
             visible={visible} style={{ width: '50vw' }}
             onHide={() => {
