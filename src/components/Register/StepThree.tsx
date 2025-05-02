@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { formData } from "@/types/register"
@@ -12,7 +12,45 @@ interface StepThreeProps {
 }
 
 export default function StepThree({ formData, updateFormData }: StepThreeProps) {
-  const [showOtherInput, setShowOtherInput] = useState(formData.giroNegocio === "otra")
+  const [showOtherInput, setShowOtherInput] = useState(formData.giroNegocio === "otra");
+  const [estadoOptions, setEstadoOptions] = useState<{ label: string; value: string }[]>([]);
+  const [ciudadOptions, setCiudadOptions] = useState<{ label: string; value: string }[]>([]);
+
+  // Obtener los estados desde la API
+  useEffect(() => {
+    fetch("http://172.100.203.36:8000/register/estados")
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((estado: any) => ({
+            label: estado.nombre_estado, // Usar el nombre del estado
+            value: estado.id_estado, // Usar el ID del estado como valor
+          }));
+          setEstadoOptions(options);
+        } else {
+          console.error("Error: La respuesta de la API no es un array");
+        }
+      })
+      .catch((error) => console.error("Error fetching estados:", error));
+  }, []);
+
+  // Obtener los municipios según el estado seleccionado
+  const fetchMunicipios = (id_estado: string) => {
+    fetch(`http://172.100.203.36:8000/register/municipios/${id_estado}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((municipio: any) => ({
+            label: municipio.nombre_municipio, // Usar el nombre del municipio
+            value: municipio.id_municipio, // Usar el ID del municipio como valor
+          }));
+          setCiudadOptions(options);
+        } else {
+          console.error("Error: La respuesta de la API no es un array");
+        }
+      })
+      .catch((error) => console.error("Error fetching municipios:", error));
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -28,6 +66,24 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
       updateFormData({ nombreGiroNegocio: "" }) // Clear the other input field if not selected
     }
   }
+
+  // Manejar cambios en el dropdown de estados
+  const handleEstadoChange = (e: { value: string }) => {
+    const selectedOption = estadoOptions.find((option) => option.value === e.value);
+    if (selectedOption) {
+      updateFormData({ estadoEntrega: selectedOption.label }); // Enviar el nombre del estado
+      fetchMunicipios(e.value); // Obtener los municipios del estado seleccionado
+      updateFormData({ ciudadEntrega: "" }); // Limpiar el municipio seleccionado
+    }
+  };
+
+  // Manejar cambios en el dropdown de municipios
+  const handleMunicipioChange = (e: { value: string }) => {
+    const selectedOption = ciudadOptions.find((option) => option.value === e.value);
+    if (selectedOption) {
+      updateFormData({ ciudadEntrega: selectedOption.label }); // Enviar el nombre del municipio
+    }
+  };
 
   const giroNegocioOptions = [
     { label: "Retail", value: "retail" },
@@ -45,16 +101,6 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
     { label: "Página Web", value: "pagina_web" },
   ]
 
-  const estadoOptions = [
-    { label: "Ciudad de México", value: "cdmx" },
-    { label: "Jalisco", value: "jalisco" },
-  ]
-
-  const ciudadOptions = [
-    { label: "Ciudad de México", value: "cdmx" },
-    { label: "Guadalajara", value: "guadalajara" },
-  ]
-
   return (
     <div className="space-y-8">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">INFORMACIÓN COMERCIAL</h2>
@@ -62,7 +108,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
       <div>
 
         <h3 className="text-xl font-semibold mb-4">Información de contacto</h3>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block text-sm font-medium">
@@ -160,7 +206,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             value={formData.numIntEntrega || ""}
             onChange={handleInputChange}
           />
-          
+
           <InputTextForm
             tittleInput="Colonia"
             className="w-full general-input required"
@@ -176,31 +222,31 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             value={formData.codigoPostalEntrega || ""}
             onChange={handleInputChange}
           />
-          
-          
+
+
           <div className="space-y-2">
             <label className="block text-sm font-medium">
               Estado<span className="text-red-500">*</span>
             </label>
             <Dropdown
               options={estadoOptions}
-              value={formData.estadoEntrega}
-              onChange={handleDropdownChange}
+              value={estadoOptions.find((option) => option.label === formData.estadoEntrega)?.value || ""}
+              onChange={handleEstadoChange}
               placeholder="Seleccione estado"
               className="w-full general-dropdown"
               name="estadoEntrega"
             />
           </div>
-          
+
           <div className="space-y-2">
             <label className="block text-sm font-medium">
-              Ciudad<span className="text-red-500">*</span>
+              Municipio<span className="text-red-500">*</span>
             </label>
             <Dropdown
               options={ciudadOptions}
-              value={formData.ciudadEntrega}
-              onChange={handleDropdownChange}
-              placeholder="Seleccione ciudad"
+              value={ciudadOptions.find((option) => option.label === formData.ciudadEntrega)?.value || ""}
+              onChange={handleMunicipioChange}
+              placeholder="Seleccione municipio"
               className="w-full general-dropdown"
               name="ciudadEntrega"
             />

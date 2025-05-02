@@ -39,7 +39,7 @@ const EditBilling = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 sm:p-2">
         <h1 className="text-2xl font-bold mb-4">Editar Datos de Facturación</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">

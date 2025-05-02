@@ -57,9 +57,9 @@ export default function CedisPage() {
     <>
       <Header />
       <div className="min-h-screen bg-white">
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 py-8 sm:mx-0">
           {/* Map Container */}
-          <div className="rounded-xl overflow-hidden border border-gray-200 mb-8">
+          <div className="rounded-xl overflow-hidden border border-gray-200 mb-8 sm:w-[400px]">
             <div className="bg-[#004466] p-4 flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
@@ -108,9 +108,9 @@ export default function CedisPage() {
           </div>
 
           {/* Distribution Centers Info */}
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {sucursales.map((sucursal) => (
-              <div key={sucursal.nombre} className="border border-gray-200 rounded-lg p-6">
+              <div key={sucursal.nombre} className="border border-gray-200 rounded-lg p-6 sm:w-[400px]">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-6 h-6 text-[#E6007E] flex-shrink-0" />
                   <div>
@@ -140,7 +140,7 @@ export default function CedisPage() {
         target="_blank"
         className="fixed bottom-4 right-4 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:bg-[#1DA851] transition duration-300"
       >
-        <Phone className="w-6 h-6" />
+        <Phone className="w-8 h-8" />
       </a>
       <Footer />
     </>

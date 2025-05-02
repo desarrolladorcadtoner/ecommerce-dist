@@ -58,19 +58,78 @@ export default function RegistrationForm() {
     codigoPostalEntrega: '',
     estadoEntrega: '',
     ciudadEntrega: '',
-    actaConstitutiva: '',
-    constanciaFiscal: '',
-    comprobanteDomicilio: '',
-    edoCuenta: '',
-    ine: '',
+    actaConstitutiva: null,
+    constanciaFiscal: null,
+    comprobanteDomicilio: null,
+    edoCuenta: null,
+    ine: null,
     acceptedTerms: false,
     acceptedWarranty: false,
     acceptedPrivacy: false,
-  })
-  const [showDialog, setShowDialog] = useState(true)
+  });
+  const [visible, setVisible] = useState(false);
+  const [showDialog, setShowDialog] = useState(true);
+  const [dialogMessage, setDialogMessage] = useState(''); // Estado para el mensaje del diálogo
+
+  // Función para reiniciar el formulario
+  const resetForm = () => {
+    setFormData({
+      IdDistribuidor: 0,
+      tipoPersona: '',
+      razonSocial: '',
+      nombreComercial: '',
+      rfc: '',
+      regimenFiscal: '',
+      usoCFDI: '',
+      correoFactura: '',
+      calleFiscal: '',
+      numExtFiscal: '',
+      numIntFiscal: '',
+      codigoPostalFiscal: '',
+      coloniaFiscal: '',
+      telefonoFiscal: '',
+      whatsappFiscal: '',
+      estadoFiscal: '',
+      ciudadFiscal: '',
+      actSHCPFiscal: '',
+      nombreLegalFiscal: '',
+      nombreCompras: '',
+      apellidoCompras: '',
+      correoCompras: '',
+      telefonoCompras: '',
+      extensionCompras: '',
+      whatsappCompras: '',
+      nombrePago: '',
+      apellidoPago: '',
+      correoPago: '',
+      telefonoPago: '',
+      extensionPago: '',
+      whatsappPago: '',
+      giroNegocio: '',
+      nombreGiroNegocio: '',
+      redSocial: '',
+      nombreRedSocial: '',
+      calleEntrega: '',
+      numExtEntrega: '',
+      numIntEntrega: '',
+      coloniaEntrega: '',
+      codigoPostalEntrega: '',
+      estadoEntrega: '',
+      ciudadEntrega: '',
+      actaConstitutiva: null,
+      constanciaFiscal: null,
+      comprobanteDomicilio: null,
+      edoCuenta: null,
+      ine: null,
+      acceptedTerms: false,
+      acceptedWarranty: false,
+      acceptedPrivacy: false,
+    });
+    setStep(0); // Regresar al primer paso
+  };
 
   const steps = [
-    { label: "Información Fiscal" },
+    { label: "Información Fiscal      " },
     { label: "Información de Contacto" },
     { label: "Información Comercial" },
     { label: "Documentación" },
@@ -78,34 +137,33 @@ export default function RegistrationForm() {
 
   const nextStep = () => {
     setStep((prev) => Math.min(prev + 1, 3));
-    {/*if (validateStep()) { }*/}
-}
+    {/*if (validateStep()) { }*/ }
+  }
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
   const updateFormData = (newData: any) => {
     setFormData((prevData: any) => ({ ...prevData, ...newData }))
   }
 
+  function toBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1]; // Elimina el encabezado
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
   const onSubmit = async () => {
-    const formDataToSend = new FormData();
+    try {
+      const formDataToSend = new FormData();
 
-    {/*if (!validateAllFields()) {
-      alert("Por favor, complete todos los campos obligatorios.");
-      return;
-    }*/}
-    // Agregar archivos al FormData
-    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
-    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
-    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
-    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
-    if (formData.ine) formDataToSend.append("ine", formData.ine);
-
-    
-    const dataToSend = {
-      ...formData,
-        /*regimenFiscal: String(formData.regimenFiscal),*/
-      
-      general: {
+      // Agregar datos generales al FormData
+      formDataToSend.append("general", JSON.stringify({
         TipoPersona: formData.tipoPersona,
         RazonSocial: formData.razonSocial,
         NombreComercial: formData.nombreComercial,
@@ -124,9 +182,10 @@ export default function RegistrationForm() {
         Ciudad: formData.ciudadFiscal,
         ActividadPrincSHCP: formData.actSHCPFiscal,
         NomRepresentanteLegal: formData.nombreLegalFiscal,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-      contacto: {
+      }));
+
+      // Agregar datos de contacto al FormData
+      formDataToSend.append("contacto", JSON.stringify({
         nombreCompras: formData.nombreCompras,
         apellidoCompras: formData.apellidoCompras,
         correoCompras: formData.correoCompras,
@@ -139,9 +198,10 @@ export default function RegistrationForm() {
         telefonoPago: formData.telefonoPago,
         extensionPago: formData.extensionPago,
         whastappPago: formData.whatsappPago,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-      negocio: {
+      }));
+
+      // Agregar datos del negocio al FormData
+      formDataToSend.append("negocio", JSON.stringify({
         giroNegocio: formData.giroNegocio,
         nombreGiroNegocio: formData.nombreGiroNegocio,
         redSocial: formData.redSocial,
@@ -153,22 +213,26 @@ export default function RegistrationForm() {
         codigoPostalEntrega: formData.codigoPostalEntrega,
         estadoEntrega: formData.estadoEntrega,
         ciudadEntrega: formData.ciudadEntrega,
-        IdDistribuidor: formData.IdDistribuidor,
-      },
-      
-    }
-    
-    // Agregar el JSON serializado al FormData
-    formDataToSend.append("data", JSON.stringify(dataToSend));
+      }));
 
-    // Agregar los archivos binarios al FormData
-    if (formData.actaConstitutiva) formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
-    if (formData.constanciaFiscal) formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
-    if (formData.comprobanteDomicilio) formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
-    if (formData.edoCuenta) formDataToSend.append("edoCuenta", formData.edoCuenta);
-    if (formData.ine) formDataToSend.append("ine", formData.ine);
+      // Agregar archivos al FormData
+      if (formData.actaConstitutiva) {
+        formDataToSend.append("actaConstitutiva", formData.actaConstitutiva);
+      }
+      if (formData.constanciaFiscal) {
+        formDataToSend.append("constanciaFiscal", formData.constanciaFiscal);
+      }
+      if (formData.comprobanteDomicilio) {
+        formDataToSend.append("comprobanteDomicilio", formData.comprobanteDomicilio);
+      }
+      if (formData.edoCuenta) {
+        formDataToSend.append("edoCuenta", formData.edoCuenta);
+      }
+      if (formData.ine) {
+        formDataToSend.append("ine", formData.ine);
+      }
 
-    try {
+      // Enviar los datos al backend
       const response = await fetch("http://172.100.203.36:8000/register/registro", {
         method: "POST",
         body: formDataToSend, // Enviar como FormData
@@ -179,13 +243,23 @@ export default function RegistrationForm() {
         throw new Error(`Error al enviar los datos: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-      const result = await response.json();
-      console.log("Datos enviados correctamente:", result);
+      // Si la solicitud es exitosa, actualiza el mensaje del diálogo
+      setDialogMessage(
+        `Datos enviados correctamente, en un lapso de 24 a 72 horas recibirás un correo aceptando o denegando tu solicitud como distribuidor a Cad Toner al correo registrado: ${formData.correoFactura}`
+      );
+
+      // Reiniciar el formulario
+      resetForm();
     } catch (error) {
       console.error("Error al enviar los datos:", error);
-    }
-  }
 
+      // Si ocurre un error, actualiza el mensaje del diálogo
+      setDialogMessage("Error al enviar, inténtelo nuevamente.");
+    } finally {
+      // Mostrar el diálogo
+      setVisible(true);
+    }
+  };
 
   const renderStep = () => {
     switch (step) {
@@ -244,7 +318,7 @@ export default function RegistrationForm() {
   const validateStep = () => {
     switch (step) {
       case 0:
-        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc ) {
+        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc) {
           alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
           return false;
         }
@@ -274,9 +348,9 @@ export default function RegistrationForm() {
         <Steps
           model={steps}
           activeIndex={step}
-          className="mb-6"
+          className="mb-6 sm:overflow-hidden sm:overflow-x-auto sm:whitespace-pre-wrap"
           pt={{
-            root: { className: "border-none" },
+            root: { className: "border-none " },
             action: { className: "bg-[#006699] hover:bg-[#005588]" },
           }}
         />
@@ -288,7 +362,7 @@ export default function RegistrationForm() {
           {step < 3 ? (
             <Button label="Siguiente" onClick={nextStep} severity="info" />
           ) : (
-            <Button label="Enviar" severity="success" onClick={onSubmit} />
+              <Button label="Enviar" severity="success" onClick={() => { setVisible(true); onSubmit(); }} />
           )}
         </div>
       </Card>
@@ -310,6 +384,17 @@ export default function RegistrationForm() {
           <li><a href="/terminos-condiciones" target="_blank" className="text-blue-500 underline">Términos y Condiciones</a></li>
           <li><a href="/politicas-garantia" target="_blank" className="text-blue-500 underline">Políticas de Garantía</a></li>
         </ul>
+      </Dialog>
+
+      <Dialog 
+      header="Respuesta de solicitud"  
+      visible={visible} 
+      style={{ width: '50vw' }} 
+      onHide={() => { if (!visible) return; setVisible(false); }}
+      >
+        <p className="m-0">
+          {dialogMessage}
+        </p>
       </Dialog>
     </div>
   )

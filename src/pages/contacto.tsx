@@ -113,11 +113,11 @@ export default function ContactPage() {
         target="_blank"
         className="fixed bottom-4 right-4 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:bg-[#1DA851] transition duration-300"
       >
-        <Phone className="w-6 h-6" />
+        <Phone className="w-10 h-10" />
       </a>
 
       {/* Chatbot */}
-      <div className="fixed bottom-4 right-20 bg-white p-3 rounded-full shadow-lg">
+      <div className="fixed bottom-4 right-20 bg-white p-3 mr-4 rounded-full shadow-lg">
         <a href="https://www.b2chat.io/" target="_blank">
         <MessageSquare className="w-10 h-10 text-[#004466]" />
         </a>

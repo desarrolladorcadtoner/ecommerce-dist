@@ -10,8 +10,8 @@ const Footer = () => {
           
           {/* Logo and Description */}
           <div className="flex flex-col justify-between ">
-            <a href="/">
-              <img alt="logo" className="w-48" src="/images/logo-cadtoner.png" />
+            <a href="/" className='flex justify-center mb-4'>
+              <img alt="logo" className="w-56" src="/images/logo-cadtoner.png" />
             </a>
             <ul>
               <li>5 de Mayo #1338 Pte., Centro</li>
@@ -53,7 +53,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm py-1"><a href="contacto" className="text-gray-400 text-sm hover:text-pink-500">Contacto</a></p>
             <p className="text-gray-400 text-sm py-1 mb-4"><a href="cedis" className="text-gray-400 text-sm hover:text-pink-500">Mapa del Sitio</a></p>
             
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 sm:flex sm:justify-center">
               <i className="pi pi-facebook text-xl hover:text-pink-500"></i>
               <i className="pi pi-twitter text-xl hover:text-pink-500"></i>
               <i className="pi pi-instagram text-xl hover:text-pink-500"></i>
@@ -62,6 +62,7 @@ const Footer = () => {
   
         </div>
       </div>
+      
       <div className="text-center text-gray-400 text-sm mt-8">
         <p>&copy; 2024 Computación Administrativa y Diseño S.A. de C.V.</p>
         <p>5 de Mayo 1234 Pte, Centro, Monterrey, Nuevo León, 64000, México</p>

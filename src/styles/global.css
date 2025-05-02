@@ -24,6 +24,12 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Estilos del checkbox del checkout*/
+.p-checkbox-input, .p-checkbox{
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
 .p-toast-success {
   border-left: 5px solid #28a745;
   /* Franja verde */
@@ -62,4 +68,9 @@ button:hover {
 
 .p-panelmenu-header-content{
   background-color: transparent;
+}
+
+
+.p-steps-title{
+  margin-right: 15px;
 }

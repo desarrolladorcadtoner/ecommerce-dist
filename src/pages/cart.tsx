@@ -16,8 +16,9 @@ const CartPage: React.FC = () => {
   console.log('Contenido del carrito:', cartItems);// Verificar contenido del carrito
 
   // Calcular el total del carrito
-  const calculateTotal = (): number => {
-    return parseFloat(cartItems.reduce((total, item) => total + item.precio * item.quantity, 0).toFixed(4));
+  const calculateTotal = (): string => {
+    const total = cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0);
+    return total.toLocaleString("es-MX", { style: "currency", currency: "MXN" }); // Formatear como moneda mexicana
   };
 
   // Renderizar la acción de eliminar
@@ -34,7 +35,7 @@ const CartPage: React.FC = () => {
     <img
       src={rowData.imagen}
       alt={rowData.nombre}
-      className="ml-20 w-28 h-28 object-cover rounded-md"
+      className="ml-20 w-28 h-28 object-cover rounded-md sm:ml-0 sm:w-32 xl:ml-6"
     />
   );
 
@@ -52,9 +53,14 @@ const CartPage: React.FC = () => {
         min="1"
         value={rowData.quantity}
         onChange={handleQuantityChange}
-        className="w-16 p-2 border border-gray-300 rounded text-center"
+        className="w-20 p-2 border border-gray-300 rounded text-center"
       />
     );
+  };
+
+  // Renderizar el precio con el símbolo de pesos
+  const priceBodyTemplate = (rowData: any) => {
+    return `$${rowData.precio.toFixed(2)}`; // Formatear el precio con 2 decimales
   };
 
   return (
@@ -69,22 +75,22 @@ const CartPage: React.FC = () => {
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full h-[600px] px-4 py-4 shadow-lg rounded-lg overflow-auto"
+            className="w-full h-[600px] px-4 py-4 shadow-lg rounded-lg overflow-auto sm:overflow-hidden sm:overflow-y-auto"
           >
             <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 bg-gray-50 rounded" />
-            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2 bg-gray-50" />
-            <Column field="precio" header="Precio" className="w-1/6 text-center px-4 py-2 bg-gray-50" />
+            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2 bg-gray-50 sm:w-2/3" />
+            <Column header="Precio" body={priceBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
             <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
             <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 bg-gray-50 text-red-900" />
           </DataTable>
 
           {/* Total y botón de pago */}
-          <div className="flex flex-col md:flex-row-reverse justify-between items-center mt-6 gap-4">
-            <h2 className="text-2xl font-bold text-gray-800">Total: ${calculateTotal()}</h2>
+          <div className="flex flex-row justify-end items-center mt-6 gap-4">
+            <h2 className="text-2xl font-bold text-gray-800">Total: {calculateTotal()}</h2>
             <Button
               label="Ir a pagar"
               icon="pi pi-shopping-cart"
-              className="p-button-success w-full md:w-auto px-6 py-3 text-lg font-semibold transition-all hover:scale-105"
+              className="bg-[#0b4468] w-auto px-6 py-3 text-lg text-white font-semibold transition-all hover:scale-105"
               onClick={() => router.push("/checkout")}
             />
           </div>

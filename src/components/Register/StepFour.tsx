@@ -34,13 +34,13 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       return;
     }
 
-    // Validar tamaño del archivo
-    if (file.size > 1000000) { // 1 MB
-      alert("El archivo es demasiado grande. Por favor, sube un archivo más pequeño.");
+    // Validar tamaño del archivo (por ejemplo, 5 MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert("El archivo es demasiado grande. El tamaño máximo permitido es de 5 MB.");
       return;
     }
 
-    // Actualizar el estado con el archivo (sin convertir a Base64)
+    // Actualizar el estado con el archivo
     updateFormData({ [fieldName]: file });
     setUploadedFiles((prev) => ({ ...prev, [fieldName]: file.name }));
   }

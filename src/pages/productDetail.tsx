@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { TabView, TabPanel } from "primereact/tabview";
 import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
+import { useAuth } from "@/context/AuthContext";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "@/styles/productDetail.css";
@@ -21,6 +22,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [fichaTecnica, setFichaTecnica] = useState<any | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const { isAuthenticated } = useAuth();
 
   const { addToCart } = useCart(); // Obtener la función addToCart del contexto
 
@@ -72,24 +74,23 @@ const ProductDetail = () => {
             <p className="mt-4 text-xl text-gray-500">Stock disponible: {product.stock}</p>
             <p className="mt-4 text-xl text-gray-500">Referencia: {product.referencia}</p>
             <p className="mt-4 text-xl text-gray-500">Categoria: {product.categoria}</p>
-            <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)}</p>
-            <div className="mt-8 flex items-center">
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="w-16 p-2 text-center border border-gray-300 rounded mr-4"
-              />
-              <AnimatedButton onClick={() => addToCart(product, quantity)} />
-              {/*<button
-                onClick={handleAddToCart}
-                className="bg-blue-500 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-blue-600 transition duration-300 ease-in-out"
-              >
-                <ShoppingCart className="mr-2" />
-                Añadir al Carrito
-              </button>*/}
-            </div>
+            {isAuthenticated && (
+              <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)}</p>
+            )}
+
+            {isAuthenticated && (
+              <div className="mt-8 flex items-center">
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  className="w-16 p-2 text-center border border-gray-300 rounded mr-4"
+                />
+                <AnimatedButton onClick={() => addToCart(product, quantity)} />
+              </div>
+            )}
+            
           </div>
         </div>
         <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8 p-8">

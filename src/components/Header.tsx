@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
-
+import { useAuth } from "@/context/AuthContext";
 import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false); // Estado para controlar la visibilidad del input de búsqueda
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
-  
+  const { isAuthenticated, logout } = useAuth();
 
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -98,19 +98,35 @@ const Header: React.FC = () => {
             <span className="max-1024:text-transparent 
             sm:absolute sm:top-[60px]">Facturación</span>
           </a>
-          <a
-            href="/login"
-            className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+          {isAuthenticated ? (
+            <a
+              href="/login"
+              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
-          >
-            <i className="pi pi-user mr-2 
+            >
+              <i className="pi pi-user mr-2 
             max-1024:mt-10 max-1024:ml-2
             sm:ml-2"></i>
-            <span className="max-1024:text-transparent
+              <span className="max-1024:text-transparent
+            sm:absolute sm:top-[60px] sm:left-[10px]">Cerrar Sesión</span>
+            </a>
+          ) : (
+            <a
+              href="/login"
+              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+            max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
+            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
+            >
+              <i className="pi pi-user mr-2 
+            max-1024:mt-10 max-1024:ml-2
+            sm:ml-2"></i>
+              <span className="max-1024:text-transparent
             sm:absolute sm:top-[60px] sm:left-[10px]">Iniciar Sesión</span>
-          </a>
-          <a
+            </a>
+          )}
+
+          {isAuthenticated ? (<a
             href="/cart"
             className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
@@ -127,7 +143,7 @@ const Header: React.FC = () => {
             </i>
             <span className="ml-2 max-1024:text-transparent
             sm:absolute sm:top-[60px]">Carrito</span>
-          </a>
+          </a>) : ("")}
         </div>
 
       </div>
@@ -185,7 +201,11 @@ const Header: React.FC = () => {
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
             <i className="pi pi-shopping-cart mr-2
-             max-1024:mt-5 max-1024:ml-2"></i>
+             max-1024:mt-5 max-1024:ml-2"><Badge
+                value={totalQuantity}
+                severity="success"
+                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[120px]"
+              /></i>
           </a>
         </div>
 

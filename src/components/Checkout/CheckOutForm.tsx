@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Footer from "@/components/Footer"
-import Header from "@/components/Header"
 import { Button } from "primereact/button";
-import { Panel } from 'primereact/panel';
-import { useRouter } from "next/navigation";
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { MenuItem } from 'primereact/menuitem';
-import Link from 'next/link';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
 import { Checkbox } from "primereact/checkbox";
 import { Dialog } from 'primereact/dialog';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 const CheckoutPage: React.FC<{
     setCurrentStep: (step: number) => void;
@@ -145,13 +140,14 @@ const CheckoutPage: React.FC<{
                             <div className="flex flex-row justify-evenly h-72">
                                 {[0, 1, 2].map((index) => (
                                     <div className="felx flex-col w-40 h-auto space-x-4">
-                                        <div key={index} className="flex flex-col items-center">
+                                        <div key={index} className="flex flex-col items-center space-y-4">
                                             <Image src="/images/logo-cadtoner.png"
                                                 alt="Paqueteria EXPRESS"
                                             />
                                             <Checkbox
                                                 onChange={() => setSelectedPaqueteria(index)}
                                                 checked={selectedPaqueteria === index}
+                                                className="w-6 h-6"
                                             />
                                             <label>Paquetería {index + 1}</label>
                                         </div>
@@ -170,7 +166,7 @@ const CheckoutPage: React.FC<{
                     </div>
                 )}
 
-                {/* Seleccion de cedis */}
+                {/* Seleccion de cedis */} 
                 {selectedOption === "CEDIS" && (
                     <div className="w-2/3 mt-8">
                         <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
@@ -191,6 +187,24 @@ const CheckoutPage: React.FC<{
                         </div>
                     </div>
                 )}
+
+                {/*Selección de CEDIS version 2 en forma de tabla */}
+                {/*{selectedOption === "CEDIS" && (
+                <div className="w-2/3 mt-8">
+                    <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
+                    <div className="grid grid-cols-3 gap-4">
+                        {/* Renderizar CEDIS desde la API }
+                        <div className="card">
+                            <DataTable value={/*products} stripedRows tableStyle={{ minWidth: '50rem' }}>
+                                <Column field="code" header="Code"></Column>
+                                <Column field="name" header="Name"></Column>
+                                <Column field="category" header="Category"></Column>
+                                <Column field="quantity" header="Quantity"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+                </div>
+                )}*/}
 
                 <div className="card flex justify-content-center">
                     <Dialog
