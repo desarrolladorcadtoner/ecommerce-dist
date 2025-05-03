@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types';
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
-import { Card } from 'primereact/card';
+import { useAuth } from "@/context/AuthContext";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 
@@ -15,6 +15,7 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
     const { addToCart } = useCart();
     const [quantity, setQuantity] = useState(1);
     const [visible, setVisible] = useState<boolean>(false);
+    const { isAuthenticated } = useAuth();
     const footerContent = () => (//product: Product
         <div>
             {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
@@ -47,7 +48,10 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
             <div className="flex flex-col flex-1 ">
                 <h3 className="text-xl font-bold mb-2">{product.nombre}</h3>
                 <p className="text-gray-700 text-blue-500">{product.descripcion}</p>
-                <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio}</p>
+                {isAuthenticated && (
+                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio}</p>
+                )}
+                
                 {product.referencia && (
                     <p className="text-xs text-gray-400">Referencia: {product.referencia}</p>
                 )}
@@ -65,14 +69,18 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
 
                     </div>
                     {/* Botón Agregar al carrito */}
-                    <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
-                        label="Agregar al carrito"
-                        icon="pi pi-shopping-cart text-2xl mr-3"
-                        onClick={() => {
-                            //setSelectedProduct(product);
-                            setVisible(true)
-                        }}
-                    />
+                    {isAuthenticated && (
+                        <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+                            label="Agregar al carrito"
+                            icon="pi pi-shopping-cart text-2xl mr-3"
+                            onClick={() => {
+                                //setSelectedProduct(product);
+                                setVisible(true)
+                            }}
+                        />
+                    )}
+                    
+
                     <Dialog
                         header="Estas agregando un producto a tu carrito:"
                         visible={visible}
