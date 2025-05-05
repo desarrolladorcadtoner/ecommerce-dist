@@ -224,7 +224,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         </div>
 
         <InputTextForm
-          tittleInput="Correo Facturación"
+          tittleInput="Correo Electrónico Activo"
           className={`w-full general-input ${errors.correoFactura ? "border-red-500" : ""} required`}
           name="correoFactura"
           value={formData.correoFactura}

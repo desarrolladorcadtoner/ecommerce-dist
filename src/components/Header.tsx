@@ -5,6 +5,8 @@ import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { Sidebar } from 'primereact/sidebar';
+import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
 
 const Header: React.FC = () => {
@@ -44,10 +46,20 @@ const Header: React.FC = () => {
       xl:place-content-center  
       md:place-content-center 
       sm:place-content-evenly ">
-        <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
-        <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
-          <a href="register">REGÍSTRATE</a>
-        </button>
+        {isAuthenticated ? (
+          <>
+            
+            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuiario</strong> Cuenta: <strong>000000</strong> </span>
+          </>
+        ) : (
+          <>
+              <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
+              <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
+                <a href="register">REGÍSTRATE</a>
+              </button>
+          </>
+        )}
+
       </div>
 
       {/* Barra principal */}
@@ -85,23 +97,25 @@ const Header: React.FC = () => {
         {/* Botones a la derecha */}
         <div className="flex space-x-6 
         sm:space-x-14 relative">
-          <a
-            href="/billing"
-            className="bg-transparent border border-white text-white px-4 py-2 rounded-full 
+          {isAuthenticated && (
+            <a
+              href="/billing"
+              className="bg-transparent border border-white text-white px-4 py-4 rounded-full 
               hover:bg-[#de1c85] hover:border-[#de1c85]
               max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
               sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
-          >
-            <i className="pi pi-file mr-2
-             max-1024:mt-5 max-1024:ml-2
+            >
+              <i className="pi pi-file mr-2
+             max-1024:mt-2 max-1024:ml-2
              sm:ml-2"></i>
-            <span className="max-1024:text-transparent 
+              <span className="max-1024:text-transparent 
             sm:absolute sm:top-[60px]">Facturación</span>
-          </a>
+            </a>)}
+
           {isAuthenticated ? (
             <a
               href="/login"
-              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+              className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
             >
@@ -109,12 +123,12 @@ const Header: React.FC = () => {
             max-1024:mt-10 max-1024:ml-2
             sm:ml-2"></i>
               <span className="max-1024:text-transparent
-            sm:absolute sm:top-[60px] sm:left-[10px]">Cerrar Sesión</span>
+            sm:absolute sm:top-[60px] sm:left-[10px]">Perfil</span>
             </a>
           ) : (
             <a
               href="/login"
-              className="bg-[#de1c85] text-white px-4 py-2 rounded-full hover:bg-pink-600
+              className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
             >
@@ -126,7 +140,7 @@ const Header: React.FC = () => {
             </a>
           )}
 
-          {isAuthenticated ? (<a
+          {isAuthenticated && (<a
             href="/cart"
             className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
@@ -143,7 +157,7 @@ const Header: React.FC = () => {
             </i>
             <span className="ml-2 max-1024:text-transparent
             sm:absolute sm:top-[60px]">Carrito</span>
-          </a>) : ("")}
+          </a>)}
         </div>
 
       </div>
