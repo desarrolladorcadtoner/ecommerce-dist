@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             localStorage.setItem("authToken", data.token); // Guardar el token en localStorage
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
-            alert("Usuario o contraseña incorrectos");
+            throw error;
         }
     };
 
