@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -10,6 +10,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    // Cargar el estado de autenticación desde localStorage al iniciar la aplicación
+    useEffect(() => {
+        const storedAuth = localStorage.getItem("isAuthenticated");
+        if (storedAuth === "true") {
+            setIsAuthenticated(true);
+        }
+    }, []);
 
     const login = async (usuario: string, password: string) => {
         try {
@@ -30,9 +38,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             // Guardar el estado de sesión
             setIsAuthenticated(true);
-
-            // Opcional: Guardar el token en localStorage para mantener la sesión
-            localStorage.setItem("authToken", data.token);
+            localStorage.setItem("isAuthenticated", "true"); // Guardar en localStorage
+            localStorage.setItem("authToken", data.token); // Guardar el token en localStorage
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
             alert("Usuario o contraseña incorrectos");
@@ -41,7 +48,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const logout = () => {
         setIsAuthenticated(false);
-        localStorage.removeItem("authToken"); // Eliminar el token al cerrar sesión
+        localStorage.removeItem("isAuthenticated"); // Eliminar el estado de autenticación
+        localStorage.removeItem("authToken"); // Eliminar el token
     };
 
     return (

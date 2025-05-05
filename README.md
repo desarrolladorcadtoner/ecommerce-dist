@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## Arquitectura del proyecto
+
+--> src/:
+    -->/components:
+        Esta carpeta contiene componentes reutilizables que se utilizan en diferentes partes de la aplicación. Cada componente está diseñado para ser modular y fácil de mantener. Ejemplos comunes incluyen botones, encabezados, formularios y otros elementos de interfaz de usuario.
+    --/context:
+        Esta carpeta contiene archivos relacionados con el manejo del estado global de la aplicación utilizando el contexto de React. Aquí se definen y exportan los contextos y proveedores necesarios para compartir datos entre componentes de manera eficiente.

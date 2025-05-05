@@ -103,11 +103,19 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
       .catch((error) => console.error("Error fetching municipios:", error));
   };
 
+  //Guardar
+  const capitalizeText = (text: string): string => {
+    return text
+      .toLowerCase() // Convertir todo el texto a minúsculas
+      .replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    validateField(name, value);
-    updateFormData({ [name]: value })
-  }
+    const capitalizedValue = capitalizeText(value); // Capitalizar el texto ingresado
+    validateField(name, capitalizedValue); // Validar el campo con el texto capitalizado
+    updateFormData({ [name]: capitalizedValue }); // Actualizar el estado global con el texto capitalizado
+  };
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
     const { name } = e.target;
