@@ -105,8 +105,8 @@ const ProductDetail = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr>
-                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -114,7 +114,34 @@ const ProductDetail = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Modelo de Referencia:</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.ModeloReferencia}</td>
                     </tr>
-                    {/* Más filas aquí */}
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Linea:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Linea}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Impresión:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.TecnoImpresion}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Calidad:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Calidad}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Color:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Color}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rendimiento:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Rendimiento}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Comun:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.NombreComun}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cobertura:</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.PaginaxcientoCobertura}</td>
+                    </tr>
                   </tbody>
                 </table>
               ) : (

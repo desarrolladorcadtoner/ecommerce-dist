@@ -1,19 +1,18 @@
 'use client';
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import withAuth from "../hocs/withAuth";
 import { Card } from "primereact/card";
 import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
 
 const CartPage: React.FC = () => {
   const router = useRouter();
   const { cartItems, removeFromCart, updateQuantity } = useCart(); // Obtener los datos del carrito desde el contexto
-  
-  console.log('Contenido del carrito:', cartItems);// Verificar contenido del carrito
 
   // Calcular el total del carrito
   const calculateTotal = (): string => {
@@ -101,4 +100,4 @@ const CartPage: React.FC = () => {
   );
 };
 
-export default CartPage;
+export default withAuth(CartPage);
