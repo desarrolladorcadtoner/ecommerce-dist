@@ -8,11 +8,13 @@ import { useAuth } from "@/context/AuthContext";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
+import { LogOut } from "lucide-react";
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchOpen, setIsSearchOpen] = useState(false); // Estado para controlar la visibilidad del input de búsqueda
+  const [visibleRight, setVisibleRight] = useState<boolean>(false);
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
   const { isAuthenticated, logout } = useAuth();
@@ -48,15 +50,15 @@ const Header: React.FC = () => {
       sm:place-content-evenly ">
         {isAuthenticated ? (
           <>
-            
+
             <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuiario</strong> Cuenta: <strong>000000</strong> </span>
           </>
         ) : (
           <>
-              <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
-              <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
-                <a href="register">REGÍSTRATE</a>
-              </button>
+            <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
+            <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
+              <a href="register">REGÍSTRATE</a>
+            </button>
           </>
         )}
 
@@ -113,8 +115,10 @@ const Header: React.FC = () => {
             </a>)}
 
           {isAuthenticated ? (
-            <a
-              href="/login"
+            <button
+              onClick={() => {
+                setVisibleRight(true); //abrir panel del lado derecho
+              }}
               className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
@@ -124,7 +128,7 @@ const Header: React.FC = () => {
             sm:ml-2"></i>
               <span className="max-1024:text-transparent
             sm:absolute sm:top-[60px] sm:left-[10px]">Perfil</span>
-            </a>
+            </button>
           ) : (
             <a
               href="/login"
@@ -139,6 +143,15 @@ const Header: React.FC = () => {
             sm:absolute sm:top-[60px] sm:left-[10px]">Iniciar Sesión</span>
             </a>
           )}
+
+          <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
+            <h2>Right Sidebar</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <Button onClick={logout} label="Secondary" severity="secondary" />
+          </Sidebar>
 
           {isAuthenticated && (<a
             href="/cart"
