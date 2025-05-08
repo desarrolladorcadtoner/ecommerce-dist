@@ -129,7 +129,7 @@ export default function RegistrationForm() {
   };
 
   const steps = [
-    { label: "Información Fiscal      " },
+    { label: "Información Fiscal" },
     { label: "Información de Contacto" },
     { label: "Información Comercial" },
     { label: "Documentación" },
@@ -230,6 +230,12 @@ export default function RegistrationForm() {
       }
       if (formData.ine) {
         formDataToSend.append("ine", formData.ine);
+      }
+
+      // **Agregar el console.log aquí**
+      console.log("Datos enviados al backend:");
+      for (const [key, value] of formDataToSend.entries()) {
+        console.log(`${key}:`, value);
       }
 
       // Enviar los datos al backend
