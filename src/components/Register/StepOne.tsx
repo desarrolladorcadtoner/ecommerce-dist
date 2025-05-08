@@ -35,7 +35,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         .then((data) => {
           if (data && Array.isArray(data.regimen_sat)) {
             const options = data.regimen_sat.map((item: any) => ({
-              label: item.RegimenSATDescripcion.trim(),
+              label: item.RegimenSATId + ' - ' + item.RegimenSATDescripcion.trim() ,
               value: item.RegimenSATId, // Usar el ID como valor
             }))
             setRegimenFiscalOptions(options)
@@ -55,7 +55,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         .then((data) => {
           if (Array.isArray(data)) {
             const options = data.map((item: any) => ({
-              label: item.DescripcionUsoCFDI.trim(),
+              label: item.c_UsosCFDI + ' - ' + item.DescripcionUsoCFDI.trim(),
               value: item.c_UsosCFDI.trim(), // Usar el ID como valor
             }))
             setUsoCFDIOptions(options)
