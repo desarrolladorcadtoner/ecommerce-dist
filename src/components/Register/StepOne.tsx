@@ -35,8 +35,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         .then((data) => {
           if (data && Array.isArray(data.regimen_sat)) {
             const options = data.regimen_sat.map((item: any) => ({
-              label: item.RegimenSATId + ' - ' + item.RegimenSATDescripcion.trim() ,
-              value: item.RegimenSATId, // Usar el ID como valor
+              label: item.RegimenSATId + '- ' + item.RegimenSATDescripcion.trim() ,
+              value: item.RegimenSATId + '- ' + item.RegimenSATDescripcion.trim(), // Usar el ID como valor
             }))
             setRegimenFiscalOptions(options)
           } else {
@@ -50,22 +50,36 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   // Obtener opciones de "Uso de CFDI" según el valor seleccionado en "Régimen Fiscal"
   useEffect(() => {
     if (formData.regimenFiscal) {
-      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${formData.regimenFiscal}`)
-        .then((response) => response.json())
+      // Extraer solo el ID del régimen fiscal
+      const regimenFiscalId = formData.regimenFiscal.split(" - ")[0]; // Obtener solo el ID antes del " - "
+
+      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${regimenFiscalId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error al obtener los datos: ${response.status} ${response.statusText}`);
+          }
+          return response.json();
+        })
         .then((data) => {
           if (Array.isArray(data)) {
             const options = data.map((item: any) => ({
-              label: item.c_UsosCFDI + ' - ' + item.DescripcionUsoCFDI.trim(),
-              value: item.c_UsosCFDI.trim(), // Usar el ID como valor
-            }))
-            setUsoCFDIOptions(options)
+              label: `${item.c_UsosCFDI} - ${item.DescripcionUsoCFDI.trim()}`, // Mostrar ID y descripción
+              value: `${item.c_UsosCFDI} - ${item.DescripcionUsoCFDI.trim()}`, // Enviar ID y descripción
+            }));
+            setUsoCFDIOptions(options); // Actualizar el estado con las opciones
           } else {
-            console.error("Error: La respuesta de la API no es un array")
+            console.error("Error: La respuesta de la API no es un array");
+            setUsoCFDIOptions([]); // Limpiar las opciones si la respuesta no es válida
           }
         })
-        .catch((error) => console.error("Error fetching uso de cfdi options:", error))
+        .catch((error) => {
+          console.error("Error fetching uso de cfdi options:", error);
+          setUsoCFDIOptions([]); // Limpiar las opciones en caso de error
+        });
+    } else {
+      setUsoCFDIOptions([]); // Limpiar las opciones si no hay un régimen fiscal seleccionado
     }
-  }, [formData.regimenFiscal])
+  }, [formData.regimenFiscal]);
 
   // Obtener los estados desde la API
   useEffect(() => {
