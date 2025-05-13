@@ -144,13 +144,22 @@ const Header: React.FC = () => {
             </a>
           )}
 
-          <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
-            <h2>Right Sidebar</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <Button onClick={logout} label="Secondary" severity="secondary" />
+          <Sidebar 
+          visible={visibleRight} 
+          position="right" 
+          onHide={() => setVisibleRight(false)}
+          >
+            <div className="sidebarLeft my-4 text-[#de1c85]">
+              <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
+              <ol>
+                <li className="mb-4 " ><a href="">Opcion 1</a></li>
+                <li className="mb-4"><a href="">Opcion 2</a></li>
+                <li className="mb-4"><a href="">Opcion 3</a></li>
+                <li className="mb-4"><a href="">Opcion 4</a></li>
+              </ol>
+            </div>
+            
+            <Button onClick={logout} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]"/>
           </Sidebar>
 
           {isAuthenticated && (<a

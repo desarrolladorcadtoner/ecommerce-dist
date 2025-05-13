@@ -26,17 +26,17 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     { label: "Comercio", value: "comercio" },
     { label: "Servicios", value: "servicios" },
   ]
-
-  useEffect(() => {
+  
     // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
+  useEffect(() => {
     if (formData.tipoPersona) {
       fetch(`http://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && Array.isArray(data.regimen_sat)) {
             const options = data.regimen_sat.map((item: any) => ({
-              label: item.RegimenSATId + '- ' + item.RegimenSATDescripcion.trim() ,
-              value: item.RegimenSATId + '- ' + item.RegimenSATDescripcion.trim(), // Usar el ID como valor
+              label: `${item.RegimenSATId} - ${item.RegimenSATDescripcion.trim()}`,
+              value: `${item.RegimenSATId} - ${item.RegimenSATDescripcion.trim()}`, // Usar el ID como valor
             }))
             setRegimenFiscalOptions(options)
           } else {
@@ -49,11 +49,10 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
   // Obtener opciones de "Uso de CFDI" según el valor seleccionado en "Régimen Fiscal"
   useEffect(() => {
-    if (formData.regimenFiscal) {
-      // Extraer solo el ID del régimen fiscal
-      const regimenFiscalId = formData.regimenFiscal.split(" - ")[0]; // Obtener solo el ID antes del " - "
+    const regimenId = formData.regimenFiscal?.split(' - ')[0]?.trim(); // ✅ Extrae solo el ID
 
-      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${regimenFiscalId}`)
+    if (regimenId) {
+      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${regimenId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error al obtener los datos: ${response.status} ${response.statusText}`);
@@ -63,8 +62,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
         .then((data) => {
           if (Array.isArray(data)) {
             const options = data.map((item: any) => ({
-              label: `${item.c_UsosCFDI} - ${item.DescripcionUsoCFDI.trim()}`, // Mostrar ID y descripción
-              value: `${item.c_UsosCFDI} - ${item.DescripcionUsoCFDI.trim()}`, // Enviar ID y descripción
+              label: `${item.c_UsosCFDI}-${item.DescripcionUsoCFDI.trim()}`, // Mostrar ID y descripción
+              value: `${item.c_UsosCFDI.trim()} - ${item.DescripcionUsoCFDI.trim()}`, // Enviar ID y descripción
             }));
             setUsoCFDIOptions(options); // Actualizar el estado con las opciones
           } else {
@@ -126,9 +125,15 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const capitalizedValue = capitalizeText(value); // Capitalizar el texto ingresado
-    validateField(name, capitalizedValue); // Validar el campo con el texto capitalizado
-    updateFormData({ [name]: capitalizedValue }); // Actualizar el estado global con el texto capitalizado
+
+    // Capitalizar el texto para almacenarlo en formData
+    const capitalizedValue = capitalizeText(value);
+
+    // Validar el campo con el texto capitalizado
+    validateField(name, capitalizedValue);
+
+    // Actualizar el estado global con el texto capitalizado
+    updateFormData({ [name]: capitalizedValue });
   };
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
@@ -194,7 +199,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Razón Social ante SHCP"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="razonSocial"
           value={formData.razonSocial || ""}
           onChange={handleInputChange}
@@ -202,7 +207,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Nombre Comercial"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="nombreComercial"
           value={formData.nombreComercial || ""}
           onChange={handleInputChange}
@@ -210,7 +215,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="RFC"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="rfc"
           value={formData.rfc || ""}
           onChange={handleInputChange}
@@ -247,7 +252,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Correo Electrónico Activo"
-          className={`w-full general-input ${errors.correoFactura ? "border-red-500" : ""} required`}
+          className={`w-full general-input ${errors.correoFactura ? "border-red-500" : ""} uppercase required`}
           name="correoFactura"
           value={formData.correoFactura}
           onChange={handleInputChange}
@@ -260,7 +265,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <InputTextForm
           tittleInput="Calle"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="calleFiscal"
           value={formData.calleFiscal || ""}
           onChange={handleInputChange}
@@ -268,7 +273,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Número Exterior"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="numExtFiscal"
           value={formData.numExtFiscal || ""}
           onChange={handleInputChange}
@@ -276,7 +281,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Número Interior"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="numIntFiscal"
           value={formData.numIntFiscal || ""}
           onChange={handleInputChange}
@@ -284,7 +289,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Código Postal"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="codigoPostalFiscal"
           value={formData.codigoPostalFiscal || ""}
           onChange={handleInputChange}
@@ -292,7 +297,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Colonia"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="coloniaFiscal"
           value={formData.coloniaFiscal || ""}
           onChange={handleInputChange}
@@ -300,7 +305,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Teléfono"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="telefonoFiscal"
           value={formData.telefonoFiscal || ""}
           onChange={handleInputChange}
@@ -308,7 +313,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="WhatsApp"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="whatsappFiscal"
           value={formData.whatsappFiscal}
           onChange={handleInputChange}
@@ -358,7 +363,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Nombre del Representante Legal"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="nombreLegalFiscal"
           value={formData.nombreLegalFiscal}
           onChange={handleInputChange}
