@@ -9,7 +9,7 @@ import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, fetchProtectedData } = useAuth();
   const [usuario, setUsuario] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter();
@@ -21,8 +21,11 @@ export default function LoginPage() {
       // Llamar a la función login del contexto
       await login(usuario, password);
 
+      const protectedData = await fetchProtectedData();
+      console.log("Datos protegidos:", protectedData);
+
       // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
-      alert("Inicio de sesión exitoso");
+      //alert("Inicio de sesión exitoso");
       router.push("/"); // Redirigir a la página principal
     } catch (error) {
       console.error("Error al iniciar sesión:", error);

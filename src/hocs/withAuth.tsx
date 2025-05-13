@@ -4,18 +4,28 @@ import { useAuth } from "@/context/AuthContext";
 
 const withAuth = (WrappedComponent: React.FC) => {
     const AuthenticatedComponent: React.FC = (props) => {
-        const { isAuthenticated } = useAuth();
+        const { isAuthenticated, fetchProtectedData } = useAuth(); // Agregar fetchProtectedData
         const router = useRouter();
         const [loading, setLoading] = useState(true);
 
         useEffect(() => {
-            const storedAuth = localStorage.getItem("isAuthenticated");
-            if (storedAuth === "true") {
-                setLoading(false); // Usuario autenticado, dejar de cargar
+            const checkAuth = async () => {
+                try {
+                    // Verificar datos protegidos
+                    await fetchProtectedData();
+                    setLoading(false); // Usuario autenticado, dejar de cargar
+                } catch (error) {
+                    console.error("Error al verificar datos protegidos:", error);
+                    router.push("/login"); // Redirigir al inicio de sesión si no está autorizado
+                }
+            };
+
+            if (isAuthenticated) {
+                checkAuth();
             } else {
                 router.push("/login"); // Redirigir al inicio de sesión si no está autenticado
             }
-        }, [isAuthenticated, router]);
+        }, [isAuthenticated, fetchProtectedData, router]);
 
         if (loading) {
             return <div>Cargando...</div>; // Mostrar un indicador de carga mientras se verifica
