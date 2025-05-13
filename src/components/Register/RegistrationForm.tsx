@@ -10,8 +10,6 @@ import StepTwo from "./StepTwo"
 import StepThree from "./StepThree"
 import StepFour from "./StepFour"
 import type { formData } from "@/types/register"
-//import "primereact/resources/themes/lara-light-blue/theme.css"
-//import "primereact/resources/primereact.min.css"
 
 export default function RegistrationForm() {
   const [step, setStep] = useState(0)
@@ -129,7 +127,7 @@ export default function RegistrationForm() {
   };
 
   const steps = [
-    { label: "Información Fiscal      " },
+    { label: "Información Fiscal" },
     { label: "Información de Contacto" },
     { label: "Información Comercial" },
     { label: "Documentación" },
@@ -137,13 +135,15 @@ export default function RegistrationForm() {
 
   const nextStep = () => {
     setStep((prev) => Math.min(prev + 1, 3));
-    {/*if (validateStep()) { }*/ }
+    ///if (validateStep()) {
+     // setStep((prev) => Math.min(prev + 1, 3));
+     //}
   }
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
-  const updateFormData = (newData: any) => {
-    setFormData((prevData: any) => ({ ...prevData, ...newData }))
-  }
+  const updateFormData = (newData: Partial<formData>) => {
+    setFormData((prevData) => ({ ...prevData, ...newData }));
+  };
 
   function toBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -159,6 +159,8 @@ export default function RegistrationForm() {
   }
 
   const onSubmit = async () => {
+    if (!validateStep()) return;
+
     try {
       const formDataToSend = new FormData();
 
@@ -230,6 +232,12 @@ export default function RegistrationForm() {
       }
       if (formData.ine) {
         formDataToSend.append("ine", formData.ine);
+      }
+
+      // **Agregar el console.log aquí**
+      console.log("Datos enviados al backend:");
+      for (const [key, value] of formDataToSend.entries()) {
+        console.log(`${key}:`, value);
       }
 
       // Enviar los datos al backend
@@ -318,7 +326,7 @@ export default function RegistrationForm() {
   const validateStep = () => {
     switch (step) {
       case 0:
-        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc) {
+        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc ) {
           alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
           return false;
         }

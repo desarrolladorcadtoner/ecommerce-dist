@@ -25,67 +25,31 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Nombre"
-          className="w-full general-input required" 
+          className="w-full general-input uppercase required"
           name="nombreCompras"
           value={formData.nombreCompras}
           onChange={handleInputChange}
         />
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">
-            Nombre<span className="text-red-500">*</span>
-          </label>
-          <InputText
-            className="w-full general-input"
-            name="nombreCompras"
-            value={formData.nombreCompras}
-            onChange={handleInputChange}
-          />
-        </div>*/}
         <InputTextForm
           tittleInput="Apellidos"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="apellidoCompras"
           value={formData.apellidoCompras}
           onChange={handleInputChange}
         />
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">
-            Apellidos<span className="text-red-500">*</span>
-          </label>
-          <InputText
-            className="w-full general-input"
-            name="apellidoCompras"
-            value={formData.apellidoCompras}
-            onChange={handleInputChange}
-          />
-        </div>*/}
-
         <InputTextForm
           tittleInput="Correo"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="correoCompras"
           value={formData.correoCompras}
           onChange={handleInputChange}
         />
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">
-            Correo<span className="text-red-500">*</span>
-          </label>
-          <InputText
-            className="w-full general-input"
-            type="email"
-            name="correoCompras"
-            value={formData.correoCompras}
-            onChange={handleInputChange}
-          />
-        </div>*/}
-
         <InputTextForm
           tittleInput="Teléfono"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="telefonoCompras"
           value={formData.telefonoCompras}
           onChange={handleInputChange}
@@ -106,7 +70,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Extensión"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="extensionCompras"
           value={formData.extensionCompras}
           onChange={handleInputChange}
@@ -124,7 +88,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="WhatsApp"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="whatsappCompras"
           value={formData.whatsappCompras}
           onChange={handleInputChange}
@@ -148,7 +112,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Nombre"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="nombrePago"
           value={formData.nombrePago}
           onChange={handleInputChange}
@@ -168,7 +132,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Apellidos"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="apellidoPago"
           value={formData.apellidoPago}
           onChange={handleInputChange}
@@ -188,7 +152,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Correo"
-          className="w-full general-input"
+          className="w-full general-input uppercase required"
           name="correoPago"
           value={formData.correoPago}
           onChange={handleInputChange}
@@ -206,10 +170,10 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
             onChange={handleInputChange}
           />
         </div>*/}
-        
+
         <InputTextForm
           tittleInput="Teléfono"
-          className="w-full general-input required"
+          className="w-full general-input uppercase required"
           name="telefonoPago"
           value={formData.telefonoPago}
           onChange={handleInputChange}
@@ -230,7 +194,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="Extensión"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="extensionPago"
           value={formData.extensionPago}
           onChange={handleInputChange}
@@ -249,7 +213,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
         <InputTextForm
           tittleInput="WhatsApp"
-          className="w-full general-input"
+          className="w-full general-input uppercase"
           name="whatsappPago"
           value={formData.whatsappPago}
           onChange={handleInputChange}
