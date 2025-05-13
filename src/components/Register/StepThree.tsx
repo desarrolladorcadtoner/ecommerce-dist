@@ -151,7 +151,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Link red social"
-            className="w-full general-input required"
+            className="w-full general-input uppercase required"
             name="nombreRedSocial"
             value={formData.nombreRedSocial || ""}
             onChange={handleInputChange}
@@ -185,7 +185,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Calle"
-            className="w-full general-input required"
+            className="w-full general-input uppercase required"
             name="calleEntrega"
             value={formData.calleEntrega || ""}
             onChange={handleInputChange}
@@ -193,7 +193,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Número Exterior"
-            className="w-full general-input required"
+            className="w-full general-input uppercase required"
             name="numExtEntrega"
             value={formData.numExtEntrega || ""}
             onChange={handleInputChange}
@@ -201,7 +201,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Número Interior"
-            className="w-full general-input"
+            className="w-full general-input uppercase"
             name="numIntEntrega"
             value={formData.numIntEntrega || ""}
             onChange={handleInputChange}
@@ -209,7 +209,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Colonia"
-            className="w-full general-input required"
+            className="w-full general-input uppercase required"
             name="coloniaFiscal"
             value={formData.coloniaFiscal || ""}
             onChange={handleInputChange}
@@ -217,7 +217,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Código Postal"
-            className="w-full general-input required"
+            className="w-full general-input uppercase required"
             name="codigoPostalEntrega"
             value={formData.codigoPostalEntrega || ""}
             onChange={handleInputChange}

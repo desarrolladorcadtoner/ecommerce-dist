@@ -120,7 +120,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   const capitalizeText = (text: string): string => {
     return text
       .toLowerCase() // Convertir todo el texto a minúsculas
-      .replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
+      //.replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
