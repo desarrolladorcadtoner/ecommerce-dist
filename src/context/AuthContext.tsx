@@ -16,7 +16,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch("http://172.100.203.36:8000/auth/check", {
+                const response = await fetch("http://172.100.203.36:8001/confirmacion/distribuidores/confirmar", {
                     method: "GET",
                     credentials: "include", // Incluir cookies en la solicitud
                 });

@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react"
 import { Dropdown } from "primereact/dropdown"
 import { formData } from "@/types/register"
-import InputTextForm from "../Inputs/InputTextForm"
+import  InputTextForm  from "../Inputs/InputTextForm"
+import {InputMaskForm} from "../Inputs/InputMaskFormPhone"
+
 
 interface StepOneProps {
   formData: formData
@@ -26,8 +28,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     { label: "Comercio", value: "comercio" },
     { label: "Servicios", value: "servicios" },
   ]
-  
-    // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
+
+  // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
   useEffect(() => {
     if (formData.tipoPersona) {
       fetch(`http://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
@@ -120,7 +122,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   const capitalizeText = (text: string): string => {
     return text
       .toLowerCase() // Convertir todo el texto a minúsculas
-      //.replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
+    //.replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +151,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     if (selectedOption) {
       updateFormData({ estadoFiscal: selectedOption.label }); // Enviar el nombre del estado
       fetchMunicipios(e.value); // Obtener los municipios del estado seleccionado
-      updateFormData({ ciudadFiscal: "" }); // Limpiar el municipio seleccionado
+      updateFormData({ ciudadFiscal: "", idMunicipio: e.value }); // Limpiar el municipio seleccionado
     }
   };
 
@@ -176,6 +178,18 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
     // Actualizar el estado de errores
     setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
+  //Funcion para el input mask form
+  const handleMaskedInputChange = (e: { value: string; target: { name: string } }) => {
+    const fakeEvent = {
+      target: {
+        name: e.target.name,
+        value: e.value,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleInputChange(fakeEvent);
   };
 
   return (
@@ -303,20 +317,36 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
           onChange={handleInputChange}
         />
 
-        <InputTextForm
+       { /*<InputTextForm
           tittleInput="Teléfono"
           className="w-full general-input uppercase required"
           name="telefonoFiscal"
           value={formData.telefonoFiscal || ""}
           onChange={handleInputChange}
+        />*/}
+
+        <InputMaskForm
+          tittleInput="Teléono"
+          className="w-full general-input uppercase required"
+          name="telefonoFiscal"
+          value={formData.telefonoFiscal || ""}
+          onChange={handleMaskedInputChange}
         />
 
-        <InputTextForm
+       {/* <InputTextForm
           tittleInput="WhatsApp"
           className="w-full general-input uppercase required"
           name="whatsappFiscal"
           value={formData.whatsappFiscal}
           onChange={handleInputChange}
+        />*/}
+
+        <InputMaskForm
+          tittleInput="WhatsApp"
+          className="w-full general-input uppercase required"
+          name="whatsappFiscal"
+          value={formData.whatsappFiscal || ""}
+          onChange={handleMaskedInputChange}
         />
 
         <div className="space-y-2">
