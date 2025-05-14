@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
+import { Button } from "primereact/button"
 import { formData } from "@/types/register"
 import InputTextForm from "../Inputs/InputTextForm"
 
@@ -15,6 +16,9 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   const [showOtherInput, setShowOtherInput] = useState(formData.giroNegocio === "otra");
   const [estadoOptions, setEstadoOptions] = useState<{ label: string; value: string }[]>([]);
   const [ciudadOptions, setCiudadOptions] = useState<{ label: string; value: string }[]>([]);
+  const [useDireccionFiscal, setUseDireccionFiscal] = useState<boolean | null>(null);
+  const [selectedOption, setOption] = useState<"UseDirectionFiscal" | "AddDirection" | null>(null);
+  const [visible, setVisible] = useState<boolean>(false);
 
   // Obtener los estados desde la API
   useEffect(() => {
@@ -71,10 +75,14 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   const handleEstadoChange = (e: { value: string }) => {
     const selectedOption = estadoOptions.find((option) => option.value === e.value);
     if (selectedOption) {
-      updateFormData({ estadoEntrega: selectedOption.label }); // Enviar el nombre del estado
+      updateFormData({ 
+        estadoEntrega: selectedOption.label, 
+        idMunicipio: selectedOption.value
+      }); // Enviar el nombre del estado
       fetchMunicipios(e.value); // Obtener los municipios del estado seleccionado
       updateFormData({ ciudadEntrega: "" }); // Limpiar el municipio seleccionado
     }
+
   };
 
   // Manejar cambios en el dropdown de municipios
@@ -86,7 +94,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   };
 
   const giroNegocioOptions = [
-    { label: "Retail", value: "retail" },
+    { label: "ventas al", value: "retail" },
     { label: "Manufactura", value: "manufactura" },
     { label: "Servicios", value: "servicios" },
     { label: "Tecnología", value: "tecnologia" },
@@ -169,13 +177,50 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             />
           </div>*/}
         </div>
+
       </div>
 
       <div>
         <h3 className="text-xl font-semibold mb-4">Dirección de entrega</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-          {/*<InputTextForm
+        {visible ? ("")
+          : (
+            <div className="flex gap-4 mb-4">
+              <Button
+                label="Usar Dirección Fiscal"
+                severity={useDireccionFiscal === true ? "success" : "secondary"}
+                className={`w-auto p-2 h-10 ${selectedOption === "UseDirectionFiscal" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
+                style={{ color: "white" }}
+                onClick={() => {
+                  setOption("UseDirectionFiscal");
+                  setVisible(true);
+                  setUseDireccionFiscal(true);
+
+                  // Llama municipios para el estado fiscal
+                  if (formData.idMunicipio) {
+                    fetchMunicipios(formData.idMunicipio); // <-- Carga las ciudades
+                  }
+                }}
+              />
+              <Button
+                label="Agregar Otra Dirección"
+                severity={useDireccionFiscal === false ? "success" : "secondary"}
+                className={`w-auto p-2 h-10 ${selectedOption === "AddDirection" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
+                style={{ color: "white" }}
+                onClick={() => {
+                  setOption("AddDirection");
+                  setVisible(true);
+                  setUseDireccionFiscal(false);
+                }}
+              />
+            </div>
+          )}
+
+
+        {visible ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+            {/*<InputTextForm
             tittleInput="Link red social"
             className="w-full general-input required"
             name="nombreRedSocial"
@@ -183,75 +228,119 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             onChange={handleInputChange}
           />*/}
 
-          <InputTextForm
-            tittleInput="Calle"
-            className="w-full general-input uppercase required"
-            name="calleEntrega"
-            value={formData.calleEntrega || ""}
-            onChange={handleInputChange}
-          />
-
-          <InputTextForm
-            tittleInput="Número Exterior"
-            className="w-full general-input uppercase required"
-            name="numExtEntrega"
-            value={formData.numExtEntrega || ""}
-            onChange={handleInputChange}
-          />
-
-          <InputTextForm
-            tittleInput="Número Interior"
-            className="w-full general-input uppercase"
-            name="numIntEntrega"
-            value={formData.numIntEntrega || ""}
-            onChange={handleInputChange}
-          />
-
-          <InputTextForm
-            tittleInput="Colonia"
-            className="w-full general-input uppercase required"
-            name="coloniaFiscal"
-            value={formData.coloniaFiscal || ""}
-            onChange={handleInputChange}
-          />
-
-          <InputTextForm
-            tittleInput="Código Postal"
-            className="w-full general-input uppercase required"
-            name="codigoPostalEntrega"
-            value={formData.codigoPostalEntrega || ""}
-            onChange={handleInputChange}
-          />
-
-
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Estado<span className="text-red-500">*</span>
-            </label>
-            <Dropdown
-              options={estadoOptions}
-              value={estadoOptions.find((option) => option.label === formData.estadoEntrega)?.value || ""}
-              onChange={handleEstadoChange}
-              placeholder="Seleccione estado"
-              className="w-full general-dropdown"
-              name="estadoEntrega"
+            <InputTextForm
+              tittleInput="Calle"
+              className="w-full general-input uppercase required"
+              name="calleEntrega"
+              value={useDireccionFiscal === true ? formData.calleFiscal : formData.calleEntrega || ""}
+              onChange={handleInputChange}
+              key="calleEntrega"
             />
-          </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Municipio<span className="text-red-500">*</span>
-            </label>
-            <Dropdown
-              options={ciudadOptions}
-              value={ciudadOptions.find((option) => option.label === formData.ciudadEntrega)?.value || ""}
-              onChange={handleMunicipioChange}
-              placeholder="Seleccione municipio"
-              className="w-full general-dropdown"
-              name="ciudadEntrega"
+            <InputTextForm
+              tittleInput="Número Exterior"
+              className="w-full general-input uppercase required"
+              name="numExtEntrega"
+              value={useDireccionFiscal === true ? formData.numExtFiscal : formData.numExtEntrega || ""}
+              onChange={handleInputChange}
+              key="numExtEntrega"
             />
+
+            <InputTextForm
+              tittleInput="Número Interior"
+              className="w-full general-input uppercase"
+              name="numIntEntrega"
+              value={useDireccionFiscal === true ? formData.numIntFiscal : formData.numIntEntrega || ""}
+              onChange={handleInputChange}
+              key="numIntEntrega"
+            />
+
+            <InputTextForm
+              tittleInput="Colonia"
+              className="w-full general-input uppercase required"
+              name="coloniaEntrega"
+              value={useDireccionFiscal === true ? formData.coloniaFiscal : formData.coloniaEntrega || ""}
+              onChange={handleInputChange}
+              key="coloniaEntrega"
+            />
+
+            <InputTextForm
+              tittleInput="Código Postal"
+              className="w-full general-input uppercase required"
+              name="codigoPostalEntrega"
+              value={useDireccionFiscal === true ? formData.codigoPostalFiscal : formData.codigoPostalEntrega || ""}
+              onChange={handleInputChange}
+              key="codigoPostalEntrega"
+            />
+
+            {selectedOption === "UseDirectionFiscal" ? (
+              <>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">
+                    Estado<span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    options={estadoOptions}
+                    value={estadoOptions.find((option) => option.label === formData.estadoFiscal)?.value || ""}
+                    onChange={handleEstadoChange}
+                    placeholder="Seleccione estado"
+                    className="w-full general-dropdown"
+                    name="estadoFiscal"
+                    disabled
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">
+                    Municipio<span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    options={ciudadOptions}
+                    value={ciudadOptions.find((option) => option.label === formData.ciudadFiscal)?.value || ""}
+                    onChange={handleMunicipioChange}
+                    placeholder="Seleccione municipio"
+                    className="w-full general-dropdown"
+                    name="ciudadFiscal"
+                    disabled
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">
+                    Estado<span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    options={estadoOptions}
+                    value={estadoOptions.find((option) => option.label === formData.estadoEntrega)?.value || ""}
+                    onChange={handleEstadoChange}
+                    placeholder="Seleccione estado"
+                    className="w-full general-dropdown"
+                    name="estadoEntrega"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">
+                    Municipio<span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    options={ciudadOptions}
+                    value={ciudadOptions.find((option) => option.label === formData.ciudadEntrega)?.value || ""}
+                    onChange={handleMunicipioChange}
+                    placeholder="Seleccione municipio"
+                    className="w-full general-dropdown"
+                    name="ciudadEntrega"
+                  />
+                </div>
+              </>
+            )}
+
           </div>
-        </div>
+        ) : ("")}
+
+
       </div>
     </div>
   )

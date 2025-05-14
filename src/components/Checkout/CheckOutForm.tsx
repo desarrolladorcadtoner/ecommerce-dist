@@ -11,7 +11,7 @@ const CheckoutPage: React.FC<{
     setCurrentStep: (step: number) => void;
     setSelectedOption: (option: "CEDIS" | "PAQUETERIA") => void;
     setSelectedCedis: (cedis: any) => void;
-}> = ({ setCurrentStep, setSelectedOption, setSelectedCedis }) => {
+    }> = ({ setCurrentStep, setSelectedOption, setSelectedCedis }) => {
     const [checkedStates, setCheckedStates] = useState<boolean[]>([false, false, false]); // Estado para los checkboxes
     const [cedisData, setCedisData] = useState<any[]>([]); // Estado para almacenar los datos de la API
     const [loading, setLoading] = useState<boolean>(true); // Estado para manejar el estado de carga
