@@ -9,6 +9,7 @@ interface InputTextProps {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+
 const InputTextForm: React.FC<InputTextProps> = ({ tittleInput, className, name, value, onChange }) => {
     return (
         <>
@@ -30,3 +31,4 @@ const InputTextForm: React.FC<InputTextProps> = ({ tittleInput, className, name,
 };
 
 export default InputTextForm;
+

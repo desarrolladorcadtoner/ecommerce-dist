@@ -16,7 +16,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch("http://172.100.203.36:8000/auth/check", {
+                const response = await fetch("http://172.100.203.36:8000/login/perfil-protegido", {
                     method: "GET",
                     credentials: "include", // Incluir cookies en la solicitud
                 });
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const fetchProtectedData = async () => {
         try {
-            const response = await fetch("http://172.100.203.36:8000/protected-data", {
+            const response = await fetch("http://172.100.203.36:8000/login/perfil-protegido", {
                 method: "GET",
                 credentials: "include", // Incluir cookies en la solicitud
             });
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ usuario, password }),
-                credentials: "include", // Incluir cookies en la solicitud
+                //credentials: "include", // Incluir cookies en la solicitud
             });
 
             if (!response.ok) {
@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Función para cerrar sesión
     const logout = async () => {
         try {
-            await fetch("http://172.100.203.36:8000/logout", {
+            await fetch("hhttp://172.100.203.36:8000/login/logout", {
                 method: "POST",
                 credentials: "include", // Incluir cookies en la solicitud
             });

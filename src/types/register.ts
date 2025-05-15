@@ -15,6 +15,7 @@ export interface formData {
   telefonoFiscal: string;
   whatsappFiscal: string;
   estadoFiscal: string;
+  idMunicipio: string;
   ciudadFiscal: string;
   actSHCPFiscal: string;
   nombreLegalFiscal: string;

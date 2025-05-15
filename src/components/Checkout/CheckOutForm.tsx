@@ -19,6 +19,7 @@ const CheckoutPage: React.FC<{
     const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
     const [selectedCedis, updateSelectedCedis] = useState<any | null>(null);
     const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
+    const [products, setProducts] = useState([]);
 
     //footerContent para el dialog al seleccionar el cedis
     const footerContent = (
@@ -102,7 +103,7 @@ const CheckoutPage: React.FC<{
             {/*<Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />*/}
         </>
     );
-    
+
     return (
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">
@@ -166,9 +167,9 @@ const CheckoutPage: React.FC<{
                     </div>
                 )}
 
-                {/* Seleccion de cedis */} 
+                {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
-                    <div className="w-2/3 mt-8">
+                    <div className="w-2/3 mt-8 mb-12">
                         <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
                         <div className="grid grid-cols-3 gap-4">
                             {/* Renderizar CEDIS desde la API */}
@@ -186,6 +187,8 @@ const CheckoutPage: React.FC<{
                             ))}
                         </div>
                     </div>
+
+
                 )}
 
                 {/*Selección de CEDIS version 2 en forma de tabla */}

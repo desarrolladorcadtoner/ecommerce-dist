@@ -3,6 +3,7 @@
 import { InputText } from "primereact/inputtext"
 import { formData } from "@/types/register"
 import InputTextForm from "../Inputs/InputTextForm"
+import { InputMaskForm } from "../Inputs/InputMaskFormPhone"
 
 interface StepOneProps {
   formData: formData
@@ -14,6 +15,17 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
     updateFormData({ [e.target.name]: e.target.value })
   }
 
+  //Funcion para el input mask form
+  const handleMaskedInputChange = (e: { value: string; target: { name: string } }) => {
+    const fakeEvent = {
+      target: {
+        name: e.target.name,
+        value: e.value,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleInputChange(fakeEvent);
+  };
 
   return (
     <div className="space-y-8">
@@ -47,26 +59,21 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           onChange={handleInputChange}
         />
 
-        <InputTextForm
+        {/*<InputTextForm
           tittleInput="Teléfono"
           className="w-full general-input uppercase required"
           name="telefonoCompras"
           value={formData.telefonoCompras}
           onChange={handleInputChange}
-        />
+        />*/}
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">
-            Teléfono<span className="text-red-500">*</span>
-          </label>
-          <InputText
-            className="w-full general-input"
-            type="tel"
-            name="telefonoCompras"
-            value={formData.telefonoCompras}
-            onChange={handleInputChange}
-          />
-        </div>*/}
+        <InputMaskForm
+          tittleInput="Teléono"
+          className="w-full general-input uppercase required"
+          name="telefonoCompras"
+          value={formData.telefonoCompras || ""}
+          onChange={handleMaskedInputChange}
+        />
 
         <InputTextForm
           tittleInput="Extensión"
@@ -86,24 +93,21 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           />
         </div>*/}
 
-        <InputTextForm
+        <InputMaskForm
+          tittleInput="WhatsApp"
+          className="w-full general-input uppercase required"
+          name="whatsappCompras"
+          value={formData.whatsappCompras || ""}
+          onChange={handleMaskedInputChange}
+        />
+
+        {/*<InputTextForm
           tittleInput="WhatsApp"
           className="w-full general-input uppercase"
           name="whatsappCompras"
           value={formData.whatsappCompras}
           onChange={handleInputChange}
-        />
-
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">WhatsApp</label>
-          <InputText
-            className="w-full general-input"
-            type="tel"
-            name="whatsappCompras"
-            value={formData.whatsappCompras}
-            onChange={handleInputChange}
-          />
-        </div>*/}
+        />*/}
       </div>
 
       <h3 className="text-xl font-semibold mb-4">Contacto de Pagos</h3>
@@ -158,25 +162,20 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           onChange={handleInputChange}
         />
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">
-            Correo<span className="text-red-500">*</span>
-          </label>
-          <InputText
-            className="w-full general-input"
-            type="email"
-            name="correoPago"
-            value={formData.correoPago}
-            onChange={handleInputChange}
-          />
-        </div>*/}
-
-        <InputTextForm
+        {/*<InputTextForm
           tittleInput="Teléfono"
           className="w-full general-input uppercase required"
           name="telefonoPago"
           value={formData.telefonoPago}
           onChange={handleInputChange}
+        />*/}
+
+        <InputMaskForm
+          tittleInput="Teléono"
+          className="w-full general-input uppercase required"
+          name="telefonoPago"
+          value={formData.telefonoPago || ""}
+          onChange={handleMaskedInputChange}
         />
 
         {/*<div className="space-y-2">
@@ -200,23 +199,21 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           onChange={handleInputChange}
         />
 
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">Extensión</label>
-          <InputText
-            className="w-full general-input"
-            name="extensionPago"
-            value={formData.extensionPago}
-            onChange={handleInputChange}
-          />
-        </div>*/
-        }
-
-        <InputTextForm
+        {/*<InputTextForm
           tittleInput="WhatsApp"
           className="w-full general-input uppercase"
           name="whatsappPago"
           value={formData.whatsappPago}
           onChange={handleInputChange}
+        />*/
+        }        
+
+        <InputMaskForm
+          tittleInput="WhatsApp"
+          className="w-full general-input uppercase required"
+          name="whatsappPago"
+          value={formData.whatsappPago || ""}
+          onChange={handleMaskedInputChange}
         />
 
         {/*<div className="space-y-2">
