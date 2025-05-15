@@ -100,4 +100,4 @@ const CartPage: React.FC = () => {
   );
 };
 
-export default withAuth(CartPage);
+export default CartPage;

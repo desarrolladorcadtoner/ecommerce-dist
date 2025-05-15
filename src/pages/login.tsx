@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import withAuth from "../hocs/withAuth";
 import Link from "next/link"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
@@ -21,8 +22,8 @@ export default function LoginPage() {
       // Llamar a la función login del contexto
       await login(usuario, password);
 
-      const protectedData = await fetchProtectedData();
-      console.log("Datos protegidos:", protectedData);
+      //const protectedData = await fetchProtectedData();
+      //console.log("Datos protegidos:", protectedData);
 
       // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
       //alert("Inicio de sesión exitoso");
