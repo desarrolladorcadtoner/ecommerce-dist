@@ -127,15 +127,10 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // Capitalizar el texto para almacenarlo en formData
-    const capitalizedValue = capitalizeText(value);
-
     // Validar el campo con el texto capitalizado
-    validateField(name, capitalizedValue);
-
+    validateField(name, value);
     // Actualizar el estado global con el texto capitalizado
-    updateFormData({ [name]: capitalizedValue });
+    updateFormData({ [name]: value });
   };
 
   const handleDropdownChange = (e: { value: any; target: { name: string } }) => {
@@ -170,7 +165,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     // Validar si el campo está vacío
     if (!value || value === "Seleccione estado" || value === "Seleccione ciudad") {
       error = "Por favor, seleccione una opción válida.";
-    }
+    } 
     // Validar si el correo es válido
     else if (name === "correoFactura" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       error = "Ingrese un correo válido.";
