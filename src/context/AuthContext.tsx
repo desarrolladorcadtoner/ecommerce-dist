@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ usuario, password }),
-                //credentials: "include", // Incluir cookies en la solicitud
+                credentials: "include", // Incluir cookies en la solicitud
             });
 
             if (!response.ok) {
