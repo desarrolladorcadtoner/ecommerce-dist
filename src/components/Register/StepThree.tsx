@@ -75,8 +75,8 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   const handleEstadoChange = (e: { value: string }) => {
     const selectedOption = estadoOptions.find((option) => option.value === e.value);
     if (selectedOption) {
-      updateFormData({ 
-        estadoEntrega: selectedOption.label, 
+      updateFormData({
+        estadoEntrega: selectedOption.label,
         idMunicipio: selectedOption.value
       }); // Enviar el nombre del estado
       fetchMunicipios(e.value); // Obtener los municipios del estado seleccionado
@@ -94,7 +94,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   };
 
   const giroNegocioOptions = [
-    { label: "ventas al", value: "retail" },
+    { label: "ventas al por menor", value: "retail" },
     { label: "Manufactura", value: "manufactura" },
     { label: "Servicios", value: "servicios" },
     { label: "Tecnología", value: "tecnologia" },
@@ -108,6 +108,20 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
     { label: "LinkedIn", value: "linkedin" },
     { label: "Página Web", value: "pagina_web" },
   ]
+
+  useEffect(() => {
+    if (useDireccionFiscal === true) {
+      updateFormData({
+        calleEntrega: formData.calleFiscal,
+        numExtEntrega: formData.numExtFiscal,
+        numIntEntrega: formData.numIntFiscal,
+        coloniaEntrega: formData.coloniaFiscal,
+        codigoPostalEntrega: formData.codigoPostalFiscal,
+        estadoEntrega: formData.estadoFiscal,
+        ciudadEntrega: formData.ciudadFiscal,
+      });
+    }
+  }, [useDireccionFiscal]);
 
   return (
     <div className="space-y-8">
@@ -159,7 +173,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
           <InputTextForm
             tittleInput="Link red social"
-            className="w-full general-input uppercase required"
+            className="w-full general-input uppercase"
             name="nombreRedSocial"
             value={formData.nombreRedSocial || ""}
             onChange={handleInputChange}
@@ -181,7 +195,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
       </div>
 
       <div>
-        <h3 className="text-xl font-semibold mb-4">Dirección de entrega</h3>
+        <h3 className="text-xl font-semibold">Dirección de entrega</h3>
 
         {visible ? ("")
           : (

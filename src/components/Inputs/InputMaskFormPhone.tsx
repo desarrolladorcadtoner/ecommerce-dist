@@ -7,9 +7,10 @@ interface InputMaskFormProps {
     name: string;
     value: string;
     onChange: (event: { value: string; target: { name: string } }) => void;
+    disabled?: boolean;
   }
 
-export const InputMaskForm: React.FC<InputMaskFormProps> = ({ tittleInput, className, name, value, onChange }) => {
+export const InputMaskForm: React.FC<InputMaskFormProps> = ({ tittleInput, className, name, value, onChange, disabled }) => {
     return (
         <div className="space-y-2">
             <label className="block text-sm font-medium">
@@ -24,6 +25,7 @@ export const InputMaskForm: React.FC<InputMaskFormProps> = ({ tittleInput, class
                 onChange={(e) => onChange({ value: e.value || "", target: { name } })}
                 mask=" 99-9999-9999"
                 placeholder=" 00-0000-0000"
+                disabled={disabled}
             />
         </div>
     );
