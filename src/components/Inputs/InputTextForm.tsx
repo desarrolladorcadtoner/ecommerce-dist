@@ -7,10 +7,11 @@ interface InputTextProps {
     name: string;
     value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    disabled?: boolean;
 }
 
 
-const InputTextForm: React.FC<InputTextProps> = ({ tittleInput, className, name, value, onChange }) => {
+const InputTextForm: React.FC<InputTextProps> = ({ tittleInput, className, name, value, onChange, disabled }) => {
     return (
         <>
             <div className="space-y-2">
@@ -22,6 +23,7 @@ const InputTextForm: React.FC<InputTextProps> = ({ tittleInput, className, name,
                     name={name}
                     value={value}
                     onChange={onChange}
+                    disabled={disabled}
                 />
             </div>
         </>

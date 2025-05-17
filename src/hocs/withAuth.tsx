@@ -12,7 +12,7 @@ const withAuth = (WrappedComponent: React.FC) => {
             const checkAuth = async () => {
                 try {
                     // Verificar datos protegidos
-                    //await fetchProtectedData();
+                    await fetchProtectedData();
                     setLoading(false); // Usuario autenticado, dejar de cargar
                 } catch (error) {
                     console.error("Error al verificar datos protegidos:", error);
@@ -25,7 +25,7 @@ const withAuth = (WrappedComponent: React.FC) => {
             } else {
                 router.push("/login"); // Redirigir al inicio de sesión si no está autenticado
             }
-        }, [isAuthenticated, router]); {/*fetchProtectedData,*/ } 
+        }, [isAuthenticated, fetchProtectedData, router]); {/*fetchProtectedData,*/ } 
 
         if (loading) {
             return <div>Cargando...</div>; // Mostrar un indicador de carga mientras se verifica

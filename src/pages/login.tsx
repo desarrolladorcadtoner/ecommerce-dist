@@ -22,11 +22,11 @@ export default function LoginPage() {
       // Llamar a la función login del contexto
       await login(usuario, password);
 
-      //const protectedData = await fetchProtectedData();
+      const protectedData = await fetchProtectedData();
       //console.log("Datos protegidos:", protectedData);
 
       // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
-      //alert("Inicio de sesión exitoso");
+      alert("Inicio de sesión exitoso");
       router.push("/"); // Redirigir a la página principal
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
