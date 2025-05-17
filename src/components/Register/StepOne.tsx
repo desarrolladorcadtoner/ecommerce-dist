@@ -118,18 +118,9 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
       .catch((error) => console.error("Error fetching municipios:", error));
   };
 
-  //Guardar
-  const capitalizeText = (text: string): string => {
-    return text
-      .toLowerCase() // Convertir todo el texto a minúsculas
-    //.replace(/\b\w/g, (char) => char.toUpperCase()); // Convertir la primera letra de cada palabra a mayúscula
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Validar el campo con el texto capitalizado
     validateField(name, value);
-    // Actualizar el estado global con el texto capitalizado
     updateFormData({ [name]: value });
   };
 
@@ -165,8 +156,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     // Validar si el campo está vacío
     if (!value || value === "Seleccione estado" || value === "Seleccione ciudad") {
       error = "Por favor, seleccione una opción válida.";
-    } 
-    // Validar si el correo es válido
+    }
+      // Validar si el correo es válido
     else if (name === "correoFactura" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       error = "Ingrese un correo válido.";
     }

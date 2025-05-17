@@ -15,6 +15,7 @@ export default function RegistrationForm() {
   const [step, setStep] = useState(0)
   const [formData, setFormData] = useState<formData>({
     IdDistribuidor: 0,
+    idMunicipio: '',
     tipoPersona: '',
     razonSocial: '',
     nombreComercial: '',
@@ -73,6 +74,7 @@ export default function RegistrationForm() {
   const resetForm = () => {
     setFormData({
       IdDistribuidor: 0,
+      idMunicipio: '',
       tipoPersona: '',
       razonSocial: '',
       nombreComercial: '',
@@ -135,28 +137,16 @@ export default function RegistrationForm() {
 
   const nextStep = () => {
     setStep((prev) => Math.min(prev + 1, 3));
-    ///if (validateStep()) {
-     // setStep((prev) => Math.min(prev + 1, 3));
-     //}
+    //if (validateStep()) {
+    //  setStep((prev) => Math.min(prev + 1, 3));
+    // }
   }
+
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
 
   const updateFormData = (newData: Partial<formData>) => {
     setFormData((prevData) => ({ ...prevData, ...newData }));
   };
-
-  function toBase64(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const result = reader.result as string;
-        const base64 = result.split(',')[1]; // Elimina el encabezado
-        resolve(base64);
-      };
-      reader.onerror = (error) => reject(error);
-    });
-  }
 
   const onSubmit = async () => {
     if (!validateStep()) return;
@@ -323,24 +313,25 @@ export default function RegistrationForm() {
     return isValid;
   };
 
+  const requiredFieldsByStep: { [key: number]: (keyof formData)[] } = {
+    0: ["tipoPersona", "razonSocial", "rfc", "regimenFiscal", "usoCFDI", 
+      "correoFactura", "calleFiscal", "numExtFiscal", "coloniaFiscal", 
+      "codigoPostalFiscal", "telefonoFiscal", "whatsappFiscal", "ciudadFiscal", "nombreLegalFiscal", "actSHCPFiscal"],
+    1: ["nombreCompras", "apellidoCompras", "correoCompras", "telefonoCompras", "whatsappCompras", "nombrePago", "apellidoPago", "correoPago", "telefonoPago", "whatsappPago"],
+    2: ["giroNegocio"],
+    3: ["nombreCompras", "correoCompras"],
+  };
+
   const validateStep = () => {
-    switch (step) {
-      case 0:
-        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc ) {
-          alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
-          return false;
-        }
-        break;
-      case 1:
-        if (!formData.nombreCompras || !formData.correoCompras || !formData.telefonoCompras) {
-          alert("Por favor, complete todos los campos obligatorios en Contacto de Compras.");
-          return false;
-        }
-        break;
-      // Agrega validaciones para otros pasos
-      default:
-        break;
+    const fields = requiredFieldsByStep[step] || [];
+
+    for (const field of fields) {
+      if (!formData[field] || formData[field] === "") {
+        alert(`El campo ${field} es obligatorio`);
+        return false;
+      }
     }
+
     return true;
   };
 
