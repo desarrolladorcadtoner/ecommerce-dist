@@ -26,7 +26,7 @@ export default function CedisPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch("http://172.100.203.36:8000/cedis/cedis")
+    fetch("https://172.100.203.36:8000/cedis/cedis")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`)
