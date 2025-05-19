@@ -314,10 +314,13 @@ export default function RegistrationForm() {
   };
 
   const requiredFieldsByStep: { [key: number]: (keyof formData)[] } = {
-    0: ["tipoPersona", "razonSocial", "rfc", "regimenFiscal", "usoCFDI", 
-      "correoFactura", "calleFiscal", "numExtFiscal", "coloniaFiscal", 
-      "codigoPostalFiscal", "telefonoFiscal", "whatsappFiscal", "ciudadFiscal", "nombreLegalFiscal", "actSHCPFiscal"],
-    1: ["nombreCompras", "apellidoCompras", "correoCompras", "telefonoCompras", "whatsappCompras", "nombrePago", "apellidoPago", "correoPago", "telefonoPago", "whatsappPago"],
+    0: ["tipoPersona", "razonSocial", "rfc", "regimenFiscal", 
+      "usoCFDI", "correoFactura", "calleFiscal", "numExtFiscal",
+       "coloniaFiscal", "codigoPostalFiscal", "telefonoFiscal", "whatsappFiscal", 
+       "ciudadFiscal", "nombreLegalFiscal", "actSHCPFiscal"],
+    1: ["nombreCompras", "apellidoCompras", "correoCompras", "telefonoCompras", 
+      "whatsappCompras", "nombrePago", "apellidoPago", "correoPago", 
+      "telefonoPago", "whatsappPago"],
     2: ["giroNegocio"],
     3: ["nombreCompras", "correoCompras"],
   };

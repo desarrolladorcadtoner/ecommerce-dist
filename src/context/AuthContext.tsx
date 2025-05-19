@@ -16,7 +16,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch("http://172.100.203.36:8000/login/perfil-protegido", {
+                const response = await fetch("https://172.100.203.36:8000/login/perfil-protegido", {
                     method: "GET",
                     credentials: "include", // Incluir cookies en la solicitud
                 });
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const fetchProtectedData = async () => {
         try {
-            const response = await fetch("http://172.100.203.36:8000/login/perfil-protegido", {
+            const response = await fetch("https://172.100.203.36:8000/login/perfil-protegido", {
                 method: "GET",
                 credentials: "include", // Incluir cookies en la solicitud
             });
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Función para iniciar sesión
     const login = async (usuario: string, password: string) => {
         try {
-            const response = await fetch("http://172.100.203.36:8000/login/login", {
+            const response = await fetch("https://172.100.203.36:8000/login/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             const data = await response.json();
             console.log("Usuario autenticado:", data);
-
+            document.cookie.split(";").forEach(c => console.log(c));
             // Actualizar el estado de autenticación
             setIsAuthenticated(true);
         } catch (error) {
@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Función para cerrar sesión
     const logout = async () => {
         try {
-            await fetch("hhttp://172.100.203.36:8000/login/logout", {
+            await fetch("https://172.100.203.36:8000/login/logout", {
                 method: "POST",
                 credentials: "include", // Incluir cookies en la solicitud
             });
