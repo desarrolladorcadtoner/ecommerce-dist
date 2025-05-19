@@ -65,7 +65,7 @@ const CheckoutPage: React.FC<{
     // Función para obtener los datos de la API
     const fetchCedisData = async () => {
         try {
-            const response = await fetch("http://172.100.203.36:8000/cedis/cedis");
+            const response = await fetch("https://172.100.203.36:8000/cedis/cedis");
             if (!response.ok) {
                 throw new Error("Error al obtener los datos de la API");
             }
@@ -84,6 +84,7 @@ const CheckoutPage: React.FC<{
         fetchCedisData();
     }, []);
 
+    {/* Vemos si lo quitamos porque ya no se usa, iba en la card, se quito por el datatable
     const header = (
         <img alt="Card" src="/images/logo-cadtoner.png" />
     );
@@ -100,9 +101,22 @@ const CheckoutPage: React.FC<{
                     setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
                     setVisible(true); // Abre el Dialog
                 }} />
-            {/*<Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />*/}
         </>
-    );
+    );*/}
+
+    const actionBodyTemplate = (rowData: any) => (
+        <Button
+            label="Seleccionar"
+            icon="pi pi-check"
+            className="w-auto p-2 h-10 bg-blue-500 shadow-md"
+            style={{ color: "white" }}
+            onClick={() => {
+                updateSelectedCedis(rowData);
+                setSelectedCedis(rowData);
+                setVisible(true);
+            }}
+        />
+      );
 
     return (
         <>
@@ -169,45 +183,22 @@ const CheckoutPage: React.FC<{
 
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
-                    <div className="w-2/3 mt-8 mb-12">
-                        <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
-                        <div className="grid grid-cols-3 gap-4">
+                    <div className="w-3/4 mt-8 mb-12">
+                        <h6 className="text-lg font-semibold mt-4">Selecciona un CEDIS(Modo Tabla):</h6>
+                        <div className="w-full shadow-lg">
                             {/* Renderizar CEDIS desde la API */}
-                            {cedisData.map((cedis, index) => (
-                                <div key={index} className="card flex justify-center w-full">
-                                    <Card
-                                        title={cedis.nombre}
-                                        subTitle={`Correo: ${cedis.email}`}
-                                        header={header}
-                                        footer={footer(cedis)}
-                                    >
-                                        <p>Dirección: {cedis.calle}, {cedis.colonia}, CP {cedis.cp}</p>
-                                    </Card>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-
-                )}
-
-                {/*Selección de CEDIS version 2 en forma de tabla */}
-                {/*{selectedOption === "CEDIS" && (
-                <div className="w-2/3 mt-8">
-                    <h6 className="text-lg font-semibold mb-4">Selecciona un CEDIS:</h6>
-                    <div className="grid grid-cols-3 gap-4">
-                        {/* Renderizar CEDIS desde la API }
-                        <div className="card">
-                            <DataTable value={/*products} stripedRows tableStyle={{ minWidth: '50rem' }}>
-                                <Column field="code" header="Code"></Column>
-                                <Column field="name" header="Name"></Column>
-                                <Column field="category" header="Category"></Column>
-                                <Column field="quantity" header="Quantity"></Column>
+                            <DataTable value={cedisData} stripedRows tableStyle={{ minWidth: '50rem' }}>
+                                <Column field="nombre" header="Nombre"></Column>
+                                <Column field="email" header="Correo"></Column>
+                                <Column field="calle" header="Calle"></Column>
+                                <Column field="colonia" header="Colonia"></Column>
+                                <Column field="cp" header="C.P."></Column>
+                                <Column field="telefono1" header="Telefono"></Column>
+                                <Column field="Action" header={actionBodyTemplate}></Column>
                             </DataTable>
                         </div>
                     </div>
-                </div>
-                )}*/}
+                )}
 
                 <div className="card flex justify-content-center">
                     <Dialog
@@ -232,6 +223,3 @@ const CheckoutPage: React.FC<{
 };
 
 export default CheckoutPage;
-
-// Removed duplicate implementation of useRef to resolve the error.
-

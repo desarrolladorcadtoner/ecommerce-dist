@@ -8,6 +8,8 @@ const withAuth = (WrappedComponent: React.FC) => {
         const router = useRouter();
         const [loading, setLoading] = useState(true);
 
+        console.log(isAuthenticated);
+
         useEffect(() => {
             const checkAuth = async () => {
                 try {
@@ -20,12 +22,8 @@ const withAuth = (WrappedComponent: React.FC) => {
                 }
             };
 
-            if (isAuthenticated) {
-                checkAuth();
-            } else {
-                router.push("/login"); // Redirigir al inicio de sesión si no está autenticado
-            }
-        }, [isAuthenticated, fetchProtectedData, router]); {/*fetchProtectedData,*/ } 
+            checkAuth();
+        }, [fetchProtectedData, router]); {/*fetchProtectedData,*/ }
 
         if (loading) {
             return <div>Cargando...</div>; // Mostrar un indicador de carga mientras se verifica
