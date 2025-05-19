@@ -44,7 +44,7 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
                         <p className="mb-4">
                             Método de Envío:{" "}
                             {selectedOption === "CEDIS"
-                                ? `Recoger en ${selectedCedis?.nombre}, ${selectedCedis?.calle}, ${selectedCedis?.colonia}`
+                                ? `Recoger en ${selectedCedis?.nombre}, ${selectedCedis?.colonia}, ${selectedCedis?.calle} `
                                 : `Paquetería seleccionada, Dirección: ${selectedAddress}`}
                         </p>
 
