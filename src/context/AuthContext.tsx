@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }
 
             const data = await response.json();
-            console.log("Datos protegidos:", data);
+            //console.log("Datos protegidos:", data);
             return data;
         } catch (error) {
             console.error("Error al obtener datos protegidos:", error);
