@@ -4,7 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import withAuth from "../hocs/withAuth";
 import Link from "next/link"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"

@@ -40,6 +40,8 @@ const Header: React.FC = () => {
     }
   }
 
+  isAuthenticated === false ? console.log("La autenticacion esta desactivada: " + isAuthenticated) : console.log("La autenticacion sigue activada: " + isAuthenticated);
+
   return (
     <header>
       {/* Barra superior */}
@@ -51,7 +53,7 @@ const Header: React.FC = () => {
         {isAuthenticated ? (
           <>
 
-            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuiario</strong> Cuenta: <strong>000000</strong> </span>
+            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuario</strong> Cuenta: <strong>000000</strong> </span>
           </>
         ) : (
           <>
@@ -144,10 +146,10 @@ const Header: React.FC = () => {
             </a>
           )}
 
-          <Sidebar 
-          visible={visibleRight} 
-          position="right" 
-          onHide={() => setVisibleRight(false)}
+          <Sidebar
+            visible={visibleRight}
+            position="right"
+            onHide={() => setVisibleRight(false)}
           >
             <div className="sidebarLeft my-4 text-[#de1c85]">
               <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
@@ -158,8 +160,8 @@ const Header: React.FC = () => {
                 <li className="mb-4"><a href="">Opcion 4</a></li>
               </ol>
             </div>
-            
-            <Button onClick={logout} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]"/>
+
+            <Button onClick={logout} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
           </Sidebar>
 
           {isAuthenticated && (<a
