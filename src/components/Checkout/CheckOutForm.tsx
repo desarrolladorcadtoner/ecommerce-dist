@@ -184,7 +184,7 @@ const CheckoutPage: React.FC<{
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
                     <div className="w-3/4 mt-8 mb-12">
-                        <h6 className="text-lg font-semibold mt-4">Selecciona un CEDIS(Modo Tabla):</h6>
+                        <h6 className="text-2xl font-semibold mb-4">Selecciona un CEDIS(Modo Tabla):</h6>
                         <div className="w-full shadow-lg">
                             {/* Renderizar CEDIS desde la API */}
                             <DataTable value={cedisData} stripedRows tableStyle={{ minWidth: '50rem' }}>
@@ -194,7 +194,7 @@ const CheckoutPage: React.FC<{
                                 <Column field="colonia" header="Colonia"></Column>
                                 <Column field="cp" header="C.P."></Column>
                                 <Column field="telefono1" header="Telefono"></Column>
-                                <Column field="Action" header={actionBodyTemplate}></Column>
+                                <Column header="Action" body={actionBodyTemplate} />
                             </DataTable>
                         </div>
                     </div>
