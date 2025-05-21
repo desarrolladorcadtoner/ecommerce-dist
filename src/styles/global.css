@@ -26,8 +26,10 @@ button:hover {
 
 /* Estilos del checkbox del checkout*/
 .p-checkbox-input, .p-checkbox{
-  border: 1px solid black;
-  border-radius: 8px;
+  border: 1px solid rgb(117, 116, 116);
+  border-radius: 7px;
+  height: 24px;
+  width: 24px;
 }
 
 .p-toast-success {

@@ -136,10 +136,10 @@ export default function RegistrationForm() {
   ]
 
   const nextStep = () => {
-    setStep((prev) => Math.min(prev + 1, 3));
-    //if (validateStep()) {
-    //  setStep((prev) => Math.min(prev + 1, 3));
-    // }
+    //setStep((prev) => Math.min(prev + 1, 3));
+    if (validateStep()) {
+     setStep((prev) => Math.min(prev + 1, 3));
+     }
   }
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
@@ -231,7 +231,7 @@ export default function RegistrationForm() {
       }
 
       // Enviar los datos al backend
-      const response = await fetch("http://172.100.203.36:8000/register/registro", {
+      const response = await fetch("https://172.100.203.36:8000/register/registro", {
         method: "POST",
         body: formDataToSend, // Enviar como FormData
       });
