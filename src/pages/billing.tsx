@@ -9,7 +9,7 @@ import "primereact/resources/primereact.min.css";
 import { useRouter } from 'next/router';
 
 const Billing = () => {
-  const [formData, setFormData] = useState({
+  {/*const [formData, setFormData] = useState({
     razonSocial: '',
     rfc: '',
     regimenFiscal: '',
@@ -19,11 +19,11 @@ const Billing = () => {
     ciudad: '',
     direccion: '',
     codigoPostal: '',
-  });
+  });*/}
 
   const router = useRouter();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  {/*const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     const { value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -37,7 +37,7 @@ const Billing = () => {
   const handleSubmit = () => {
     // Lógica para enviar los datos del formulario
     console.log('Datos de facturación:', formData);
-  };
+  };*/}
 
   const handleEditBilling = () => {
     router.push("/edit-billing");

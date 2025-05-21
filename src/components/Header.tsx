@@ -40,7 +40,7 @@ const Header: React.FC = () => {
     }
   }
 
-  isAuthenticated === false ? console.log("La autenticacion esta desactivada: " + isAuthenticated) : console.log("La autenticacion sigue activada: " + isAuthenticated);
+  //isAuthenticated === false ? console.log("La autenticacion esta desactivada: " + isAuthenticated) : console.log("La autenticacion sigue activada: " + isAuthenticated);
 
   return (
     <header>

@@ -28,9 +28,15 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
     if (!file) return;
 
     // Validar tipo de archivo
-    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    const allowedTypes = [
+      "application/pdf",                                      // PDF
+      "image/jpeg",                                            // JPEG
+      "image/png",                                             // PNG
+      "application/msword",                                    // .doc
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // .docx
+    ];
     if (!allowedTypes.includes(file.type)) {
-      alert("Solo se permiten archivos PDF, JPG o PNG.");
+      alert("Solo se permiten archivos PDF, .DOC, .DCOX, JPG o PNG.");
       return;
     }
 
@@ -84,6 +90,7 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       <label className="block text-sm font-medium">
         {label}
         <span className="text-red-500">*</span>
+        
       </label>
       <FileUpload
         mode="basic"
@@ -96,6 +103,7 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       {uploadedFiles[name] && (
         <p className="text-sm text-green-600">Archivo: {uploadedFiles[name]}</p>
       )}
+      <span className="text-slate-400 text-xs">Archivos aceptados: .pdf,.doc,.docx,.jpg,.jpeg,.png</span>
     </div>
   )
 

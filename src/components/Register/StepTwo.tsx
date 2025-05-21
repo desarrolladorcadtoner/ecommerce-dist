@@ -143,6 +143,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           }
         }}
         checked={checked}
+        className="mb-2"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

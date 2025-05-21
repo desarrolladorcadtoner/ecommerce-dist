@@ -87,7 +87,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             const data = await response.json();
             //console.log("Usuario autenticado:", data);
-            document.cookie.split(";").forEach(c => console.log(c));
             // Actualizar el estado de autenticación
             setIsAuthenticated(true);
         } catch (error) {
@@ -99,20 +98,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Función para cerrar sesión
     const logout = async () => {
         try {
-            await fetch("https://172.100.203.36:8000/login/logout", {
+            const response = await fetch("https://172.100.203.36:8000/login/logout", {
                 method: "POST",
-                credentials: "include",
+                credentials: "include", // Requiere esto para enviar cookies
             });
 
-            setTimeout(() => {
-                setIsAuthenticated(false);
-                router.push("/");
-            }, 100);
+            if (response.ok) {
+                // 🔄 Revalidar sesión después de cerrar
+                const check = await fetch("https://172.100.203.36:8000/login/perfil-protegido", {
+                    method: "GET",
+                    credentials: "include",
+                });
 
-            // ✅ Redirigir al inicio después de cerrar sesión
-            router.push("/");
+                if (!check.ok) {
+                    setIsAuthenticated(false); // ⛔ Confirma que está deslogueado
+                    router.push("/"); // ✅ Redirige si se validó
+                }
+            } else {
+                console.warn("No se pudo cerrar sesión correctamente");
+            }
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
+            setIsAuthenticated(false); // Forzar el estado a false si algo falla
+            router.push("/"); // Redirige de todos modos
         }
     };
 

@@ -183,7 +183,7 @@ const CheckoutPage: React.FC<{
 
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
-                    <div className="w-3/4 mt-8 mb-12">
+                    <div className="w-full mt-8 mb-12">
                         <h6 className="text-2xl font-semibold mb-4">Selecciona un CEDIS(Modo Tabla):</h6>
                         <div className="w-full shadow-lg">
                             {/* Renderizar CEDIS desde la API */}

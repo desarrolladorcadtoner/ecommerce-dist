@@ -6,11 +6,10 @@ import { Product } from "@/types";
 import { fetchProducts } from "@/services/productService";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import Link from "next/link";
-import AnimatedButton from '@/components/Buttons/AnimatedButton';
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
-import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
+import { Slider, SliderChangeEvent } from "primereact/slider";
+//import { InputText } from "primereact/inputtext";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,7 +18,10 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
   const { addToCart } = useCart();
-  
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const { isAuthenticated } = useAuth();
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
 
   const PRODUCTS_PER_PAGE = 9;
 
@@ -46,12 +48,24 @@ const ProductsPage = () => {
     return <p>{error}</p>;
   }
 
+  {/*const filteredProducts = products.filter(product => {
+    return product.precio >= priceRange[0] && product.precio <= priceRange[1];
+  });*/}
+
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = selectedCategory === "" || product.categoria === selectedCategory;
+    const matchesPrice = product.precio >= priceRange[0] && product.precio <= priceRange[1];
+    return matchesCategory && matchesPrice;
+  });
+
   // Calcular productos de la página actual
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  const currentProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // Calcular total de páginas
-  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+
+
 
   return (
     <>
@@ -66,25 +80,49 @@ const ProductsPage = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-gray-700 font-medium mb-2">Categoría</label>
-              <select className="w-full p-2 border rounded">
+              <select
+                className="w-full p-2 border rounded"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
                 <option value="">Todas</option>
-                <option value="electronics">Electrónica</option>
-                <option value="fashion">Moda</option>
-                <option value="home">Hogar</option>
+                <option value="Xerox,">Xerox</option>
+                <option value="HP,">HP</option>
+                <option value="Brother,">Kyocera Mita</option>
+                <option value="Konica Minolta">Konica Minolta</option>
+                <option value="Canon,">Canon</option>
+                <option value="Cartuchos de Tinta para:">Cartuchos de Tinta</option>
+                <option value="Samsung,">Samsung</option>
               </select>
             </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Rango de Precio</label>
-              <input type="range" min="0" max="1000" className="w-full" />
-            </div>
-            <div>
+
+            {isAuthenticated ? (
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Rango de Precio</label>
+                <div className="flex justify-between items-center mb-2">
+                  <span>${priceRange[0]}</span>
+                  <span>${priceRange[1]}</span>
+                </div>
+                {/*<InputText value={priceRange} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} className="w-full" />*/}
+                <Slider
+                  value={priceRange}
+                  onChange={(e: SliderChangeEvent) => setPriceRange(e.value as [number, number])}
+                  range
+                  min={0}
+                  max={1000}
+                  className="w-full"
+                />
+              </div>
+            ) : ("")}
+
+            {/*<div>
               <label className="block text-gray-700 font-medium mb-2">Ordenar por</label>
               <select className="w-full p-2 border rounded">
                 <option value="new">Nuevos</option>
                 <option value="low-to-high">Precio: Bajo a Alto</option>
                 <option value="high-to-low">Precio: Alto a Bajo</option>
               </select>
-            </div>
+            </div>*/}
           </div>
         </aside>
 
@@ -124,9 +162,9 @@ const ProductsPage = () => {
           ) : (
             // Vista de lista          
             <div className="flex flex-col gap-4 ">
-             {currentProducts.map((product) => ( 
-               <ProductCardList key={product.id} product={product} />
-             ))}
+              {currentProducts.map((product) => (
+                <ProductCardList key={product.id} product={product} />
+              ))}
             </div>
           )}
 
