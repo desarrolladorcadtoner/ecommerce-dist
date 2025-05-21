@@ -32,7 +32,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
   // Obtener opciones de "Régimen Fiscal" según el valor seleccionado en "Tipo de Persona"
   useEffect(() => {
     if (formData.tipoPersona) {
-      fetch(`http://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
+      fetch(`https://172.100.203.36:8000/register/regi-sat?tipo_persona=${formData.tipoPersona}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && Array.isArray(data.regimen_sat)) {
@@ -54,7 +54,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
     const regimenId = formData.regimenFiscal?.split(' - ')[0]?.trim(); // ✅ Extrae solo el ID
 
     if (regimenId) {
-      fetch(`http://172.100.203.36:8000/register/usos-cfdi-descripcion/${regimenId}`)
+      fetch(`https://172.100.203.36:8000/register/usos-cfdi-descripcion/${regimenId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error al obtener los datos: ${response.status} ${response.statusText}`);
@@ -84,7 +84,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
   // Obtener los estados desde la API
   useEffect(() => {
-    fetch("http://172.100.203.36:8000/register/estados")
+    fetch("https://172.100.203.36:8000/register/estados")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -102,7 +102,7 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
 
   // Obtener los municipios según el estado seleccionado
   const fetchMunicipios = (id_estado: string) => {
-    fetch(`http://172.100.203.36:8000/register/municipios/${id_estado}`)
+    fetch(`https://172.100.203.36:8000/register/municipios/${id_estado}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -158,7 +158,8 @@ export default function StepOne({ formData, updateFormData }: StepOneProps) {
       error = "Por favor, seleccione una opción válida.";
     }
       // Validar si el correo es válido
-    else if (name === "correoFactura" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    else if (name === "correoFactura" &&
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
       error = "Ingrese un correo válido.";
     }
 

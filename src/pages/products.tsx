@@ -6,11 +6,9 @@ import { Product } from "@/types";
 import { fetchProducts } from "@/services/productService";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import Link from "next/link";
-import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { useCart } from "@/context/CartContext";
-import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
+import { Slider, SliderChangeEvent } from "primereact/slider";
+//import { InputText } from "primereact/inputtext";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,6 +17,7 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
   const { addToCart } = useCart();
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);;
   
 
   const PRODUCTS_PER_PAGE = 9;
@@ -46,12 +45,18 @@ const ProductsPage = () => {
     return <p>{error}</p>;
   }
 
+  const filteredProducts = products.filter(product => {
+    return product.precio >= priceRange[0] && product.precio <= priceRange[1];
+  });
+
   // Calcular productos de la página actual
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  const currentProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // Calcular total de páginas
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+
+  
 
   return (
     <>
@@ -75,7 +80,19 @@ const ProductsPage = () => {
             </div>
             <div>
               <label className="block text-gray-700 font-medium mb-2">Rango de Precio</label>
-              <input type="range" min="0" max="1000" className="w-full" />
+              <div className="flex justify-between items-center mb-2">
+                <span>${priceRange[0]}</span>
+                <span>${priceRange[1]}</span>
+              </div>
+              {/*<InputText value={priceRange} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} className="w-full" />*/}
+              <Slider
+                value={priceRange}
+                onChange={(e: SliderChangeEvent) => setPriceRange(e.value as [number, number])}
+                range
+                min={50}
+                max={500}
+                className="w-full"
+              />
             </div>
             <div>
               <label className="block text-gray-700 font-medium mb-2">Ordenar por</label>
