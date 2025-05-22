@@ -327,12 +327,19 @@ export default function RegistrationForm() {
 
   const validateStep = () => {
     const fields = requiredFieldsByStep[step] || [];
+    const missingFields: string[] = [];
 
     for (const field of fields) {
       if (!formData[field] || formData[field] === "") {
-        alert(`El campo ${field} es obligatorio`);
-        return false;
+        // Convertir nombre camelCase a algo más legible (opcional)
+        const formattedField = field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        missingFields.push(formattedField);
       }
+    }
+
+    if (missingFields.length > 0) {
+      alert(`Por favor completa los siguientes campos obligatorios:\n\n- ${missingFields.join("\n- ")}`);
+      return false;
     }
 
     return true;
