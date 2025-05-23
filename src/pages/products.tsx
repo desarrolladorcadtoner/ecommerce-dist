@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { useCart } from "@/context/CartContext";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -25,7 +26,7 @@ const ProductsPage = () => {
       } catch (error) {
         setError("Error al cargar productos. Por favor, intenta de nuevo más tarde.");
       } finally {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 500); // espera 500ms
       }
     };
 
@@ -33,12 +34,21 @@ const ProductsPage = () => {
   }, []);
 
   if (loading) {
-    return <p>Cargando productos...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
+      return (
+        <div className="card flex justify-content-center">
+          <ProgressSpinner />
+        </div>
+      );
+    }
+  
+    if (error && products.length === 0) {
+      return (
+        <div className="card flex flex-col items-center justify-center gap-4 p-6">
+          <ProgressSpinner />
+          <p className="text-red-600">{error}</p>
+        </div>
+      );
+    }
 
   // Calcular productos de la página actual
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;

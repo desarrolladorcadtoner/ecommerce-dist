@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { fetchFichaTecnica, fetchProductById } from "@/services/productService";
 import type { Product } from "@/types";
-import { ShoppingCart } from "lucide-react";
+//import { ShoppingCart } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
@@ -36,12 +36,12 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  const handleAddToCart = () => {
+  /*const handleAddToCart = () => {
     if (product) {
       console.log(`Añadiendo ${quantity} unidades del producto ${product.nombre} al carrito`);
       addToCart(product, quantity); // Pasar la cantidad seleccionada
     }
-  };
+  };*/
 
   if (!product) {
     return (
