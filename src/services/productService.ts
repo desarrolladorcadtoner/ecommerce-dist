@@ -1,6 +1,6 @@
 import { Product } from '@/types';
 
-const apiUrl = 'http://172.100.203.36:8000/productos/productos';
+const apiUrl = 'https://172.100.203.36:8000/productos/productos';
 // const apiUrl = 'http://177.244.52.122:6066/productos'; //--para visualizar fuera de la red.
 // const apiUrl = 'http://172.100.203.202:5000/api/productos'; //-- api nodejs
 
