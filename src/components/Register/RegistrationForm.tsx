@@ -326,13 +326,22 @@ export default function RegistrationForm() {
   };
 
   const validateStep = () => {
-    const fields = requiredFieldsByStep[step] || [];
-
-    for (const field of fields) {
-      if (!formData[field] || formData[field] === "") {
-        alert(`El campo ${field} es obligatorio`);
-        return false;
-      }
+    switch (step) {
+      case 0:
+        if (!formData.tipoPersona || !formData.razonSocial || !formData.rfc) {
+          alert("Por favor, complete todos los campos obligatorios en Información Fiscal.");
+          return false;
+        }
+        break;
+      case 1:
+        if (!formData.nombreCompras || !formData.correoCompras || !formData.telefonoCompras) {
+          alert("Por favor, complete todos los campos obligatorios en Contacto de Compras.");
+          return false;
+        }
+        break;
+      // Agrega validaciones para otros pasos
+      default:
+        break;
     }
 
     return true;

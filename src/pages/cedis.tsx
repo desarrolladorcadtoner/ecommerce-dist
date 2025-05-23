@@ -3,6 +3,7 @@ import Header from "@/components/Header"
 import { MapPin, Phone } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
+import { ProgressSpinner } from 'primereact/progressspinner'
 
 // Cargar el componente Map dinámicamente para evitar problemas de SSR
 const Map = dynamic(() => import("@/components/Map"), { ssr: false })
@@ -46,11 +47,20 @@ export default function CedisPage() {
   }, [])
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="card flex justify-content-center">
+        <ProgressSpinner />
+      </div>
+    );
   }
 
   if (error) {
-    return <div>{error}</div>
+    return (
+      <div className="card flex flex-col items-center justify-center gap-4 p-6">
+        <ProgressSpinner />
+        <p className="text-red-600">{error}</p>
+      </div>
+    );
   }
 
   return (
