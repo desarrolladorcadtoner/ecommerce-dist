@@ -25,6 +25,7 @@ const ProductsPage = () => {
         setProducts(data);
       } catch (error) {
         setError("Error al cargar productos. Por favor, intenta de nuevo más tarde.");
+        setLoading(false)
       } finally {
         setTimeout(() => setLoading(false), 500); // espera 500ms
       }
@@ -34,21 +35,21 @@ const ProductsPage = () => {
   }, []);
 
   if (loading) {
-      return (
-        <div className="card flex justify-content-center">
-          <ProgressSpinner />
-        </div>
-      );
-    }
-  
-    if (error && products.length === 0) {
-      return (
-        <div className="card flex flex-col items-center justify-center gap-4 p-6">
-          <ProgressSpinner />
-          <p className="text-red-600">{error}</p>
-        </div>
-      );
-    }
+    return (
+      <div className="card flex justify-content-center">
+        <ProgressSpinner />
+      </div>
+    );
+  }
+
+  if (error && products.length === 0) {
+    return (
+      <div className="card flex flex-col items-center justify-center gap-4 p-6">
+        <ProgressSpinner />
+        <p className="text-red-600">{error}</p>
+      </div>
+    );
+  }
 
   // Calcular productos de la página actual
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
