@@ -191,9 +191,11 @@ const Header: React.FC = () => {
       {/* Menú de navegación */}
       <nav className="headerMenu bg-[#005a90] text-white h-auto sm:flex sm:justify-between ">
         {/* Mostrar ToggleMenu solo en resoluciones menores a 760px */}
+
         <div className="flex md:hidden sm:ml-[10px] sm:rounded hover:bg-[#de1c85]">
           <ToggleMenu />
         </div>
+
         <div className="flex items-center md:hidden relative">
           {/* Input de búsqueda con animación */}
           {isSearchOpen && (
@@ -220,21 +222,27 @@ const Header: React.FC = () => {
           >
             <i className="pi pi-search mr-2 max-1024:mt-5 max-1024:ml-2"></i>
           </button>
-          {/*<a            
-            className="bg-transparent px-4 py-2 rounded-full 
+          
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                setVisibleRight(true); //abrir panel del lado derecho
+              }}
+              className=" hover:bg-[#de1c85] sm:p-0"
+            >
+              <i className="pi  pi-user mr-2 
+          sm:ml-2"></i>
+            </button>) : (
+            <a
+              href="/login"
+              className="bg-transparent px-4 py-2 rounded-full 
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
-          >
-            <i className="pi pi-search mr-2
+            >
+              <i className="pi pi-user mr-2
              max-1024:mt-5 max-1024:ml-2"></i>
-          </a>*/}
-          <a
-            href="/login"
-            className="bg-transparent px-4 py-2 rounded-full 
-            sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
-          >
-            <i className="pi pi-user mr-2
-             max-1024:mt-5 max-1024:ml-2"></i>
-          </a>
+            </a>)
+          }
+
 
           {isAuthenticated === true && (<a
             href="/cart"
@@ -242,11 +250,13 @@ const Header: React.FC = () => {
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
             <i className="pi pi-shopping-cart mr-2
-             max-1024:mt-5 max-1024:ml-2"><Badge
+             max-1024:mt-5 max-1024:ml-2">
+              <Badge
                 value={totalQuantity}
                 severity="success"
-                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[120px]"
-              /></i>
+                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[100px]"
+              />
+            </i>
           </a>)}
         </div>
 
