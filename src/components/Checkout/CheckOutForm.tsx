@@ -123,9 +123,43 @@ const CheckoutPage: React.FC<{
 
                 {/* Seleccion de la paqueteria */}
                 {selectedOption === "PAQUETERIA" && (
-                    <div className="card w-2/3 text-center">
-                        <Card title="Seleccione la paquetería" className="shadow-lg">
-                            <div className="flex flex-row justify-evenly h-72">
+                    <div className="card w-full sm:w-11/12 md:w-2/3 mx-auto text-center">
+                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-4">
+                                {[0, 1, 2].map((index) => (
+                                    <div
+                                        key={index}
+                                        className="flex flex-col items-center justify-center p-4 border rounded shadow-sm bg-gray-50"
+                                    >
+                                        <Image src="/images/logo-cadtoner.png"
+                                            alt="Paqueteria EXPRESS"
+                                        />
+                                        <Checkbox
+                                            onChange={() => setSelectedPaqueteria(index)}
+                                            checked={selectedPaqueteria === index}
+                                            className="w-6 h-6 mb-1"
+                                        />
+                                        <label className="text-sm font-medium">Paquetería {index + 1}</label>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex justify-center">
+                                <Button
+                                    label="Siguiente"
+                                    severity="info"
+                                    className="w-auto px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+                                    onClick={handleNext}
+                                />
+                            </div>
+                        </Card>
+                    </div>
+                )}
+                {/*{selectedOption === "PAQUETERIA" && (
+                    <div className="card w-2/3 text-center sm:w-5/6">
+                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
+                            <div className="flex flex-row sm:flex-col justify-evenly h-72">
                                 {[0, 1, 2].map((index) => (
                                     <div className="felx flex-col w-40 h-auto space-x-4">
                                         <div key={index} className="flex flex-col items-center space-y-4">
@@ -152,7 +186,7 @@ const CheckoutPage: React.FC<{
                         </Card>
 
                     </div>
-                )}
+                )}*/}
 
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
