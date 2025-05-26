@@ -5,8 +5,8 @@ const PoliticasGarantia = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
-      <main className="flex-grow p-6">
-        <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <main className="flex-grow p-6 sm:p-2">
+        <div className="2xl:container sm:w-[400px] sm:p-6 mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold mb-6 text-center">Políticas de Garantía Cad Toner</h1>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Consumibles de Toner Remanufacturados y Compatibles</h2>
