@@ -136,10 +136,10 @@ export default function RegistrationForm() {
   ]
 
   const nextStep = () => {
-    //setStep((prev) => Math.min(prev + 1, 3));
-    if (validateStep()) {
+    setStep((prev) => Math.min(prev + 1, 3));
+    {/*if (validateStep()) {
      setStep((prev) => Math.min(prev + 1, 3));
-     }
+     }*/}
   }
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))

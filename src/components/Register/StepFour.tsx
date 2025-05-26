@@ -90,7 +90,7 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       <label className="block text-sm font-medium">
         {label}
         <span className="text-red-500">*</span>
-        
+
       </label>
       <FileUpload
         mode="basic"
@@ -174,27 +174,45 @@ export default function StepFour({ formData, updateFormData }: StepFourProps) {
       </div>
 
       {/* Dialogs */}
-      <Dialog header="Términos y Condiciones" visible={showTermsDialog} style={{ width: '50vw' }} onHide={() => setShowTermsDialog(false)} id="termsDialog">
+      <Dialog
+        header="Términos y Condiciones"
+        visible={showTermsDialog}
+        onHide={() => setShowTermsDialog(false)} id="termsDialog"
+        className="w-[80vw] sm:w-[90vw] max-w-[800px]" // Tailwind clases
+        contentStyle={{ maxHeight: '80vh', overflowY: 'auto' }} // opcional para scroll interno
+      >
         <Terminos />
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
           <button onClick={() => handleDialogAccept('acceptedTerms')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
         </div>
       </Dialog>
 
-      <Dialog header="Políticas de Garantía" visible={showWarrantyDialog} style={{ width: '50vw' }} onHide={() => setShowWarrantyDialog(false)} id="warrantyDialog">
+      <Dialog
+        header="Políticas de Garantía"
+        visible={showWarrantyDialog}
+        onHide={() => setShowWarrantyDialog(false)} id="warrantyDialog"
+        className="w-[80vw] sm:w-[90vw] max-w-[800px]" // Tailwind clases
+        contentStyle={{ maxHeight: '80vh', overflowY: 'auto' }} // opcional para scroll interno
+      >
         <Politicas />
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
           <button onClick={() => handleDialogAccept('acceptedWarranty')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
         </div>
       </Dialog>
 
-      <Dialog header="Aviso de Privacidad" visible={showPrivacyDialog} style={{ width: '50vw' }} onHide={() => setShowPrivacyDialog(false)} id="privacyDialog">
+      <Dialog
+        header="Aviso de Privacidad"
+        visible={showPrivacyDialog}
+        onHide={() => setShowPrivacyDialog(false)} id="privacyDialog"
+        className="w-[80vw] sm:w-[90vw] max-w-[800px]" // Tailwind clases
+        contentStyle={{ maxHeight: '80vh', overflowY: 'auto' }} // opcional para scroll interno
+      >
         <Aviso />
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
           <button onClick={() => handleDialogAccept('acceptedPrivacy')} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ml-2">
             Aceptar
           </button>
