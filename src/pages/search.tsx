@@ -58,7 +58,7 @@ const SearchPage = () => {
       <div className="container mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-8">Resultados de búsqueda para "{query}"</h1>
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {currentProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -68,14 +68,15 @@ const SearchPage = () => {
         )}
 
         {/* Controles de paginación */}
-        <div className="flex justify-between items-center mt-8">
+        <div className=" flex sm:w-[350px] sm:container justify-between items-center mt-8">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
             className={`px-4 py-2 border rounded ${currentPage === 1
               ? "bg-gray-300"
               : "bg-blue-500 text-white hover:bg-blue-600"
-              }`}
+              }
+               `}
           >
             Anterior
           </button>
