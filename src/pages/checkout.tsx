@@ -14,7 +14,6 @@ const CheckoutPage: React.FC = () => {
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null); // Estado para la dirección seleccionada
   const { cartItems } = useCart(); // Obtener los productos del carrito desde el contexto
 
-
   const items: MenuItem[] = [
     {
       label: "Tipo de Envío",

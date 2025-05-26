@@ -24,13 +24,6 @@ const CheckoutPage: React.FC<{
     //footerContent para el dialog al seleccionar el cedis
     const footerContent = (
         <div className="gap-10 flex justify-center">
-            {/*<Button
-                label="Pago en cedis"
-                icon="pi pi-shop"
-                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                style={{ color: "white" }}
-                onClick={() => setVisible(false)}
-                autoFocus />*/}
             <Button
                 label="Pago en linea"
                 icon="pi pi-money-bill"
@@ -84,26 +77,6 @@ const CheckoutPage: React.FC<{
         fetchCedisData();
     }, []);
 
-    {/* Vemos si lo quitamos porque ya no se usa, iba en la card, se quito por el datatable
-    const header = (
-        <img alt="Card" src="/images/logo-cadtoner.png" />
-    );
-
-    const footer = (cedis: any) => (
-        <>
-            <Button
-                label="Select"
-                icon="pi pi-check"
-                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                style={{ color: "white" }}
-                onClick={() => {
-                    updateSelectedCedis(cedis);
-                    setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
-                    setVisible(true); // Abre el Dialog
-                }} />
-        </>
-    );*/}
-
     const actionBodyTemplate = (rowData: any) => (
         <Button
             label="Seleccionar"
@@ -122,14 +95,14 @@ const CheckoutPage: React.FC<{
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">
                 {/* Seleccion de opcion de envio */}
-                <div className="w-2/3 mt-12">
-                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md">
+                <div className="w-2/3 mt-12 sm:w-9/12 sm:flex sm:flex-col sm:items-center">
+                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md sm:w-[350px] sm:mx-2">
                         ¿El producto lo recogera en un Cedis o sera envio a domicilio?
                     </h6>
                     <Button
                         label="CEDIS"
                         severity="info"
-                        className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
+                        className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md sm:mr-0 sm:mb-4`}
                         style={{ color: "white" }}
                         onClick={() => {
                             setOption("CEDIS");
@@ -139,7 +112,7 @@ const CheckoutPage: React.FC<{
                     <Button
                         label="PAQUETERIA"
                         severity="info"
-                        className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} shadow-md`}
+                        className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} sm:mt-4 shadow-md`}
                         style={{ color: "white" }}
                         onClick={() => {
                             setOption("PAQUETERIA");
@@ -200,12 +173,13 @@ const CheckoutPage: React.FC<{
                     </div>
                 )}
 
+                {/* Botón del dialogo para avanzar al siguiente paso */}
                 <div className="card flex justify-content-center">
                     <Dialog
                         header={selectedCedis?.nombre || "Información del CEDIS"}
                         visible={visible}
-                        style={{ width: '50vw' }}
                         onHide={() => { if (!visible) return; setVisible(false); }}
+                        style={{ maxHeight: '70vh', overflowY: 'auto' }}
                         footer={footerContent}>
                         {selectedCedis && ( // Muestra los datos solo si hay un CEDIS seleccionado
                             <>
