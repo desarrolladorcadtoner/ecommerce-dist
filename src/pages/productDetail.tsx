@@ -56,8 +56,9 @@ const ProductDetail = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4 md:p-8">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden md:flex">
+      <div className="container sm:w-[600px] sm:p-0 sm:py-2 mx-auto p-4 md:p-8">
+
+        <div className="bg-white sm:w-80 sm:px-2 shadow-lg rounded-lg overflow-hidden md:flex">
           <div className="md:flex-shrink-0">
             <Image
               src={product.imagen}
@@ -75,7 +76,7 @@ const ProductDetail = () => {
             {isAuthenticated && (
               <p className="mt-4 text-xl text-gray-500">Stock disponible: {product.stock}</p>
             )}
-            
+
             <p className="mt-4 text-xl text-gray-500">Referencia: {product.referencia}</p>
             <p className="mt-4 text-xl text-gray-500">Categoria: {product.categoria}</p>
             {isAuthenticated && (
@@ -94,56 +95,59 @@ const ProductDetail = () => {
                 <AnimatedButton onClick={() => addToCart(product, quantity)} />
               </div>
             )}
-            
+
           </div>
         </div>
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8 p-8">
+
+        <div className="bg-white shadow-lg rounded-lg mt-8 p-4 sm:px-2 sm:overflow-x-auto">
           <TabView>
             <TabPanel header="Detalles del Producto">
               <h2 className="text-2xl font-bold mb-4">Ficha Técnica</h2>
               {fichaTecnica ? (
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead>
-                    <tr>
-                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                      <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Modelo de Referencia:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.ModeloReferencia}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Linea:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Linea}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Impresión:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.TecnoImpresion}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Calidad:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Calidad}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Color:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Color}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rendimiento:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Rendimiento}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Comun:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.NombreComun}</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cobertura:</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.PaginaxcientoCobertura}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className="overflow-x-auto w-full">
+                  <table className="w-full min-w-[500px] sm:min-w-[400px] text-sm text-left text-gray-500">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Modelo de Referencia:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.ModeloReferencia}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Linea:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Linea}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Impresión:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.TecnoImpresion}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Calidad:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Calidad}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Color:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Color}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rendimiento:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.Rendimiento}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Comun:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.NombreComun}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cobertura:</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fichaTecnica.PaginaxcientoCobertura}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               ) : (
                 <p className="text-gray-500">Cargando ficha técnica...</p>
               )}
@@ -162,6 +166,7 @@ const ProductDetail = () => {
             </TabPanel>
           </TabView>
         </div>
+
       </div>
       <Footer />
     </>

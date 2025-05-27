@@ -30,14 +30,14 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
     const subtotal = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
     const iva = subtotal * 0.16;
     const total = subtotal + iva;
-    
+
     return (
         <>
             <div className="ml-4 mr-4">
-                <h2 className="text-center mb-8">Solicitud de pedido</h2>
+                <h2 className="text-center mb-8 sm:mt-6 sm:text-2xl sm:text-bold">Solicitud de pedido</h2>
 
                 {/* División entre "Your Order" y "Método de Pago" */}
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-8 sm:grid-cols-1">
                     {/* Your Order */}
                     <div className="border p-4 rounded-lg shadow-md">
                         <h3 className="text-lg font-bold mb-4">Tu orden</h3>
@@ -51,11 +51,11 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
                         {/* Productos */}
                         <div className="space-y-4">
                             {cartItems.map((item) => (
-                                <div key={item.id} className="flex items-center justify-between border-b pb-2">
-                                    <img src={item.imagen} alt={item.nombre} className="w-16 h-16 object-cover rounded" />
+                                <div key={item.id} className="flex sm:flex-col sm:py-4 items-center justify-between border-b pb-2">
+                                    <img src={item.imagen} alt={item.nombre} className="w-16 h-16 object-cover rounded sm:w-32 sm:h-32" />
                                     <p className="flex-1 ml-4">{item.nombre}</p>
-                                    <p className="mr-4">Cantidad: {item.quantity}</p>
-                                    <p>${item.precio.toFixed(2)}</p>
+                                    <p className="mr-4 sm:py-4">Cantidad: {item.quantity}</p>
+                                    <p className="text-blue-500 sm:py-2">${item.precio.toFixed(2)}</p>
                                 </div>
                             ))}
                         </div>
@@ -64,7 +64,7 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
                         <div className="mt-4 border-t pt-4">
                             <div className="flex justify-between">
                                 <p>Subtotal:</p>
-                                <p>${subtotal.toFixed(2)}</p>
+                                <p className="text-blue-500">${subtotal.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between">
                                 <p>IVA (16%):</p>
