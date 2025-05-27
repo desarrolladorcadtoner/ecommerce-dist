@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Precio */}
-        {isAuthenticated ? (<p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>) :("")}
+        {isAuthenticated && (<p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>)}
 
         {/* Botón Leer Más */}
         <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4">
@@ -75,14 +75,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Botón Agregar al carrito */}
         <div className="mt-4 flex justify-center content-center">
 
-          {isAuthenticated ? (<Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+          {isAuthenticated && (<Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
             label="Agregar al carrito"
             icon="pi pi-shopping-cart text-2xl mr-3"
-            onClick={() => setVisible(true)} />) : ("")}
+            onClick={() => setVisible(true)} />)}
           
 
           <Dialog header="Estas agregando un producto a tu carrito:"
-            visible={visible} style={{ width: '50vw' }}
+            visible={visible} style={{ maxWidth: '90vw' }}
             onHide={() => {
               if (!visible) return;
               setVisible(false);
