@@ -154,10 +154,8 @@ const Header: React.FC = () => {
             <div className="sidebarLeft my-4 text-[#de1c85]">
               <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
               <ol>
-                <li className="mb-4 " ><a href="">Opcion 1</a></li>
-                <li className="mb-4"><a href="">Opcion 2</a></li>
-                <li className="mb-4"><a href="">Opcion 3</a></li>
-                <li className="mb-4"><a href="">Opcion 4</a></li>
+                <li className="mb-4 " ><a href="/modulos">Información</a></li>
+                <li className="mb-4"><a href="/modulos">Estado de Cuenta</a></li>
               </ol>
             </div>
 
