@@ -31,10 +31,11 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
     const iva = subtotal * 0.16;
     const total = subtotal + iva;
 
+    console.log(selectedAddress);
     return (
         <>
             <div className="ml-4 mr-4">
-                <h2 className="text-center mb-8 sm:mt-6 sm:text-2xl sm:text-bold">Solicitud de pedido</h2>
+                <h2 className="text-center text-4xl mb-8 sm:mt-6 sm:text-2xl sm:text-bold">Solicitud de pedido</h2>
 
                 {/* División entre "Your Order" y "Método de Pago" */}
                 <div className="grid grid-cols-2 gap-8 sm:grid-cols-1">

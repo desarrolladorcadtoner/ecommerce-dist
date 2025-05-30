@@ -6,6 +6,7 @@ import { Checkbox } from "primereact/checkbox";
 import { Dialog } from 'primereact/dialog';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import CheckOne from "./CheckOne";
 
 const CheckoutPage: React.FC<{
     setCurrentStep: (step: number) => void;
@@ -19,6 +20,8 @@ const CheckoutPage: React.FC<{
     const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
     const [selectedCedis, updateSelectedCedis] = useState<any | null>(null);
     const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
+    const [direccionSeleccionada, setDireccionSeleccionada] = useState<string | null>(null);
+
     const [products, setProducts] = useState([]);
 
     //footerContent para el dialog al seleccionar el cedis
@@ -43,8 +46,12 @@ const CheckoutPage: React.FC<{
     const handleNext = () => {
         if (selectedOption === "CEDIS" && selectedCedis) {
             setCurrentStep(2); // Ir a CheckTwo
-        } else if (selectedOption === "PAQUETERIA" && selectedPaqueteria !== null) {
-            setCurrentStep(1); // Ir a CheckOne
+        } else if (
+            selectedOption === "PAQUETERIA" &&
+            direccionSeleccionada !== null &&
+            selectedPaqueteria !== null
+        ) {
+            setCurrentStep(2);
         } else {
             alert("Por favor, selecciona una opción válida.");
         }
@@ -77,6 +84,7 @@ const CheckoutPage: React.FC<{
         fetchCedisData();
     }, []);
 
+    console.log(direccionSeleccionada);
     const actionBodyTemplate = (rowData: any) => (
         <Button
             label="Seleccionar"
@@ -89,7 +97,7 @@ const CheckoutPage: React.FC<{
                 setVisible(true);
             }}
         />
-      );
+    );
 
     return (
         <>
@@ -121,20 +129,28 @@ const CheckoutPage: React.FC<{
                     />
                 </div>
 
-                {/* Seleccion de la paqueteria */}
-                {selectedOption === "PAQUETERIA" && (
-                    <div className="card w-full sm:w-11/12 md:w-2/3 mx-auto text-center">
-                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
+                {/* Cuando selecciona PAQUETERIA, primero mostrar CheckOne */}
+                {selectedOption === "PAQUETERIA" && !direccionSeleccionada && (
+                    <div className="w-full flex flex-col justify-center mt-6">
+                        <CheckOne
+                            setSelectedAddress={(direccion: string) => {
+                                setDireccionSeleccionada(direccion);
+                              }}
+                        />
+                    </div>
+                )}
 
+                {/* Mostrar selección de paquetería solo después de elegir dirección */}
+                {selectedOption === "PAQUETERIA" && direccionSeleccionada && (
+                    <div className="card w-full sm:w-11/12 md:w-2/3 mx-auto text-center mt-6">
+                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-4">
                                 {[0, 1, 2].map((index) => (
                                     <div
                                         key={index}
                                         className="flex flex-col items-center justify-center p-4 border rounded shadow-sm bg-gray-50"
                                     >
-                                        <Image src="/images/logo-cadtoner.png"
-                                            alt="Paqueteria EXPRESS"
-                                        />
+                                        <Image src="/images/logo-cadtoner.png" alt="Paqueteria EXPRESS" />
                                         <Checkbox
                                             onChange={() => setSelectedPaqueteria(index)}
                                             checked={selectedPaqueteria === index}
@@ -156,37 +172,7 @@ const CheckoutPage: React.FC<{
                         </Card>
                     </div>
                 )}
-                {/*{selectedOption === "PAQUETERIA" && (
-                    <div className="card w-2/3 text-center sm:w-5/6">
-                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
-                            <div className="flex flex-row sm:flex-col justify-evenly h-72">
-                                {[0, 1, 2].map((index) => (
-                                    <div className="felx flex-col w-40 h-auto space-x-4">
-                                        <div key={index} className="flex flex-col items-center space-y-4">
-                                            <Image src="/images/logo-cadtoner.png"
-                                                alt="Paqueteria EXPRESS"
-                                            />
-                                            <Checkbox
-                                                onChange={() => setSelectedPaqueteria(index)}
-                                                checked={selectedPaqueteria === index}
-                                                className="w-6 h-6"
-                                            />
-                                            <label>Paquetería {index + 1}</label>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <Button
-                                label="Siguiente"
-                                severity="info"
-                                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                                style={{ color: "white" }}
-                                onClick={handleNext}
-                            />
-                        </Card>
 
-                    </div>
-                )}*/}
 
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (

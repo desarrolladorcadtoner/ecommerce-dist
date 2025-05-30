@@ -7,9 +7,8 @@ import InputTextCheck from "../Inputs/InputTextCheck";
 
 
 const CheckOne: React.FC<{
-    setCurrentStep: (step: number) => void;
     setSelectedAddress: (address: string) => void; // Nueva prop para actualizar la dirección seleccionada
-}> = ({ setCurrentStep, setSelectedAddress }) => {
+}> = ({  setSelectedAddress }) => {
     const [isFormVisible, setIsFormVisible] = useState(false); // Estado para controlar la visibilidad del formulario
     const [formData, setFormData] = useState({
         calle: "",
@@ -86,7 +85,7 @@ const CheckOne: React.FC<{
 
     const handleNext = (direccion: string) => {
         setSelectedAddress(direccion); // Actualiza la dirección seleccionada
-        setCurrentStep(2); // Ir a CheckTwo
+        //setCurrentStep(2); // Ir a CheckTwo
     };
 
     const footerContent = (
