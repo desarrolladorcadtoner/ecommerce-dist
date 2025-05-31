@@ -37,7 +37,7 @@ const ProductsSection = () => {
   const offerProducts = products.slice(8, 12);
 
   return (
-    <section className="p-8 sm:text-center">
+    <section className="p-8 bg-gray-200 sm:text-center">
       {/* Ofertas */}
       <h2 className="text-2xl font-bold mb-4">Ofertas</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
@@ -48,6 +48,8 @@ const ProductsSection = () => {
         ))}
       </div>
 
+      <hr className="mb-4 2xl:h-2 bg-blue-300 rounded-lg"/>
+
       {/* Nuevos productos */}
       <h2 className="text-2xl font-bold mb-4 ">Productos Nuevos</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
@@ -57,6 +59,8 @@ const ProductsSection = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
+      <hr className="mb-4 2xl:h-2 bg-blue-300 rounded-lg" />
       
       {/* Productos destacados */}
       <h2 className="text-2xl font-bold mb-4">Productos Destacados</h2>

@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <div className="flex flex-col min-h-screen">
+      <div className="bg-gray-200 flex flex-col min-h-screen">
         {/* Hero Section */}
         <div className="relative h-[550px] sm:h-[400] overflow-hidden">
           <Image
