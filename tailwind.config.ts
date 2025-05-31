@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,11 +18,19 @@ export default {
         'backgroundGray':'#f3f3f3'
       },
     },
+    screens: {
+      sm: { max: '640px', min: '320px' },
+      md: "760px",
+      lg: "1024px",
+      xl: "1280px",
+      '2xl': "1536px",
+      'max-1024': { max: '1024px', min: '760px' },
+    },
     fontSize: {
       'xxs': '0.4rem',
     },
   },
   plugins: [],
-} satisfies Config;
+};
 
-
+export default config;

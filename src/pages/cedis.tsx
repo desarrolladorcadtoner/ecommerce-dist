@@ -66,10 +66,10 @@ export default function CedisPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gray-200">
         <main className="container mx-auto px-4 py-8 sm:mx-0">
           {/* Map Container */}
-          <div className="rounded-xl overflow-hidden border border-gray-200 mb-8 sm:w-[400px]">
+          <div className="rounded-xl overflow-hidden shadow-xl border border-gray-300 mb-8 sm:w-[400px]">
             <div className="bg-[#004466] p-4 flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
@@ -120,7 +120,7 @@ export default function CedisPage() {
           {/* Distribution Centers Info */}
           <div className="space-y-4 ">
             {sucursales.map((sucursal) => (
-              <div key={sucursal.nombre} className="border border-gray-200 rounded-lg p-6 sm:w-[400px]">
+              <div key={sucursal.nombre} className="border-2 border-gray-300 bg-white rounded-lg p-6 sm:w-[400px]">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-6 h-6 text-[#E6007E] flex-shrink-0" />
                   <div>

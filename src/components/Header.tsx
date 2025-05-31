@@ -67,7 +67,7 @@ const Header: React.FC = () => {
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#0072b1] place-content-evenly text-white px-4 py-3 flex items-center
+      <div className="bg-[#0072b1] place-content-evenly text-red px-4 py-3 flex items-center
       sm:flex-col sm:items-center sm:space-x-0 sm:h-[150px]">
         {/* Logo */}
         <div className="flex items-center 
@@ -135,6 +135,7 @@ const Header: React.FC = () => {
             <a
               href="/login"
               className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600
+              2xl:transition-transform duration-200 2xl:hover:scale-110
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
             >

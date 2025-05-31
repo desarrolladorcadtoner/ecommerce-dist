@@ -65,23 +65,22 @@ const ProductsPage = () => {
   // Calcular total de páginas
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
-
-
   return (
     <>
       <Header />
 
-      <div className="flex flex-col md:flex-row p-8 sm:flex-col">
+      <div className="bg-gray-200 flex flex-col md:flex-row p-8 sm:flex-col">
         {/* Filtros - Panel Lateral */}
-        <aside className="w-1/4 mr-4 p-2 mb-8 ml-0 rounded
+        <aside className="bg-white w-1/4 mr-4 p-2 mb-8 ml-0 rounded
         md:mb-0 max-1024:w-1/4 
         sm:w-3/4 sm:mr-0 sm:mx-12">
           <h3 className="text-xl font-bold mb-4">Filtros</h3>
           <div className="space-y-4">
             <div>
               <label className="block text-gray-700 font-medium mb-2">Categoría</label>
+              <hr className="h-4" />
               <select
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border-2 border-slate-300 rounded"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -97,22 +96,25 @@ const ProductsPage = () => {
             </div>
 
             {isAuthenticated ? (
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Rango de Precio</label>
-                <div className="flex justify-between items-center mb-2">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+              <>
+                <hr className="h-4" />
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">Rango de Precio</label>
+                  <div className="flex justify-between items-center mb-2">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
+                  {/*<InputText value={priceRange} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} className="w-full" />*/}
+                  <Slider
+                    value={priceRange}
+                    onChange={(e: SliderChangeEvent) => setPriceRange(e.value as [number, number])}
+                    range
+                    min={0}
+                    max={1000}
+                    className="w-full"
+                  />
                 </div>
-                {/*<InputText value={priceRange} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} className="w-full" />*/}
-                <Slider
-                  value={priceRange}
-                  onChange={(e: SliderChangeEvent) => setPriceRange(e.value as [number, number])}
-                  range
-                  min={0}
-                  max={1000}
-                  className="w-full"
-                />
-              </div>
+              </>
             ) : ("")}
 
             {/*<div>
