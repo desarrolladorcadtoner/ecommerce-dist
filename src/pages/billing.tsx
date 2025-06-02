@@ -48,7 +48,7 @@ const Billing = () => {
       <Header />
       <div className="bg-gray-200 mx-auto p-4 md:p-8 sm:m-2 sm:flex sm:p-2 sm:justify-center sm:mx-12">
         <div className="bg-white shadow-lg rounded-lg p-8 mb-8 sm:p-4">
-          <h2 className="text-2xl font-bold mb-4">Descargar Factura</h2>
+          <h2 className="text-[1.5rem] font-bold mb-4">Descargar Factura</h2>
           <div className="flex space-x-4 sm:flex sm:flex-col sm:space-x-0 sm:space-y-4">
             <Button
               label="Descargar PDF"

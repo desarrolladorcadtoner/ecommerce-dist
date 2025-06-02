@@ -125,11 +125,11 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
 
   return (
     <div className="space-y-8">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">INFORMACIÓN COMERCIAL</h2>
+      <h2 className="text-[1.5rem] font-bold text-center text-gray-800 mb-6">INFORMACIÓN COMERCIAL</h2>
 
       <div>
 
-        <h3 className="text-xl font-semibold mb-4">Información de contacto</h3>
+        <h3 className="text-[1.25rem] font-semibold mb-4">Información de contacto</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -195,7 +195,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
       </div>
 
       <div>
-        <h3 className="text-xl font-semibold">Dirección de entrega</h3>
+        <h3 className="text-[1.25rem] font-semibold">Dirección de entrega</h3>
 
         {visible ? ("")
           : (
@@ -231,7 +231,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
           )}
 
 
-        {visible ? (
+        {visible && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
             {/*<InputTextForm
@@ -352,7 +352,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
             )}
 
           </div>
-        ) : ("")}
+        ) }
 
 
       </div>
