@@ -65,22 +65,22 @@ const CartPage: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="bg-white p-4 md:p-8 flex justify-center">
-        <Card className="shadow-lg p-6 bg-gray-50 rounded-xl border border-gray-300 w-full md:w-3/4 lg:w-2/3">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Carrito de Compras</h1>
+      <div className="bg-gray-200 p-4 md:p-8 flex justify-center">
+        <Card className="shadow-lg p-6 bg-white rounded-xl border border-gray-300 w-full md:w-3/4 lg:w-2/3">
+          <h1 className="text-[1.875rem] font-bold text-gray-900 mb-6 text-center">Carrito de Compras</h1>
 
           {/* Tabla de productos */}
           
           <DataTable 
             value={cartItems} 
             responsiveLayout="scroll" 
-            className="w-full h-[600px] px-4 py-4 shadow-lg rounded-lg overflow-auto sm:overflow-hidden sm:overflow-y-auto"
+            className="w-full h-[600px] px-4 py-4 overflow-auto sm:overflow-hidden sm:overflow-y-auto" //shadow-md rounded-lg
           >
-            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 bg-gray-50 rounded" />
-            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2 bg-gray-50 sm:w-2/3" />
-            <Column header="Precio" body={priceBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
-            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 bg-gray-50" />
-            <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 bg-gray-50 text-red-900" />
+            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 rounded" />
+            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2  sm:w-2/3" />
+            <Column header="Precio" body={priceBodyTemplate} className="w-1/6 text-center px-4 py-2 " />
+            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 " />
+            <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
           </DataTable>
 
           {/* Total y botón de pago */}
