@@ -32,9 +32,9 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">INFORMACIÓN DE CONTACTO</h2>
+      <h2 className="text-[1.5rem] font-bold text-center text-gray-800 mb-6">INFORMACIÓN DE CONTACTO</h2>
 
-      <h3 className="text-xl font-semibold mb-4">Contacto de Compras</h3>
+      <h3 className="text-[1.25rem] font-semibold mb-4">Contacto de Compras</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
@@ -62,14 +62,6 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           onChange={handleInputChange}
         />
 
-        {/*<InputTextForm
-          tittleInput="Teléfono"
-          className="w-full general-input uppercase required"
-          name="telefonoCompras"
-          value={formData.telefonoCompras}
-          onChange={handleInputChange}
-        />*/}
-
         <InputMaskForm
           tittleInput="Teléono"
           className="w-full general-input uppercase required"
@@ -85,16 +77,6 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
           value={formData.extensionCompras}
           onChange={handleInputChange}
         />
-
-        {/*<div className="space-y-2">
-          <label className="block text-sm font-medium">Extensión</label>
-          <InputText
-            className="w-full general-input"
-            name="extensionCompras"
-            value={formData.extensionCompras}
-            onChange={handleInputChange}ñ
-          />
-        </div>*/}
 
         <InputMaskForm
           tittleInput="WhatsApp"
@@ -113,7 +95,7 @@ export default function StepTwo({ formData, updateFormData }: StepOneProps) {
         />*/}
       </div>
 
-      <h3 className="text-xl font-semibold">Contacto de Pagos</h3>
+      <h3 className="text-[1.25rem] font-semibold">Contacto de Pagos</h3>
       <label className="mr-2">Marca la casilla si los datos son los mismos:</label>
       <Checkbox
         onChange={e => {

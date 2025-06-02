@@ -9,6 +9,7 @@ import { ProgressSpinner } from 'primereact/progressspinner'
 const Map = dynamic(() => import("@/components/Map"), { ssr: false })
 
 interface Sucursal {
+  no_suc: number
   nombre: string
   calle: string
   numero: string
@@ -35,7 +36,7 @@ export default function CedisPage() {
         return response.json()
       })
       .then((data) => {
-        const sortedSucursales = data.sucursales.sort((a: Sucursal, b: Sucursal) => a.nombre.localeCompare(b.nombre))
+        const sortedSucursales = data.sucursales.sort((a: Sucursal, b: Sucursal) => a.no_suc - b.no_suc)
         setSucursales(sortedSucursales)
         setLoading(false)
       })
@@ -120,7 +121,7 @@ export default function CedisPage() {
           {/* Distribution Centers Info */}
           <div className="space-y-4 ">
             {sucursales.map((sucursal) => (
-              <div key={sucursal.nombre} className="border-2 border-gray-300 bg-white rounded-lg p-6 sm:w-[400px]">
+              <div key={`sucursal-${sucursal.no_suc}`} className="border-2 border-gray-300 bg-white rounded-lg p-6 sm:w-[400px]">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-6 h-6 text-[#E6007E] flex-shrink-0" />
                   <div>

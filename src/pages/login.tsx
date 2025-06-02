@@ -54,7 +54,7 @@ export default function LoginPage() {
           <div className="flex flex-col justify-evenly md:flex-row gap-12">
             {/* Login Form */}
             <div>
-              <h1 className="text-4xl font-bold text-gray-700 mb-8">¡BIENVENIDO!</h1>
+              <h1 className="text-[2.25rem] font-bold text-gray-700 mb-8">¡BIENVENIDO!</h1>
 
               <form onSubmit={handleSubmit} className="max-w-md">
                 <div className="mb-6 w-[450px] sm:w-[398px]">

@@ -349,8 +349,8 @@ export default function RegistrationForm() {
     <div className="max-w-[1200px] mx-auto p-4">
       <Card>
         <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Formulario de solicitud del cliente</h1>
-          <p className="text-xl text-pink-500 font-medium">BIENVENIDO</p>
+          <h1 className="text-[1.875rem] font-bold text-gray-800 mb-2">Formulario de solicitud del cliente</h1>
+          <p className="text-[1.25rem] text-pink-500 font-medium">BIENVENIDO</p>
           <p className="text-gray-600">Gracias por su tiempo en llenar su solicitud</p>
         </div>
 

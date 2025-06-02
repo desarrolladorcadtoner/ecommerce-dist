@@ -69,7 +69,7 @@ const ProductsPage = () => {
     <>
       <Header />
 
-      <div className="bg-gray-200 flex flex-col md:flex-row p-8 sm:flex-col">
+      <div className="bg-gray-200 h-screen flex flex-col md:flex-row p-8 sm:flex-col">
         {/* Filtros - Panel Lateral */}
         <aside className="bg-white w-1/4 mr-4 p-2 mb-8 ml-0 rounded
         md:mb-0 max-1024:w-1/4 
