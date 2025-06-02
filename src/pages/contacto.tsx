@@ -27,7 +27,7 @@ export default function ContactPage() {
       <div className="min-h-screen bg-gray-200">
         <main className="container mx-auto px-4 py-12 ">
           <div className="w-full text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">CONTÁCTANOS</h1>
+            <h1 className="text-[2.25rem] font-bold text-gray-800 mb-4">CONTÁCTANOS</h1>
             <h2 className="text-xl text-gray-600 mb-2">¿Tienes alguna duda o comentario?</h2>
             <p className="text-gray-600 mb-12">Compártenos tu datos y con mucho gusto te atenderemos.</p>
 
