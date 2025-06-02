@@ -136,10 +136,10 @@ export default function RegistrationForm() {
   ]
 
   const nextStep = () => {
-    //setStep((prev) => Math.min(prev + 1, 3));
-    if (validateStep()) {
+    setStep((prev) => Math.min(prev + 1, 3));
+    {/*if (validateStep()) {
      setStep((prev) => Math.min(prev + 1, 3));
-     }
+     }*/}
   }
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
@@ -381,7 +381,7 @@ export default function RegistrationForm() {
       <Dialog
         header="Aviso Importante"
         visible={showDialog}
-        style={{ width: '50vw' }}
+        style={{ width: '90vw' }}
         onHide={() => setShowDialog(false)}
         footer={
           <div>
@@ -389,7 +389,7 @@ export default function RegistrationForm() {
           </div>
         }
       >
-        <p>Por favor, lea los siguientes documentos antes de continuar con el registro:</p>
+        <p className="sm:mb-4">Por favor, lea los siguientes documentos antes de continuar con el registro:</p>
         <ul className="list-disc list-inside">
           <li><a href="/aviso-privacidad" target="_blank" className="text-blue-500 underline">Aviso de Privacidad</a></li>
           <li><a href="/terminos-condiciones" target="_blank" className="text-blue-500 underline">Términos y Condiciones</a></li>

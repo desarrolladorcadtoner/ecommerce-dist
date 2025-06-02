@@ -7,9 +7,8 @@ import InputTextCheck from "../Inputs/InputTextCheck";
 
 
 const CheckOne: React.FC<{
-    setCurrentStep: (step: number) => void;
     setSelectedAddress: (address: string) => void; // Nueva prop para actualizar la dirección seleccionada
-}> = ({ setCurrentStep, setSelectedAddress }) => {
+}> = ({  setSelectedAddress }) => {
     const [isFormVisible, setIsFormVisible] = useState(false); // Estado para controlar la visibilidad del formulario
     const [formData, setFormData] = useState({
         calle: "",
@@ -86,7 +85,7 @@ const CheckOne: React.FC<{
 
     const handleNext = (direccion: string) => {
         setSelectedAddress(direccion); // Actualiza la dirección seleccionada
-        setCurrentStep(2); // Ir a CheckTwo
+        //setCurrentStep(2); // Ir a CheckTwo
     };
 
     const footerContent = (
@@ -99,7 +98,7 @@ const CheckOne: React.FC<{
     return (
         <>
             {/* Sección de dirección */}
-            <div className="w-1/2 m-4 flex justify-end">
+            <div className="w-1/2 m-4 flex justify-end sm:w-full sm:justify-center sm:my-8">
                 <Button
                     label="Agregar Dirección"
                     onClick={() => {
@@ -111,7 +110,7 @@ const CheckOne: React.FC<{
                 <Dialog
                     header="Agregar/Editar Dirección"
                     visible={visible}
-                    style={{ width: '50vw' }}
+                    style={{ maxWidth: '90vw' }}
                     onHide={() => setVisible(false)}
                     footer={footerContent}
                 >
@@ -191,11 +190,11 @@ const CheckOne: React.FC<{
 
             {/* Sección de direcciones */}
             {direcciones.map((direccion, index) => (
-                <div key={index} className="w-1/2 m-4 border-2 solid rounded-lg shadow-md">
+                <div key={index} className="w-1/2 m-4 border-2 solid rounded-lg shadow-md sm:w-auto">
                     <Panel header={`Dirección ${index + 1}:`}>
                         <div className="flex p-2">
                             <p className="w-3/4 text-black">{direccion}</p>
-                            <div className="flex w-full justify-end gap-4 pr-4">
+                            <div className="flex w-full justify-end gap-4 pr-4 sm:items-center">
                                 <Button
                                     icon="pi pi-pen-to-square"
                                     severity="success"

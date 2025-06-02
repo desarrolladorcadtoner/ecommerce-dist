@@ -5,10 +5,10 @@ const TerminosCondiciones = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
-      <main className="flex-grow p-6">
-        <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <main className="flex-grow p-6 sm:p-2">
+        <div className="2xl:container sm:w-[400px] sm:p-6 mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h1>
-          <div className="space-y-4">
+          <div className="space-y-4 sm:text-justify">
             <h2 className="text-2xl font-bold">1. CONVENIO DE USUARIO.</h2>
             <p className="text-gray-700">
               El presente Convenio (en adelante el "Convenio del Usuario") regula el uso de los servicios prestados por Cad Toner. a través del portal de internet o las páginas o sitios hospedados, ubicados o ligados al o en el mismo, el cual se ubica en la dirección www.cadtoner.com.mx (en adelante "Cad Toner" o el "Portal"). Cada vez que una persona acceda al Portal o utilice los servicios prestados por Cad Toner que se detallan más adelante, adquiere la calidad de usuario de Cad Toner (en adelante el "Usuario"). El Usuario al acceder a Cad Toner o al utilizar los servicios prestados a través del Portal acepta de manera tácita e incondicional sujetarse a los términos y condiciones contenidos en este Convenio del Usuario, por lo que se y alcance del mismo en la versión del Convenio del Usuario publicada en línea por Cad Toner de tiempo en tiempo en el momento mismo en que el Usuario acceda a Cad Toner. Por lo anterior, se recomienda al Usuario que cada vez que utilice los servicios de Cad Toner lea cuidadosamente el Convenio del Usuario ya que el mismo puede ser actualizado y/o modificado por Cad Toner en cualquier momento sin notificación personal directa al Usuario.

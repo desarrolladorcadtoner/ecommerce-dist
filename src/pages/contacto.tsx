@@ -24,10 +24,10 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-white">
-        <main className="container mx-auto px-4 py-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">CONTÁCTANOS</h1>
+      <div className="min-h-screen bg-gray-200">
+        <main className="container mx-auto px-4 py-12 ">
+          <div className="w-full text-center">
+            <h1 className="text-[2.25rem] font-bold text-gray-800 mb-4">CONTÁCTANOS</h1>
             <h2 className="text-xl text-gray-600 mb-2">¿Tienes alguna duda o comentario?</h2>
             <p className="text-gray-600 mb-12">Compártenos tu datos y con mucho gusto te atenderemos.</p>
 
@@ -58,7 +58,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md sm:p-2 sm">
               <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nombre</label>
                 <input
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
+                  className="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
                   required
                 />
               </div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
+                  className="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
                   required
                 />
               </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
+                  className="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E6007E]"
                   rows={4}
                   required
                 />
@@ -119,7 +119,7 @@ export default function ContactPage() {
       {/* Chatbot */}
       <div className="fixed bottom-4 right-20 bg-white p-3 mr-4 rounded-full shadow-lg">
         <a href="https://www.b2chat.io/" target="_blank">
-        <MessageSquare className="w-10 h-10 text-[#004466]" />
+          <MessageSquare className="w-10 h-10 text-[#004466]" />
         </a>
       </div>
     </>

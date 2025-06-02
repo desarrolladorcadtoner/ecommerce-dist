@@ -1,12 +1,14 @@
+import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const AvisoPrivacidad = () => {
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
-      <main className="flex-grow p-6">
-        <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <main className="flex-grow p-6 sm:p-2">
+        <div className="2xl:container sm:w-[400px] sm:p-6 mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold mb-6 text-center">Aviso de Privacidad</h1>
           <div className="space-y-4 text-gray-700">
             <p>
@@ -45,52 +47,56 @@ const AvisoPrivacidad = () => {
             <p>
               Le informamos que sus datos personales son compartidos dentro de la empresa, con los siguientes departamentos, para los siguientes fines:
             </p>
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destinatario de los datos personales</th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Finalidad</th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requiere del consentimiento</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ventas</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proveer productos y servicios, informar de promociones, cambios de precios, verificar datos de entrega y prospección</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cobranza</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para verificar fechas de pago</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mercadotecnia</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proporcionar información de productos y servicios, evaluar la calidad del servicio, para informar de promociones e información general</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Servicio al cliente</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para atender situaciones reportadas por el cliente referente a los productos y servicios otorgados</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Servicio técnico</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proveer productos y servicios, informar de promociones, cambios de precios, verificar datos de entrega y prospección</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Tráfico</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para verificar datos de entrega</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sistemas</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para el manejo y almacenamiento de los datos</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
-                </tr>
-              </tbody>
-            </table>
+            
+            <div className="overflow-x-auto w-full">
+              <table className="table-auto w-full max-w-6xl min-w-[600px] text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destinatario de los datos personales</th>
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Finalidad</th>
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requiere del consentimiento</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ventas</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proveer productos y servicios, informar de promociones, cambios de precios, verificar datos de entrega y prospección</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cobranza</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para verificar fechas de pago</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mercadotecnia</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proporcionar información de productos y servicios, evaluar la calidad del servicio, para informar de promociones e información general</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Servicio al cliente</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para atender situaciones reportadas por el cliente referente a los productos y servicios otorgados</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Servicio técnico</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para proveer productos y servicios, informar de promociones, cambios de precios, verificar datos de entrega y prospección</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Tráfico</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para verificar datos de entrega</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sistemas</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Para el manejo y almacenamiento de los datos</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sí</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
 
             <h2 className="text-2xl font-bold">¿Cómo puede acceder, rectificar o cancelar sus datos personales, u oponerse a su uso?</h2>
             <p>

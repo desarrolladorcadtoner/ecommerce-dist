@@ -6,6 +6,7 @@ import { Checkbox } from "primereact/checkbox";
 import { Dialog } from 'primereact/dialog';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import CheckOne from "./CheckOne";
 
 const CheckoutPage: React.FC<{
     setCurrentStep: (step: number) => void;
@@ -19,18 +20,13 @@ const CheckoutPage: React.FC<{
     const [selectedOption, setOption] = useState<"CEDIS" | "PAQUETERIA" | null>(null);
     const [selectedCedis, updateSelectedCedis] = useState<any | null>(null);
     const [selectedPaqueteria, setSelectedPaqueteria] = useState<number | null>(null);
+    const [direccionSeleccionada, setDireccionSeleccionada] = useState<string | null>(null);
+
     const [products, setProducts] = useState([]);
 
     //footerContent para el dialog al seleccionar el cedis
     const footerContent = (
         <div className="gap-10 flex justify-center">
-            {/*<Button
-                label="Pago en cedis"
-                icon="pi pi-shop"
-                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                style={{ color: "white" }}
-                onClick={() => setVisible(false)}
-                autoFocus />*/}
             <Button
                 label="Pago en linea"
                 icon="pi pi-money-bill"
@@ -50,8 +46,12 @@ const CheckoutPage: React.FC<{
     const handleNext = () => {
         if (selectedOption === "CEDIS" && selectedCedis) {
             setCurrentStep(2); // Ir a CheckTwo
-        } else if (selectedOption === "PAQUETERIA" && selectedPaqueteria !== null) {
-            setCurrentStep(1); // Ir a CheckOne
+        } else if (
+            selectedOption === "PAQUETERIA" &&
+            direccionSeleccionada !== null &&
+            selectedPaqueteria !== null
+        ) {
+            setCurrentStep(2);
         } else {
             alert("Por favor, selecciona una opción válida.");
         }
@@ -84,26 +84,7 @@ const CheckoutPage: React.FC<{
         fetchCedisData();
     }, []);
 
-    {/* Vemos si lo quitamos porque ya no se usa, iba en la card, se quito por el datatable
-    const header = (
-        <img alt="Card" src="/images/logo-cadtoner.png" />
-    );
-
-    const footer = (cedis: any) => (
-        <>
-            <Button
-                label="Select"
-                icon="pi pi-check"
-                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                style={{ color: "white" }}
-                onClick={() => {
-                    updateSelectedCedis(cedis);
-                    setSelectedCedis(cedis); // Actualiza el estado con el CEDIS seleccionado
-                    setVisible(true); // Abre el Dialog
-                }} />
-        </>
-    );*/}
-
+    console.log(direccionSeleccionada);
     const actionBodyTemplate = (rowData: any) => (
         <Button
             label="Seleccionar"
@@ -116,20 +97,20 @@ const CheckoutPage: React.FC<{
                 setVisible(true);
             }}
         />
-      );
+    );
 
     return (
         <>
             <div className="flex flex-col w-auto h-auto justify-center items-center">
                 {/* Seleccion de opcion de envio */}
-                <div className="w-2/3 mt-12">
-                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md">
+                <div className="w-2/3 mt-12 sm:w-9/12 sm:flex sm:flex-col sm:items-center">
+                    <h6 className="bg-gray-100 w-3/4 p-2 text-xl rounded-md shadow-md sm:w-[350px] sm:mx-2">
                         ¿El producto lo recogera en un Cedis o sera envio a domicilio?
                     </h6>
                     <Button
                         label="CEDIS"
                         severity="info"
-                        className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md`}
+                        className={`w-auto p-2 h-10 ${selectedOption === "CEDIS" ? "bg-blue-700" : "bg-blue-500"} mr-4 mt-8 shadow-md sm:mr-0 sm:mb-4`}
                         style={{ color: "white" }}
                         onClick={() => {
                             setOption("CEDIS");
@@ -139,7 +120,7 @@ const CheckoutPage: React.FC<{
                     <Button
                         label="PAQUETERIA"
                         severity="info"
-                        className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} shadow-md`}
+                        className={`w-auto p-2 h-10 ${selectedOption === "PAQUETERIA" ? "bg-blue-700" : "bg-blue-500"} sm:mt-4 shadow-md`}
                         style={{ color: "white" }}
                         onClick={() => {
                             setOption("PAQUETERIA");
@@ -148,38 +129,50 @@ const CheckoutPage: React.FC<{
                     />
                 </div>
 
-                {/* Seleccion de la paqueteria */}
-                {selectedOption === "PAQUETERIA" && (
-                    <div className="card w-2/3 text-center">
-                        <Card title="Seleccione la paquetería" className="shadow-lg">
-                            <div className="flex flex-row justify-evenly h-72">
+                {/* Cuando selecciona PAQUETERIA, primero mostrar CheckOne */}
+                {selectedOption === "PAQUETERIA" && !direccionSeleccionada && (
+                    <div className="w-full flex flex-col justify-center mt-6">
+                        <CheckOne
+                            setSelectedAddress={(direccion: string) => {
+                                setDireccionSeleccionada(direccion);
+                              }}
+                        />
+                    </div>
+                )}
+
+                {/* Mostrar selección de paquetería solo después de elegir dirección */}
+                {selectedOption === "PAQUETERIA" && direccionSeleccionada && (
+                    <div className="card w-full sm:w-11/12 md:w-2/3 mx-auto text-center mt-6">
+                        <Card title="Seleccione la paquetería" className="shadow-lg sm:h-auto">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-4">
                                 {[0, 1, 2].map((index) => (
-                                    <div className="felx flex-col w-40 h-auto space-x-4">
-                                        <div key={index} className="flex flex-col items-center space-y-4">
-                                            <Image src="/images/logo-cadtoner.png"
-                                                alt="Paqueteria EXPRESS"
-                                            />
-                                            <Checkbox
-                                                onChange={() => setSelectedPaqueteria(index)}
-                                                checked={selectedPaqueteria === index}
-                                                className="w-6 h-6"
-                                            />
-                                            <label>Paquetería {index + 1}</label>
-                                        </div>
+                                    <div
+                                        key={index}
+                                        className="flex flex-col items-center justify-center p-4 border rounded shadow-sm bg-gray-50"
+                                    >
+                                        <Image src="/images/logo-cadtoner.png" alt="Paqueteria EXPRESS" />
+                                        <Checkbox
+                                            onChange={() => setSelectedPaqueteria(index)}
+                                            checked={selectedPaqueteria === index}
+                                            className="w-6 h-6 mb-1"
+                                        />
+                                        <label className="text-sm font-medium">Paquetería {index + 1}</label>
                                     </div>
                                 ))}
                             </div>
-                            <Button
-                                label="Siguiente"
-                                severity="info"
-                                className="w-auto p-2 h-10 bg-blue-500 shadow-md"
-                                style={{ color: "white" }}
-                                onClick={handleNext}
-                            />
-                        </Card>
 
+                            <div className="flex justify-center">
+                                <Button
+                                    label="Siguiente"
+                                    severity="info"
+                                    className="w-auto px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+                                    onClick={handleNext}
+                                />
+                            </div>
+                        </Card>
                     </div>
                 )}
+
 
                 {/* Seleccion de cedis */}
                 {selectedOption === "CEDIS" && (
@@ -200,12 +193,13 @@ const CheckoutPage: React.FC<{
                     </div>
                 )}
 
+                {/* Botón del dialogo para avanzar al siguiente paso */}
                 <div className="card flex justify-content-center">
                     <Dialog
                         header={selectedCedis?.nombre || "Información del CEDIS"}
                         visible={visible}
-                        style={{ width: '50vw' }}
                         onHide={() => { if (!visible) return; setVisible(false); }}
+                        style={{ maxHeight: '70vh', overflowY: 'auto' }}
                         footer={footerContent}>
                         {selectedCedis && ( // Muestra los datos solo si hay un CEDIS seleccionado
                             <>
