@@ -34,7 +34,7 @@ const CartPage: React.FC = () => {
     <img
       src={rowData.imagen}
       alt={rowData.nombre}
-      className="ml-20 w-28 h-28 object-cover rounded-md sm:ml-0 sm:w-32 xl:ml-6"
+      className="w-46 h-32 object-cover rounded-md sm:ml-0 sm:w-32 "
     />
   );
 
@@ -58,34 +58,46 @@ const CartPage: React.FC = () => {
   };
 
   // Renderizar el precio con el símbolo de pesos
-  const priceBodyTemplate = (rowData: any) => {
-    return `$${rowData.precio.toFixed(2)}`; // Formatear el precio con 2 decimales
-  };
+  const priceBodyTemplate = (rowData: any) => `$${rowData.precio.toFixed(2)}`;
 
   return (
     <>
       <Header />
-      <div className="bg-gray-200 p-4 md:p-8 flex justify-center">
-        <Card className="shadow-lg p-6 bg-white rounded-xl border border-gray-300 w-full md:w-3/4 lg:w-2/3">
-          <h1 className="text-[1.875rem] font-bold text-gray-900 mb-6 text-center">Carrito de Compras</h1>
+      <h1 className="text-[1.875rem] font-bold text-center text-gray-800 py-8 bg-gray-200">Carrito de Compras</h1>
 
-          {/* Tabla de productos */}
-          
-          <DataTable 
-            value={cartItems} 
-            responsiveLayout="scroll" 
-            className="w-full h-[600px] px-4 py-4 overflow-auto sm:overflow-hidden sm:overflow-y-auto" //shadow-md rounded-lg
-          >
-            <Column header="Imagen" body={imageBodyTemplate} className="w-1/3 text-left px-2 py-2 rounded" />
-            <Column field="nombre" header="Producto" className="w-1/3 text-left px-4 py-2  sm:w-2/3" />
-            <Column header="Precio" body={priceBodyTemplate} className="w-1/6 text-center px-4 py-2 " />
-            <Column header="Cantidad" body={quantityBodyTemplate} className="w-1/6 text-center px-4 py-2 " />
-            <Column header="Acciones" body={actionBodyTemplate} exportable={false} className="w-1/4 text-center px-4 py-2 text-red-900" />
+      <div className="bg-gray-200  p-4 md:p-8 grid grid-cols-3 gap-2">
+        {/* Tabla de productos */}
+
+        <div className="lg:col-span-2 bg-white border border-gray-300 p-4 rounded-lg shadow-md">
+          <h2 className="text-lg font-semibold mb-4">Productos</h2>
+          <DataTable value={cartItems} responsiveLayout="scroll" className="w-full">
+            <Column header="Imagen" body={imageBodyTemplate} />
+            <Column field="nombre" header="Producto" />
+            <Column header="Precio" body={priceBodyTemplate} />
+            <Column header="Cantidad" body={quantityBodyTemplate} />
+            <Column header="Acciones" body={actionBodyTemplate} />
           </DataTable>
+        </div>
 
-          {/* Total y botón de pago */}
-          <div className="flex flex-row justify-end items-center mt-6 gap-4">
-            <h2 className="text-2xl font-bold text-gray-800">Total: {calculateTotal()}</h2>
+        <Card className="shadow-lg p-4 bg-white rounded-xl border border-gray-300 col-span-1">{ /*md:w-3/4 lg:w-2/3*/}
+          <div className="space-y-2 mt-4">
+            <h3 className="text-[1.5rem] font-semibold mb-4">Resumen de tu pedido:</h3>
+            {cartItems.map((item) => (
+              <div key={item.id} className="text-sm">
+                <p className="mt-4 text-gray-800 text-justify leading-snug font-medium">
+                  {item.nombre}
+                </p>
+                <div className="mt-4 flex justify-between text-gray-600 text-sm">
+                  <span >Cantidad: <span className="text-blue-500">{item.quantity}</span></span>
+                  <span className="text-blue-500">${item.precio.toFixed(2)}</span>
+                </div>
+                <hr className="my-2 border-gray-300" />
+              </div>
+            ))}
+          </div>
+          
+          <div className="totales flex gap-12 mt-12 place-content-end">
+            <h2 className="text-[1.5rem] font-bold text-right">Subotal: {calculateTotal()}</h2>
             <Button
               label="Ir a pagar"
               icon="pi pi-shopping-cart"
@@ -93,7 +105,9 @@ const CartPage: React.FC = () => {
               onClick={() => router.push("/checkout")}
             />
           </div>
+          
         </Card>
+
       </div>
       <Footer />
     </>
@@ -101,3 +115,11 @@ const CartPage: React.FC = () => {
 };
 
 export default withAuth(CartPage);
+
+{/*
+  <Button
+              label="Ir a pagar"
+              icon="pi pi-shopping-cart"
+              className="bg-[#0b4468] w-auto px-6 py-3 text-lg text-white font-semibold transition-all hover:scale-105"
+              onClick={() => router.push("/checkout")}
+               */}
