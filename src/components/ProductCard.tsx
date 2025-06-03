@@ -7,6 +7,7 @@ import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { useAuth } from "@/context/AuthContext";
+import { Image } from 'primereact/image';
 
 interface ProductCardProps {
   product: Product;
@@ -45,10 +46,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Imagen del producto */}
         {product.imagen && (
           <div className="w-full h-44 overflow-hidden mb-4">
-            <img
+            <Image
               src={product.imagen}
               alt={product.nombre}
-              className="w-full h-full object-scale-down" />
+              width="250"
+              className="object-scale-down"
+              preview
+            />
+            {/*<img
+              src={product.imagen}
+              alt={product.nombre}
+              className="w-full h-full object-scale-down" />*/}
           </div>
         )}
 
@@ -79,7 +87,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             label="Agregar al carrito"
             icon="pi pi-shopping-cart text-2xl mr-3"
             onClick={() => setVisible(true)} />)}
-          
+
 
           <Dialog header="Estas agregando un producto a tu carrito:"
             visible={visible} style={{ maxWidth: '90vw' }}

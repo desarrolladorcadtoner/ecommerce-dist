@@ -5,10 +5,10 @@ import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { useCliente } from "@/context/ClienteContext";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
-import { LogOut } from "lucide-react";
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -18,6 +18,10 @@ const Header: React.FC = () => {
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
   const { isAuthenticated, logout } = useAuth();
+  const cliente = useCliente();
+
+  //Validar que el cliente no sea nulo o vacio
+  if (!cliente) return null;
 
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -53,7 +57,7 @@ const Header: React.FC = () => {
         {isAuthenticated ? (
           <>
 
-            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuario</strong> Cuenta: <strong>000000</strong> </span>
+            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>{cliente.ClienteNombre}</strong> Cuenta: <strong>{cliente.ClienteId}</strong> </span>
           </>
         ) : (
           <>
@@ -156,7 +160,7 @@ const Header: React.FC = () => {
               <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
               <ol>
                 <li className="mb-4 " ><a href="/modulos">Información</a></li>
-                <li className="mb-4"><a href="/modulos">Estado de Cuenta</a></li>
+                <li className="mb-4"><a href="/edoCuentaUsuario">Estado de Cuenta</a></li>
               </ol>
             </div>
 

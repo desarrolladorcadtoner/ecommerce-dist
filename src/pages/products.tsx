@@ -69,9 +69,9 @@ const ProductsPage = () => {
     <>
       <Header />
 
-      <div className="bg-gray-200 h-screen flex flex-col md:flex-row p-8 sm:flex-col">
+      <div className="bg-gray-200 h-full flex flex-col md:flex-row p-8 sm:flex-col">
         {/* Filtros - Panel Lateral */}
-        <aside className="bg-white w-1/4 mr-4 p-2 mb-8 ml-0 rounded
+        <aside className="bg-white h-screen w-1/4 mr-4 p-6 mb-8 ml-0 rounded
         md:mb-0 max-1024:w-1/4 
         sm:w-3/4 sm:mr-0 sm:mx-12">
           <h3 className="text-[1.25rem] font-bold mb-4">Filtros</h3>
@@ -131,7 +131,7 @@ const ProductsPage = () => {
         {/* Productos - Área Principal */}
         <main className="w-full md:w-3/4">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[1.5rem] font-bold">Productos</h2>
+            <h2 className="text-[2.5rem] font-bold">Productos</h2>
             {/* Botones para cambiar de layout */}
             <div className="flex">
               <button
