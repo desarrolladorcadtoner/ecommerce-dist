@@ -7,11 +7,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import OtpVerification from "@/components/Auth/OtpVerification";
+
 
 export default function LoginPage() {
   const { login, fetchProtectedData } = useAuth();
-  const [usuario, setUsuario] = useState("")
-  const [password, setPassword] = useState("")
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [showOtp, setShowOtp] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,17 +24,23 @@ export default function LoginPage() {
       // Llamar a la función login del contexto
       await login(usuario, password);
 
-      const protectedData = await fetchProtectedData();
-      //console.log("Datos protegidos:", protectedData);
+      await setShowOtp(true); // 👉 Muestra OTP, no redirige aún
 
+      //await fetchProtectedData();
+      //console.log("Datos protegidos:", protectedData);
       // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
-      alert("Inicio de sesión exitoso");
-      router.push("/"); // Redirigir a la página principal
+      //alert("Inicio de sesión exitoso");
+      //router.push("/"); // Redirigir a la página principal
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       alert("Usuario o contraseña incorrectos");
     }
   }
+
+  const handleOtpVerified = () => {
+    alert("OTP verificado correctamente");
+    router.push("/"); // O a donde quieras
+  };
 
   return (
     <>
@@ -55,43 +64,46 @@ export default function LoginPage() {
             {/* Login Form */}
             <div>
               <h1 className="text-[2.25rem] font-bold text-gray-700 mb-8">¡BIENVENIDO!</h1>
+              {!showOtp ? (
+                <form onSubmit={handleSubmit} className="max-w-md">
+                  <div className="mb-6 w-[450px] sm:w-[398px]">
+                    <input
+                      type="text"
+                      value={usuario}
+                      onChange={(e) => setUsuario(e.target.value)}
+                      placeholder="No. Cliente"
+                      className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
+                      required
+                    />
+                  </div>
 
-              <form onSubmit={handleSubmit} className="max-w-md">
-                <div className="mb-6 w-[450px] sm:w-[398px]">
-                  <input
-                    type="text"
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                    placeholder="No. Cliente"
-                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
-                    required
-                  />
-                </div>
+                  <div className="mb-6">
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Contraseña"
+                      className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
+                      required
+                    />
+                  </div>
 
-                <div className="mb-6">
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Contraseña"
-                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-[#004466]"
-                    required
-                  />
-                </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#004466] text-white py-3 px-4 rounded font-medium hover:bg-[#003355] transition-colors"
+                  >
+                    Iniciar Sesión
+                  </button>
 
-                <button
-                  type="submit"
-                  className="w-full bg-[#004466] text-white py-3 px-4 rounded font-medium hover:bg-[#003355] transition-colors"
-                >
-                  Iniciar Sesión
-                </button>
 
-                <div className="mt-4">
-                  <Link href="/forgotPassword" className="text-[#004466] hover:underline">
-                    ¿Olvidó su ID de usuario/contraseña?
-                  </Link>
-                </div>
-              </form>
+
+                  <div className="mt-4">
+                    <Link href="/forgotPassword" className="text-[#004466] hover:underline">
+                      ¿Olvidó su ID de usuario/contraseña?
+                    </Link>
+                  </div>
+                </form>
+              ) : (<OtpVerification onVerified={handleOtpVerified} /> )}
             </div>
 
             {/* Registration Section */}
