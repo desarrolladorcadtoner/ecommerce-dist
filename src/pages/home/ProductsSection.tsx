@@ -48,7 +48,7 @@ const ProductsSection = () => {
         ))}
       </div>
 
-      <hr className="mb-4 h-2 2xl:h-2 bg-blue-300 shadow-xl rounded-lg"/>
+      <hr className="mb-4 h-2 2xl:h-2 bg-[#0072b1] shadow-xl rounded-lg"/>
 
       {/* Nuevos productos */}
       <h2 className="text-[2.25rem] font-bold mb-4" id="nuevos">Productos Nuevos</h2>
@@ -60,7 +60,7 @@ const ProductsSection = () => {
         ))}
       </div>
 
-      <hr className="mb-4 h-2 2xl:h-2 bg-blue-300 rounded-lg" />
+      <hr className="mb-4 h-2 2xl:h-2 bg-[#0072b1] rounded-lg" />
       
       {/* Productos destacados */}
       <h2 className="text-[2.25rem] font-bold mb-4" id="destacados">Productos Destacados</h2>

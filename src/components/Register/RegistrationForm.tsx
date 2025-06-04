@@ -136,10 +136,10 @@ export default function RegistrationForm() {
   ]
 
   const nextStep = () => {
-    setStep((prev) => Math.min(prev + 1, 3));
-    {/*if (validateStep()) {
+    //setStep((prev) => Math.min(prev + 1, 3));
+    if (validateStep()) {
      setStep((prev) => Math.min(prev + 1, 3));
-     }*/}
+     }
   }
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0))
@@ -243,7 +243,8 @@ export default function RegistrationForm() {
 
       // Si la solicitud es exitosa, actualiza el mensaje del diálogo
       setDialogMessage(
-        `Datos enviados correctamente, en un lapso de 24 a 72 horas recibirás un correo aceptando o denegando tu solicitud como distribuidor a Cad Toner al correo registrado: ${formData.correoFactura}`
+        `¡Datos enviados correctamente!
+          Recibirás un correo de confirmación en la dirección registrada: ${formData.correoFactura}, para validar la información proporcionada en tu solicitud como distribuidor de Cad Toner. `
       );
 
       // Reiniciar el formulario
