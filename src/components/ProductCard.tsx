@@ -40,12 +40,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
       hover:shadow-xl hover:border-4 sm:text-center hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
+      2xl:w-[325px] 2xl:h-[600px] 2xl:mb-4
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4
       sm:w-[300px] sm:h-auto sm:sm:p-0">
 
         {/* Imagen del producto */}
         {product.imagen && (
-          <div className="w-full h-auto overflow-hidden mb-4">
+          <div className="w-full h-auto overflow-hidden mb-4 2xl:items-center">
             <Image
               src={product.imagen}
               alt={product.nombre}

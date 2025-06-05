@@ -69,9 +69,13 @@ export const defaultClienteData: ClienteData = {
     DatosFiscales: [],
 };
 
+// URL del WebService de la API para obtener datos del cliente
+const API_URLWS = 'http://192.168.1.224/WSPAginaCad/APIDistribuidores/GetClienteId?ClienteId='
+const API_URLFASTAPI = 'https://172.100.203.36:8000/genexxus/cliente/'
+
 export const getClienteData = async (clienteId: number): Promise<ClienteData> => {
     try {
-        const response = await fetch(`https://172.100.203.36:8000/genexxus/cliente/${clienteId}`, {
+        const response = await fetch(`${API_URLFASTAPI}+${clienteId}`, {
             method: "GET",
             credentials: "include",
         });

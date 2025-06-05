@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -9,6 +9,7 @@ import { useCliente } from "@/context/ClienteContext";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
+import { getTipoCambioDolar } from "@/services/tipocambio" ; // Importar la función para obtener el tipo de cambio
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -19,6 +20,12 @@ const Header: React.FC = () => {
   const { cartItems } = useCart(); // Obtener los productos del carrito
   const { isAuthenticated, logout } = useAuth();
   const cliente = useCliente();
+  const [tipoCambio, setTipoCambio] = useState<number | null>(null);
+
+  // Obtener el tipo de cambio al cargar el componente
+  useEffect(() => {
+    getTipoCambioDolar().then(setTipoCambio);
+  }, []);
 
   //Validar que el cliente no sea nulo o vacio
   if (!cliente) return null;
@@ -56,15 +63,16 @@ const Header: React.FC = () => {
       sm:place-content-evenly ">
         {isAuthenticated ? (
           <>
-
             <span className="xl:mr-8 md:mr-8">Bienvenido <strong>{cliente.ClienteNombre}</strong> Cuenta: <strong>{cliente.ClienteId}</strong> </span>
+            <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{tipoCambio ? tipoCambio.toFixed(2) : "Cargando..."}</strong></span>
           </>
         ) : (
           <>
             <span className="xl:mr-8 md:mr-8">¿Quieres ser Distribuidor?</span>
-            <button className="bg-[#0b4468] hover:bg-[#de1c85] text-white px-4 py-1 rounded hover:bg-[#de1c85]">
+            <button className="bg-[#0b4468] hover:bg-[#de1c85] mr-8 text-white px-4 py-1 rounded hover:bg-[#de1c85]">
               <a href="register">REGÍSTRATE</a>
             </button>
+              <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{tipoCambio ? tipoCambio.toFixed(2) : "Cargando..."}</strong></span>
           </>
         )}
 

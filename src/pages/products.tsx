@@ -23,7 +23,7 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
 
-  const PRODUCTS_PER_PAGE = 9;
+  const PRODUCTS_PER_PAGE = 10;
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -72,6 +72,7 @@ const ProductsPage = () => {
       <div className="bg-gray-200 h-full flex flex-col md:flex-row p-8 sm:flex-col">
         {/* Filtros - Panel Lateral */}
         <aside className="bg-white h-screen w-1/4 mr-4 p-6 mb-8 ml-0 rounded
+        2xl:mb-0 2xl:w-64 2xl:mr-8 2xl:mx-2
         md:mb-0 max-1024:w-1/4 
         sm:w-3/4 sm:mr-0 sm:mx-12">
           <h3 className="text-[1.25rem] font-bold mb-4">Filtros</h3>
@@ -156,7 +157,7 @@ const ProductsPage = () => {
           </div>
 
           {layout === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-1 sm:mx-8 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 sm:mx-8 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
               {currentProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
