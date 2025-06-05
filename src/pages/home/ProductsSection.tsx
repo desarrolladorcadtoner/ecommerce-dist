@@ -39,7 +39,7 @@ const ProductsSection = () => {
   return (
     <section className="p-8 bg-gray-200 sm:text-center">
       {/* Ofertas */}
-      <h2 className="text-[2.25rem] font-bold mb-4">Ofertas</h2>
+      <h2 className="text-[2.25rem] font-bold mb-4" id="ofertas">Ofertas</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
       md:grid-cols-2 lg:grid-cols-4
       max-1024:grid-cols-2 max-1024:gap-2">
@@ -48,10 +48,10 @@ const ProductsSection = () => {
         ))}
       </div>
 
-      <hr className="mb-4 h-2 2xl:h-2 bg-blue-300 shadow-xl rounded-lg"/>
+      <hr className="mb-4 h-2 2xl:h-2 bg-[#0072b1] shadow-xl rounded-lg"/>
 
       {/* Nuevos productos */}
-      <h2 className="text-[2.25rem] font-bold mb-4 ">Productos Nuevos</h2>
+      <h2 className="text-[2.25rem] font-bold mb-4" id="nuevos">Productos Nuevos</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center mb-8
       md:grid-cols-2 lg:grid-cols-4  
       max-1024:grid-cols-2 max-1024:gap-2">
@@ -60,10 +60,10 @@ const ProductsSection = () => {
         ))}
       </div>
 
-      <hr className="mb-4 h-2 2xl:h-2 bg-blue-300 rounded-lg" />
+      <hr className="mb-4 h-2 2xl:h-2 bg-[#0072b1] rounded-lg" />
       
       {/* Productos destacados */}
-      <h2 className="text-[2.25rem] font-bold mb-4">Productos Destacados</h2>
+      <h2 className="text-[2.25rem] font-bold mb-4" id="destacados">Productos Destacados</h2>
       <div className="grid grid-cols-1 gap-4 justify-items-center
       md:grid-cols-3 lg:grid-cols-4 
       max-1024:grid-cols-2 max-1024:gap-2">

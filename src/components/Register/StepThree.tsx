@@ -94,7 +94,7 @@ export default function StepThree({ formData, updateFormData }: StepThreeProps) 
   };
 
   const giroNegocioOptions = [
-    { label: "ventas al por menor", value: "retail" },
+    { label: "Ventas al menudeo", value: "retail" },
     { label: "Manufactura", value: "manufactura" },
     { label: "Servicios", value: "servicios" },
     { label: "Tecnología", value: "tecnologia" },

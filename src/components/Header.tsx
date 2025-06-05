@@ -5,10 +5,10 @@ import { useRouter } from "next/router"
 import { Badge } from 'primereact/badge';
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { useCliente } from "@/context/ClienteContext";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
-import { LogOut } from "lucide-react";
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -18,6 +18,10 @@ const Header: React.FC = () => {
   const router = useRouter()
   const { cartItems } = useCart(); // Obtener los productos del carrito
   const { isAuthenticated, logout } = useAuth();
+  const cliente = useCliente();
+
+  //Validar que el cliente no sea nulo o vacio
+  if (!cliente) return null;
 
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -53,7 +57,7 @@ const Header: React.FC = () => {
         {isAuthenticated ? (
           <>
 
-            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>Usuario</strong> Cuenta: <strong>000000</strong> </span>
+            <span className="xl:mr-8 md:mr-8">Bienvenido <strong>{cliente.ClienteNombre}</strong> Cuenta: <strong>{cliente.ClienteId}</strong> </span>
           </>
         ) : (
           <>
@@ -105,7 +109,7 @@ const Header: React.FC = () => {
             <a
               href="/billing"
               className="bg-transparent border border-white text-white px-4 py-4 rounded-full 
-              hover:bg-[#de1c85] hover:border-[#de1c85]
+              hover:bg-[#de1c85] hover:border-white hover:border-2
               max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full 
               sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
             >
@@ -121,7 +125,7 @@ const Header: React.FC = () => {
               onClick={() => {
                 setVisibleRight(true); //abrir panel del lado derecho
               }}
-              className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600
+              className="bg-[#de1c85] text-white px-4 py-4 rounded-full hover:bg-pink-600 hover:border-white hover:border-2
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
             >
@@ -156,17 +160,17 @@ const Header: React.FC = () => {
               <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
               <ol>
                 <li className="mb-4 " ><a href="/modulos">Información</a></li>
-                <li className="mb-4"><a href="/modulos">Estado de Cuenta</a></li>
+                <li className="mb-4"><a href="/edoCuentaUsuario">Estado de Cuenta</a></li>
               </ol>
             </div>
 
-            <Button onClick={logout} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
+            <Button onClick={async () => {await logout(); setVisibleRight(false)}} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
           </Sidebar>
 
           {/* Icono de cart */}
           {isAuthenticated === true && (<a
             href="/cart"
-            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-[#de1c85] flex items-center
+            className="relative bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-[#de1c85] hover:border-white hover:border-2 flex items-center
             max-1024:p-0 max-1024:flex max-1024:flex-col max-1024:justify-center max-1024:items-center max-1024:w-16 max-1024:h-16 max-1024:rounded-full max-1024:border max-1024:border-white
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-16 sm:h-16 sm:rounded-full sm:relative sm:hidden"
           >
@@ -227,7 +231,7 @@ const Header: React.FC = () => {
               onClick={() => {
                 setVisibleRight(true); //abrir panel del lado derecho
               }}
-              className=" hover:bg-[#de1c85] sm:p-0"
+              className=" hover:bg-[#de1c85] hover:border-white border:border-2 sm:p-0"
             >
               <i className="pi  pi-user mr-2 
           sm:ml-2"></i>
@@ -248,12 +252,12 @@ const Header: React.FC = () => {
             className="bg-transparent px-4 py-2 rounded-full 
             sm:p-0 sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-12 sm:h-12 m:relative "
           >
-            <i className="pi pi-shopping-cart mr-2
-             max-1024:mt-5 max-1024:ml-2">
+            <i className="pi pi-shopping-cart mr-4
+             max-1024:mt-4 max-1024:ml-2">
               <Badge
                 value={totalQuantity}
                 severity="success"
-                className=" bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[100px]"
+                className="bg-[#de1c85] text-white text-xs font-bold flex items-center justify-center sm:absolute sm:top-[0px] sm:left-[100px]"
               />
             </i>
           </a>)}

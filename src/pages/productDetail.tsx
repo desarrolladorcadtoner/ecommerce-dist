@@ -2,19 +2,19 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+//import Image from "next/image";
+import { Image } from 'primereact/image';
 import { fetchFichaTecnica, fetchProductById } from "@/services/productService";
 import type { Product } from "@/types";
-import { ShoppingCart } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedButton from '@/components/Buttons/AnimatedButton';
 import { TabView, TabPanel } from "primereact/tabview";
 import { useCart } from "@/context/CartContext"; // Importar el contexto del carrito
 import { useAuth } from "@/context/AuthContext";
-import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "@/styles/productDetail.css";
+//import "primereact/resources/themes/lara-light-blue/theme.css";
+//import "primereact/resources/primereact.min.css";
+//import "@/styles/productDetail.css";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -38,12 +38,13 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  const handleAddToCart = () => {
+  //Actualmente no se usa dentro del codigo
+  /*const handleAddToCart = () => {
     if (product) {
       console.log(`Añadiendo ${quantity} unidades del producto ${product.nombre} al carrito`);
       addToCart(product, quantity); // Pasar la cantidad seleccionada
     }
-  };
+  };*/
 
   if (!product) {
     return (
@@ -63,10 +64,16 @@ const ProductDetail = () => {
             <Image
               src={product.imagen}
               alt={product.nombre}
+              width="400"
+              height="400"
+              preview />
+            {/*<Image
+              src={product.imagen}
+              alt={product.nombre}
               width={400}
               height={400}
               className="w-full h-64 md:h-full object-cover"
-            />
+            />*/}
           </div>
           <div className="p-8">
             <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">

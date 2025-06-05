@@ -10,7 +10,7 @@ const Footer = () => {
           
           {/* Logo and Description */}
           <div className="flex flex-col justify-between ">
-            <a href="/" className='flex justify-center mb-4'>
+            <a href="/" className='flex justify-start mb-4'>
               <img alt="logo" className="w-56" src="/images/logo-cadtoner.png" />
             </a>
             <ul>
@@ -25,11 +25,11 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold mb-4">Productos</h3>
             <ul>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Más Vendidos</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Más Recientes</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Nuevos</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Ofertas</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Catálogo Electrónico</a></li>
+              <li><a href="#destacados" className="text-gray-400 text-sm hover:text-pink-500">Más Vendidos</a></li>
+              <li><a href="#nuevos" className="text-gray-400 text-sm hover:text-pink-500">Más Recientes</a></li>
+              {/*<li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Nuevos</a></li>*/}
+              <li><a href="#ofertas" className="text-gray-400 text-sm hover:text-pink-500">Ofertas</a></li>
+              {/*<li><a href="#" className="text-gray-400 text-sm hover:text-pink-500">Catálogo Electrónico</a></li>*/}
             </ul>
           </div>
 
