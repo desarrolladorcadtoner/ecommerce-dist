@@ -41,11 +41,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       hover:shadow-xl hover:border-4 sm:text-center hover:border-blue-500 
       transition duration-300 ease-in-out bg-white rounded-lg
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4
-      sm:w-[300px] sm:h-[600px]">
+      sm:w-[300px] sm:h-auto sm:sm:p-0">
 
         {/* Imagen del producto */}
         {product.imagen && (
-          <div className="w-full h-44 overflow-hidden mb-4">
+          <div className="w-full h-auto overflow-hidden mb-4">
             <Image
               src={product.imagen}
               alt={product.nombre}
@@ -61,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Nombre y descripción */}
-        <h3 className="text-lg w-full h-36 font-bold mb-2 text-clip overflow-hidden">{product.nombre}..</h3>
+        <h3 className="text-lg w-full h-auto font-bold mb-2 text-clip overflow-hidden sm:mb-4">{product.nombre}..</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
         {product.referencia && (
@@ -81,13 +81,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         {/* Botón Agregar al carrito */}
-        <div className="mt-4 flex justify-center content-center">
+        <div className="mt-4 flex justify-center">
 
-          {isAuthenticated && (<Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
+          {isAuthenticated && (
+            <Button className="bg-blue-500 text-white py-2 px-4 rounded-md transition hover:bg-blue-600"
             label="Agregar al carrito"
             icon="pi pi-shopping-cart text-2xl mr-3"
             onClick={() => setVisible(true)} />)}
-
 
           <Dialog header="Estas agregando un producto a tu carrito:"
             visible={visible} style={{ maxWidth: '90vw' }}

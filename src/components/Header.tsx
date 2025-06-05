@@ -164,7 +164,7 @@ const Header: React.FC = () => {
               </ol>
             </div>
 
-            <Button onClick={logout} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
+            <Button onClick={async () => {await logout(); setVisibleRight(false)}} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
           </Sidebar>
 
           {/* Icono de cart */}

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { InputOtp } from "primereact/inputotp";
 import { Button } from "primereact/button";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { LogOut } from "lucide-react";
 
 const OTP_CODE = "1234";
 
@@ -11,6 +14,8 @@ interface Props {
 const OtpVerification: React.FC<Props> = ({ onVerified }) => {
     const [otp, setOtp] = useState("");
     const [error, setError] = useState("");
+    const router = useRouter();
+    const { logout } = useAuth();
 
     const handleVerify = () => {
         if (otp === OTP_CODE) {
@@ -18,6 +23,8 @@ const OtpVerification: React.FC<Props> = ({ onVerified }) => {
             onVerified();
         } else {
             setError("Código incorrecto");
+            router.push("/");
+            logout;
         }
     };
 

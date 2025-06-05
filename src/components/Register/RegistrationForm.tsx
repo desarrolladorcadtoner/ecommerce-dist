@@ -275,7 +275,7 @@ export default function RegistrationForm() {
     }
   }
 
-  const validateAllFields = () => {
+  {/*const validateAllField+s = () => {
     const requiredFields = [
       "tipoPersona",
       "razonSocial",
@@ -312,7 +312,7 @@ export default function RegistrationForm() {
     });
 
     return isValid;
-  };
+  };*/}
 
   const requiredFieldsByStep: { [key: number]: (keyof formData)[] } = {
     0: ["tipoPersona", "razonSocial", "rfc", "regimenFiscal", 
