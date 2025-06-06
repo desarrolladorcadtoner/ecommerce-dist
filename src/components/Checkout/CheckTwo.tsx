@@ -26,10 +26,22 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
 }) => {
     const [isEditingCard, setIsEditingCard] = useState(false); // Estado para mostrar/ocultar el formulario de edición de tarjeta
 
-    // Calcular totales
+    // Calcular totales con comas
     const subtotal = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+    const comasSubtotal = subtotal.toLocaleString("es-MX", { style: "currency", currency: "USD" });
     const iva = subtotal * 0.16;
-    const total = subtotal + iva;
+    const comasIva = iva.toLocaleString("es-MX", { style: "currency", currency: "USD" });
+   
+
+    const calculateTotal = (): string => {
+        const subtotal = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+        const iva = subtotal * 0.16;
+        const total = subtotal + iva;
+        //const total = subMasIva.reduce((sum, item) => sum + item.precio * item.quantity, 0);
+        return total.toLocaleString("es-MX", { style: "currency", currency: "USD" }); // Formatear como moneda mexicana
+      };
+
+      
 
     console.log(selectedAddress);
     return (
@@ -65,15 +77,15 @@ const CheckTwo: React.FC<CheckTwoProps> = ({
                         <div className="mt-4 border-t pt-4">
                             <div className="flex justify-between">
                                 <p>Subtotal:</p>
-                                <p className="text-blue-500">${subtotal.toFixed(2)}</p>
+                                <p className="text-blue-500">{comasSubtotal}</p>
                             </div>
                             <div className="flex justify-between">
                                 <p>IVA (16%):</p>
-                                <p>${iva.toFixed(2)}</p>
+                                <p>{comasIva}</p>
                             </div>
                             <div className="flex justify-between font-bold">
                                 <p>Total:</p>
-                                <p>${total.toFixed(2)}</p>
+                                <p>{/*${total.toFixed(2)}*/} {calculateTotal()}</p>
                             </div>
                         </div>
                     </div>

@@ -360,7 +360,7 @@ export default function RegistrationForm() {
           activeIndex={step}
           className="mb-6 sm:overflow-hidden sm:overflow-x-auto sm:whitespace-pre-wrap"
           pt={{
-            root: { className: "border-none " },
+            root: { className: "border-none" },
             action: { className: "bg-[#006699] hover:bg-[#005588]" },
           }}
         />

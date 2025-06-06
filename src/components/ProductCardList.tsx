@@ -50,9 +50,11 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
                 <h3 className="text-xl font-bold mb-2">{product.nombre}</h3>
                 <p className="text-gray-700 text-blue-500">{product.descripcion}</p>
                 {isAuthenticated && (
-                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio} {dolarDenomintation}</p>
+                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio} {dolarDenomintation}
+                        <span className="ml-2 text-[0.875rem] text-gray-500">Impuestos incluidos</span>
+                    </p>
                 )}
-                
+
                 {product.referencia && (
                     <p className="text-xs text-gray-400">Referencia: {product.referencia}</p>
                 )}
@@ -80,7 +82,7 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
                             }}
                         />
                     )}
-                    
+
 
                     <Dialog
                         header="Estas agregando un producto a tu carrito:"

@@ -14,6 +14,7 @@ import { Image } from 'primereact/image';
 const CartPage: React.FC = () => {
   const router = useRouter();
   const { cartItems, removeFromCart, updateQuantity } = useCart(); // Obtener los datos del carrito desde el contexto
+  const dolarDenomintation = 'USD'; // Denominación de la moneda
 
   // Calcular el total del carrito
   const calculateTotal = (): string => {
@@ -104,8 +105,8 @@ return (
           ))}
         </div>
 
-        <div className="totales flex gap-12 mt-12 place-content-end">
-          <h2 className="text-[1.5rem] font-bold order-1 text-right">Subtotal: {calculateTotal()}</h2>
+        <div className="totales flex gap-12 mt-12 place-content-end xl:gap-6">
+          <h2 className="text-[1.5rem] font-bold order-1 text-right xl:text-left">Subtotal: <span className="text-blue-500">{calculateTotal()} {dolarDenomintation}</span>  </h2>
           <Button
             label="Proceder al pago"
             icon="pi pi-shopping-cart"

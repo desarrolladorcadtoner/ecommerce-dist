@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Precio */}
-        {isAuthenticated && (<p className="text-blue-500 font-bold mb-2">${product.precio} {dolarDenomintation}</p>)}
+        {isAuthenticated && (<p className="text-blue-500 font-bold mb-2">${product.precio} {dolarDenomintation} <br /> <span className=" text-[0.875rem] text-gray-500">Impuestos incluidos</span></p>)}
 
         <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4 ">
           Ver detalles
@@ -94,12 +94,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             onClick={() => setVisible(true)} />)}
 
           <Dialog header="Estas agregando un producto a tu carrito:"
-            visible={visible} style={{ maxWidth: '90vw' }}
+            visible={visible} style={{ maxWidth: '50vw' }}
             onHide={() => {
               if (!visible) return;
               setVisible(false);
             }}
             footer={footerContent}>
+
             <div className='flex justify-center items-center space-x-4'>
               {/* Imagen del producto */}
               <div className="w-48 h-32 overflow-hidden mb-4">

@@ -76,19 +76,19 @@ const ProductDetail = () => {
             />*/}
           </div>
           <div className="p-8">
-            <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="mt-2 text-[1.875rem] leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
               {product.nombre}
             </h1>
 
             {isAuthenticated && (
-              <p className="mt-4 text-xl text-gray-500">Stock disponible: {product.stock}</p>
+              <p className="mt-4 text-[1.25rem] text-gray-500">Stock disponible: {product.stock}</p>
             )}
 
             <p className="mt-4 text-xl text-gray-500">Referencia: {product.referencia}</p>
             <p className="mt-4 text-xl text-gray-500">Categoria: {product.categoria}</p>
 
             {isAuthenticated && (
-              <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)} {dolarDenomintation}</p>
+              <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)} {dolarDenomintation} <span className="text-gray-500">Impuestos incluidos</span> </p>
             )}
 
             {isAuthenticated && (

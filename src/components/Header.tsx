@@ -40,8 +40,6 @@ const Header: React.FC = () => {
     "Insumos de Tinta",
     "Tinta a Granel",
     "Refacciones",
-    "Electronica",
-    "Papeleria",
   ]
 
   const handleSearch = (e: React.FormEvent) => {
