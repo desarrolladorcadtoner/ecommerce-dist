@@ -23,8 +23,9 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
 
-  const PRODUCTS_PER_PAGE = 10;
+  const PRODUCTS_PER_PAGE = 9;
 
+  // Cargar productos al montar el componente
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -48,10 +49,7 @@ const ProductsPage = () => {
     return <p>{error}</p>;
   }
 
-  {/*const filteredProducts = products.filter(product => {
-    return product.precio >= priceRange[0] && product.precio <= priceRange[1];
-  });*/}
-
+  // Filtrar productos por categoría y rango de precio
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === "" || product.categoria === selectedCategory;
     const matchesPrice = product.precio >= priceRange[0] && product.precio <= priceRange[1];
@@ -60,6 +58,7 @@ const ProductsPage = () => {
 
   // Calcular productos de la página actual
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  // Asegurarse de que no se salga del rango
   const currentProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // Calcular total de páginas

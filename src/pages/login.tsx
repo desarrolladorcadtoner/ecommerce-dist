@@ -26,21 +26,21 @@ export default function LoginPage() {
 
       await setShowOtp(true); // 👉 Muestra OTP, no redirige aún
 
-      //await fetchProtectedData();
+      await fetchProtectedData();
       //console.log("Datos protegidos:", protectedData);
       // Redirigir al usuario a la página principal o a otra página después de iniciar sesión
       //alert("Inicio de sesión exitoso");
-      //router.push("/"); // Redirigir a la página principal
+      router.push("/"); // Redirigir a la página principal
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       alert("Usuario o contraseña incorrectos");
     }
   }
 
-  const handleOtpVerified = () => {
+  {/*const handleOtpVerified = () => {
     alert("OTP verificado correctamente");
     router.push("/"); // O a donde quieras
-  };
+  };*/}
 
   return (
     <>
@@ -64,7 +64,6 @@ export default function LoginPage() {
             {/* Login Form */}
             <div>
               <h1 className="text-[2.25rem] font-bold text-gray-700 mb-8">¡BIENVENIDO!</h1>
-              {!showOtp ? (
                 <form onSubmit={handleSubmit} className="max-w-md">
                   <div className="mb-6 w-[450px] sm:w-[398px]">
                     <input
@@ -95,16 +94,15 @@ export default function LoginPage() {
                     Iniciar Sesión
                   </button>
 
-
-
                   <div className="mt-4">
                     <Link href="/forgotPassword" className="text-[#004466] hover:underline">
                       ¿Olvidó su ID de usuario/contraseña?
                     </Link>
                   </div>
                 </form>
-              ) : (<OtpVerification onVerified={handleOtpVerified} /> )}
             </div>
+
+            <hr className="w-[20px]"/>
 
             {/* Registration Section */}
             <div className="md:w-72">

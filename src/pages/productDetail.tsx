@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const [fichaTecnica, setFichaTecnica] = useState<any | null>(null);
   const [quantity, setQuantity] = useState(1);
   const { isAuthenticated } = useAuth();
-
+  const dolarDenomintation = 'USD';
   const { addToCart } = useCart(); // Obtener la función addToCart del contexto
 
   useEffect(() => {
@@ -86,8 +86,9 @@ const ProductDetail = () => {
 
             <p className="mt-4 text-xl text-gray-500">Referencia: {product.referencia}</p>
             <p className="mt-4 text-xl text-gray-500">Categoria: {product.categoria}</p>
+
             {isAuthenticated && (
-              <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)}</p>
+              <p className="mt-2 text-3xl text-blue-500 font-bold ">${product.precio.toFixed(2)} {dolarDenomintation}</p>
             )}
 
             {isAuthenticated && (
@@ -97,7 +98,7 @@ const ProductDetail = () => {
                   min="1"
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="w-16 p-2 text-center border border-gray-300 rounded mr-4"
+                  className="w-[75px] p-2 text-center border border-gray-300 rounded mr-4"
                 />
                 <AnimatedButton onClick={() => addToCart(product, quantity)} />
               </div>

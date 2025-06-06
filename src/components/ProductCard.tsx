@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState("1");
   const [visible, setVisible] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
   const footerContent = (
@@ -23,8 +23,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Boton dentro del Dialog para agregar producto con su respectiva cantidad */}
       <AnimatedButton
         onClick={() => {
-          addToCart(product, quantity)
-          setQuantity(1);
+          addToCart(product, Number(quantity) || 1)
+          setQuantity("1");
           setTimeout(() => {
             setVisible(false); // Cerrar el diálogo
           }, 500);
@@ -35,14 +35,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </div>
   );
 
+  const dolarDenomintation = 'USD';
+
   return (
     <div className="product-card sm:grid sm:grid-col-1">
       <Card className="w-full h-full flex flex-col justify-between p-4 shadow-lg
-      hover:shadow-xl hover:border-4 sm:text-center hover:border-blue-500 
+      hover:shadow-xl hover:border-4  hover:border-blue-500 hover:z-20
       transition duration-300 ease-in-out bg-white rounded-lg
       2xl:w-[325px] 2xl:h-[600px] 2xl:mb-4
       max-1024:w-[400px] max-1024:h-[620px] max-1024:mb-4
-      sm:w-[300px] sm:h-auto sm:sm:p-0">
+      sm:w-[300px] sm:h-auto sm:sm:p-0 sm:text-center">
 
         {/* Imagen del producto */}
         {product.imagen && (
@@ -65,19 +67,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <h3 className="text-lg w-full h-auto font-bold mb-2 text-clip overflow-hidden sm:mb-4">{product.nombre}..</h3>
         {/*<p className="text-gray-500 text-sm mb-2">{product.descripcion}</p>*/}
 
+        {/*Referenciua*/}
         {product.referencia && (
           <p className="text-xs text-gray-400 mb-2 sm:text-blue-500">Referencia: {product.referencia}</p>
         )}
 
+        {/*Categoría*/}
         {product.categoria && (
           <p className="text-xs text-gray-400 mb-2 ">Categoria: {product.categoria}</p>
         )}
 
         {/* Precio */}
-        {isAuthenticated && (<p className="text-blue-500 font-bold mb-2 ">${product.precio}</p>)}
+        {isAuthenticated && (<p className="text-blue-500 font-bold mb-2">${product.precio} {dolarDenomintation}</p>)}
 
-        {/* Botón Leer Más */}
-        <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4">
+        <Link href={`/productDetail?id=${product.id}`} className="text-blue-500 hover:underline mb-4 ">
           Ver detalles
         </Link>
 
@@ -116,8 +119,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   type="number"
                   min="1"
                   value={quantity}
-                  onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="w-16 p-2 text-center border border-gray-300 rounded"
+                  onChange={(e) => {
+                    // Solo aceptamos números mayores a 0 o vacío
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) { // Solo números (o vacío)
+                      setQuantity(value.replace(/^0+/, "") || ""); // Elimina ceros al inicio
+                    }
+                  }}
+                  className="w-[75px] p-2 text-center border border-gray-300 rounded"
                 />
               </div>
 

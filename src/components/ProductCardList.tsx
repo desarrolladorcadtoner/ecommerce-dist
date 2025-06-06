@@ -32,6 +32,7 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
             />
         </div>
     );
+    const dolarDenomintation = 'USD';
 
     return (
         <div key={product.id} className="bg-white flex p-4 border rounded items-center gap-4 shadow-md 
@@ -49,7 +50,7 @@ const ProductCardList: React.FC<ProductCardProps> = ({ product }) => {
                 <h3 className="text-xl font-bold mb-2">{product.nombre}</h3>
                 <p className="text-gray-700 text-blue-500">{product.descripcion}</p>
                 {isAuthenticated && (
-                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio}</p>
+                    <p className="text-lg text-blue-500 font-semibold mb-2">${product.precio} {dolarDenomintation}</p>
                 )}
                 
                 {product.referencia && (

@@ -37,7 +37,7 @@ const OtpVerification: React.FC<Props> = ({ onVerified }) => {
                     value={otp}
                     onChange={(e) => setOtp(e.value?.toString() ?? "")}
                     mask
-                    style={{ width: "2.5rem", height: "2.5rem", fontSize: "1.5rem", marginRight: "9rem" }}
+                    
                 />
             <Button label="Verificar" onClick={handleVerify} className="mt-2 bg-[#004466] text-white w-24 h-8 mt-8" />
             {error && <div className="text-red-500 mt-2">{error}</div>}
