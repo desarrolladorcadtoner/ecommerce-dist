@@ -9,18 +9,18 @@ import { useCliente } from "@/context/ClienteContext";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import ToggleMenu from '@/components/ToggleMenu';
-import { getTipoCambioDolar } from "@/services/tipocambio" ; // Importar la función para obtener el tipo de cambio
+import { getTipoCambioDolar } from "@/services/tipocambio"; // Importar la función para obtener el tipo de cambio
 
 const Header: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchOpen, setIsSearchOpen] = useState(false); // Estado para controlar la visibilidad del input de búsqueda
   const [visibleRight, setVisibleRight] = useState<boolean>(false);
-  const router = useRouter()
-  const { cartItems } = useCart(); // Obtener los productos del carrito
-  const { isAuthenticated, logout } = useAuth();
-  const cliente = useCliente();
   const [tipoCambio, setTipoCambio] = useState<number | null>(null);
+  const { isAuthenticated, logout } = useAuth();
+  const { cartItems } = useCart(); // Obtener los productos del carrito
+  const cliente = useCliente();
+  const router = useRouter()
 
   // Obtener el tipo de cambio al cargar el componente
   useEffect(() => {
@@ -33,6 +33,8 @@ const Header: React.FC = () => {
   // Calcular el total de cantidades en el carrito
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  // Lista de categorías de productos
+  // Esta lista puede ser reemplazada por una llamada a la API si es necesario
   const productCategories = [
     "Cartuchos de Toner",
     "Cartuchos de Tinta",
@@ -42,6 +44,7 @@ const Header: React.FC = () => {
     "Refacciones",
   ]
 
+  // Función para manejar la búsqueda
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
@@ -49,7 +52,19 @@ const Header: React.FC = () => {
     }
   }
 
+  // Verificar si la autenticación está desactivada
   isAuthenticated === false ? console.log("La autenticacion esta desactivada: " + isAuthenticated) : console.log("La autenticacion sigue activada: " + isAuthenticated);
+
+  // Verificar si el tipo de cambio está cargando
+  const validateTipoCambio = () => {
+    if (!tipoCambio) {
+      return 'Cargando tipo de cambio...';
+    } else {
+      return `$ ${tipoCambio.toFixed(2)} MXN`
+    }
+  }
+
+
 
   return (
     <header>
@@ -62,7 +77,7 @@ const Header: React.FC = () => {
         {isAuthenticated ? (
           <>
             <span className="xl:mr-8 md:mr-8">Bienvenido <strong>{cliente.ClienteNombre}</strong> Cuenta: <strong>{cliente.ClienteId}</strong> </span>
-            <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{tipoCambio ? tipoCambio.toFixed(2) : "Cargando..."}</strong></span>
+            <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{validateTipoCambio()} </strong></span>
           </>
         ) : (
           <>
@@ -70,7 +85,7 @@ const Header: React.FC = () => {
             <button className="bg-[#0b4468] hover:bg-[#de1c85] mr-8 text-white px-4 py-1 rounded hover:bg-[#de1c85]">
               <a href="register">REGÍSTRATE</a>
             </button>
-              <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{tipoCambio ? tipoCambio.toFixed(2) : "Cargando..."}</strong></span>
+            <span className="xl:mr-8 md:mr-8">Tipo de Cambio: <strong>{validateTipoCambio()}</strong></span>
           </>
         )}
 
@@ -163,14 +178,31 @@ const Header: React.FC = () => {
             onHide={() => setVisibleRight(false)}
           >
             <div className="sidebarLeft my-4 text-[#de1c85]">
-              <h2 className="my-2 text-[#005a90]">Perfil Usuario</h2>
+              <h2 className="my-2 text-[#0b4468] text-[1.25rem]"> Perfil <p className="text-[.85rem]">{cliente.ClienteNombre}</p> </h2>
+
               <ol>
-                <li className="mb-4 " ><a href="/modulos">Información</a></li>
-                <li className="mb-4"><a href="/edoCuentaUsuario">Estado de Cuenta</a></li>
+                <li className="mb-4 " >
+                  <a
+                    href="#"
+                    onClick={() => router.push("/perfil?modulo=info")}
+                    className="text-[#de1c85]"
+                  >Información</a></li>
+                <li className="mb-4">
+                  <a 
+                    href="#"
+                    onClick={() => router.push("/perfil?modulo=cuenta")}
+                    className="text-[#de1c85]"
+                  >Estado de Cuenta</a></li>
+                <li className="mb-4">
+                  <a 
+                    href="#"
+                    onClick={() => router.push("/perfil?modulo=cambioContra")}
+                    className="text-[#de1c85]"
+                >Cambio de contraseña</a></li>
               </ol>
             </div>
 
-            <Button onClick={async () => {await logout(); setVisibleRight(false)}} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
+            <Button onClick={async () => { await logout(); setVisibleRight(false) }} label="Cerrar Sesion" severity="secondary" className="text-[#005a90]" />
           </Sidebar>
 
           {/* Icono de cart */}
@@ -231,7 +263,7 @@ const Header: React.FC = () => {
           >
             <i className="pi pi-search mr-2 max-1024:mt-5 max-1024:ml-2"></i>
           </button>
-          
+
           {isAuthenticated ? (
             <button
               onClick={() => {

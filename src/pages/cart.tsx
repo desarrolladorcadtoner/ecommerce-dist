@@ -14,12 +14,11 @@ import { Image } from 'primereact/image';
 const CartPage: React.FC = () => {
   const router = useRouter();
   const { cartItems, removeFromCart, updateQuantity } = useCart(); // Obtener los datos del carrito desde el contexto
-  const dolarDenomintation = 'USD'; // Denominación de la moneda
 
   // Calcular el total del carrito
   const calculateTotal = (): string => {
     const total = cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0);
-    return total.toLocaleString("es-MX", { style: "currency", currency: "MXN" }); // Formatear como moneda mexicana
+    return total.toLocaleString("es-MX", { style: "currency", currency: "USD" }); // Formatear como moneda mexicana
   };
 
   // Renderizar la acción de eliminar
@@ -72,14 +71,14 @@ const priceBodyTemplate = (rowData: any) => `$${rowData.precio.toFixed(2)}`;
 return (
   <>
     <Header />
-    <h1 className="text-[1.875rem] font-bold text-center text-gray-800 py-8 bg-gray-200">Carrito de Compras</h1>
+    <h1 className="text-[1.875rem] font-bold text-center text-gray-800 pt-6 bg-gray-200">Carrito de Compras</h1>
 
     <div className="bg-gray-200 p-4 md:p-8 grid grid-cols-3 sm:grid-cols-1 gap-2">
       {/* Tabla de productos */}
 
       <div className="lg:col-span-2 sm:col-span-1 bg-white border border-gray-300 p-4 rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold mb-4">Productos</h2>
-        <DataTable value={cartItems} responsiveLayout="scroll" className="w-full">
+        <h2 className="text-[1.5rem] font-semibold mb-4">Productos</h2>
+        <DataTable value={cartItems} scrollable scrollHeight="500px" className="w-full">
           <Column header="Imagen" body={imageBodyTemplate} />
           <Column field="nombre" header="Producto" />
           {/*<Column header="Precio" body={priceBodyTemplate} />*/}
@@ -88,7 +87,7 @@ return (
         </DataTable>
       </div>
 
-      <Card className="shadow-lg p-4 bg-white rounded-xl border border-gray-300 col-span-1">{ /*md:w-3/4 lg:w-2/3*/}
+      <Card className="shadow-lg p-4 bg-white rounded-xl border border-gray-300 col-span-1 max-h-[590px] overflow-y-auto">{ /*md:w-3/4 lg:w-2/3*/}
         <div className="space-y-2 mt-4">
           <h3 className="text-[1.5rem] font-semibold mb-4">Resumen de tu pedido:</h3>
           {cartItems.map((item) => (
@@ -98,7 +97,7 @@ return (
               </p>
               <div className="mt-4 flex justify-between text-gray-600 text-sm">
                 <span >Cantidad: <span className="text-blue-500">{item.quantity}</span></span>
-                <span className="text-blue-500">${item.precio.toFixed(2)}</span>
+                <span className="text-blue-500">{item.precio.toFixed(2)} USD</span>
               </div>
               <hr className="my-2 border-gray-300" />
             </div>
@@ -106,7 +105,7 @@ return (
         </div>
 
         <div className="totales flex gap-12 mt-12 place-content-end xl:gap-6">
-          <h2 className="text-[1.5rem] font-bold order-1 text-right xl:text-left">Subtotal: <span className="text-blue-500">{calculateTotal()} {dolarDenomintation}</span>  </h2>
+          <h2 className="text-[1.5rem] font-bold order-1 text-right xl:text-left">Subtotal: <span className="text-blue-500">{calculateTotal()}</span>  </h2>
           <Button
             label="Proceder al pago"
             icon="pi pi-shopping-cart"
